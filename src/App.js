@@ -1,14 +1,20 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import NavBar from './components/NavBar'
+import FormSignup from './components/FormSignup'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-       
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  getUserProfile() {
+    fetch()
+  }
+  render() {
+    return (
+      <div>
+        <NavBar />
+        <FormSignup />
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
