@@ -2,7 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import './FormSignup.css'
+import './Signup.css'
 
 const styles = theme => ({
   root: {
@@ -11,13 +11,12 @@ const styles = theme => ({
   }
 })
 
-
-const FormSignup = ({ handleInput, handleSignup, history }) => {
+const Signup = ({ handleInput, handleSignup, history }) => {
 
   const handleSubmit = e => {
     e.preventDefault()
     handleSignup()
-    history.push("/admin")
+    history.push("/")
   }
 
     return (
@@ -62,4 +61,4 @@ const FormSignup = ({ handleInput, handleSignup, history }) => {
     )
 }
 
-export default withStyles(styles)(FormSignup)
+export default withStyles(styles)(Signup)

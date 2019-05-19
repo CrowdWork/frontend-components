@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import decode from 'jwt-decode'
 import axios from 'axios'
 import Header from './components/Header/Header'
 import FormContainer from './components/FormContainer'
-import FormSignup from './components/FormSignup/FormSignup'
-import FormLogin from './components/FormLogin/FormLogin'
+import Signup from './components/Signup/Signup'
+import Login from './components/Login/Login'
 import AdminConsole from './components/AdminConsole/AdminConsole'
 import './App.css'
 
-const env = "http://localhost:4000"
+// const env = "http://localhost:4000"
+const env = "https://ble-backend.herokuapp.com"
 
 class App extends Component {
   state = {
@@ -38,16 +39,13 @@ class App extends Component {
     }
   }
 
-  
-
-  // Handle input for form
+  // Handle user input
   handleInput = input => e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
-  // handle signup
   handleSignup = () => {
     axios.post(`${env}/users`, {
       firstName: this.state.firstName,
@@ -76,20 +74,20 @@ class App extends Component {
       password: this.state.password
     })
       .then(res => {
-        console.log(res)
+        console.log(res.data.user.firstName)
         localStorage.token = res.data.token
         this.setState({
-          firstName: res.user.firstName,
-          lastName: res.user.lastName,
+          firstName: res.data.user.firstName,
+          lastName: res.data.user.lastName,
           isLoggedIn: true
-        });
+        })
+        console.log(this.state)
       })
       .catch(err => this.setState({
         loginError: err.res
       }))
   }
 
-  // logout function
   handleLogout = () => {
     this.setState({
       email: "",
@@ -111,34 +109,38 @@ class App extends Component {
         />
         <main>
           <Switch>
-            <Route exact path="/signup"
+            <Route path="/signup"
               render={(props) => (
                 <FormContainer>
-                  <FormSignup {...props} handleInput={this.handleInput} handleSignup={this.handleSignup}/>
+                  <Signup {...props} handleInput={this.handleInput} handleSignup={this.handleSignup}/>
                 </FormContainer>
               )}
             />
-            <Route exact path="/"
+            <Route path="/login"
               render={(props) => (
                 <FormContainer>
-                  <FormLogin {...props} handleInput={this.handleInput} handleLogin={this.handleLogin}/>
+                  <Login 
+                    {...props}
+                    handleInput={this.handleInput}
+                    handleLogin={this.handleLogin}
+                  />
                 </FormContainer>
               )}
             />
-            <Route path="/admin"
-              render={(props) => (
-                <AdminConsole
-                  {...this.state}
-                  {...props}
+            <Route 
+              exact path="/"
+              render={(props) => !this.state.isLoggedIn 
+              ? <Redirect to="/login" {...props}  />
+              : <AdminConsole 
+                  to="/admin"
+                  firstName={this.state.firstName}
                   isLoggedIn={this.state.isLoggedIn}
                   handleLogout={this.handleLogout}
                 />
-              )}
+              }
             />
           </Switch>
-          
         </main>
-        
       </div>
     )
   }

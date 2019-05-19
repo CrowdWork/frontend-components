@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -99,11 +99,12 @@ const styles = theme => ({
   },
 });
 
-class Console extends React.Component {
+class AdminConsole extends React.Component {
   state = {
     open: true,
   };
 
+  
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -114,9 +115,8 @@ class Console extends React.Component {
 
   
   render() {
-    console.log(this.props)
-    const { classes, isLoggedIn } = this.props
-    {console.log(isLoggedIn)}
+    const { classes, isLoggedIn, firstName } = this.props
+    {console.log(firstName,'LOGGED IN:',isLoggedIn)}
     return (
       
       <div className={classes.root}>
@@ -148,7 +148,7 @@ class Console extends React.Component {
             />
           </Switch>
           <Typography variant="h4" gutterBottom component="h2">
-            Hello, {}
+            Hello, {firstName}
           </Typography>
           <div className={classes.tableContainer}>
           </div>
@@ -158,8 +158,8 @@ class Console extends React.Component {
   }
 }
 
-Console.propTypes = {
+AdminConsole.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Console);
+export default withStyles(styles)(AdminConsole);

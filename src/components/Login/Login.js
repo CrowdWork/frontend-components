@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import './FormLogin.css'
+import './Login.css'
 
 const styles = theme => ({
   root: {
@@ -12,29 +12,29 @@ const styles = theme => ({
 })
 
 
-const FormLogin = (props) => {
-console.log(props)
+const Login = ({handleInput, handleLogin, history}) => {
+  console.log(handleInput)
 
   const handleSubmit = e => {
     e.preventDefault()
-    props.handleLogin()
-    props.history.push("/admin")
+    handleLogin()
+    history.push("/")
   }
 
     return (
       <React.Fragment>
         <h1>Login</h1>
         <form className='form' method='POST' onSubmit={handleSubmit}>
-        <TextField 
+        <TextField
           label="Email"
           name="email"
-          onChange={props.handleInput('email')}
+          onChange={handleInput('email')}
         />
         <br/>
         <TextField 
           label="Password"
           name="password"
-          onChange={props.handleInput('password')}
+          onChange={handleInput('password')}
         />
         <br/>
         <Button
@@ -49,4 +49,4 @@ console.log(props)
     )
 }
 
-export default withStyles(styles)(FormLogin)
+export default withStyles(styles)(Login)
