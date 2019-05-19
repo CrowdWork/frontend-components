@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Switch, Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
@@ -12,10 +13,10 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems, secondaryListItems } from './Sidebar';
-import SimpleTable from './SimpleTable';
+import { mainListItems, secondaryListItems } from '../Sidebar';
+import SimpleTable from '../SimpleTable';
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const styles = theme => ({
   root: {
@@ -111,44 +112,16 @@ class Console extends React.Component {
     this.setState({ open: false });
   };
 
+  
   render() {
-    const { classes } = this.props;
-
+    console.log(this.props)
+    const { classes, isLoggedIn } = this.props
+    {console.log(isLoggedIn)}
     return (
+      
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar
-          position="absolute"
-          className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-        >
-          <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
-              className={classNames(
-                classes.menuButton,
-                this.state.open && classes.menuButtonHidden,
-              )}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="#inherit"
-              noWrap
-              className={classes.title}
-            >
-              BLE <span>Admin</span>
-            </Typography>
-            {/* <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
-          </Toolbar>
-        </AppBar>
+        
         <Drawer
           variant="permanent"
           classes={{
@@ -167,13 +140,17 @@ class Console extends React.Component {
           <List>{secondaryListItems}</List>
         </Drawer>
         <main className={classes.content}>
-          {/* <Login /> */}
+          
           <div className={classes.appBarSpacer} />
+          <Switch>
+            <Route path="admin/legal_index"
+              render={() => <SimpleTable />}
+            />
+          </Switch>
           <Typography variant="h4" gutterBottom component="h2">
-            Cases
+            Hello, {}
           </Typography>
           <div className={classes.tableContainer}>
-            <SimpleTable />
           </div>
         </main>
       </div>

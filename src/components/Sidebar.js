@@ -1,12 +1,12 @@
-import React from './node_modules/react';
-import ListItem from './node_modules/@material-ui/core/ListItem';
-import ListItemIcon from './node_modules/@material-ui/core/ListItemIcon';
-import ListItemText from './node_modules/@material-ui/core/ListItemText';
-import ListSubheader from './node_modules/@material-ui/core/ListSubheader';
-import DashboardIcon from './node_modules/@material-ui/icons/Dashboard';
-import PeopleIcon from './node_modules/@material-ui/icons/People';
-import LayersIcon from './node_modules/@material-ui/icons/Layers';
-import AssignmentIcon from './node_modules/@material-ui/icons/Assignment';
+import React from 'react';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import PeopleIcon from '@material-ui/icons/People';
+import LayersIcon from '@material-ui/icons/Layers';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 export const mainListItems = (
   <div>

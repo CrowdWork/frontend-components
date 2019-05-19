@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import './FormSignup.css'
 
 const styles = theme => ({
   root: {
@@ -12,58 +12,44 @@ const styles = theme => ({
 })
 
 
+const FormSignup = ({ handleInput, handleSignup, history }) => {
 
-class FormSignup extends Component {
-  state = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: ''
-  }
-
-  // Handle fields change
-  handleChange = input => e => {
-    this.setState({[input]: e.target.value})
-  }
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault()
-    const url = 'http://localhost:4000/users'
-
-    axios.post(url, { ...this.state })
-    .then(user => {
-      console.log(user)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    handleSignup()
+    history.push("/admin")
   }
 
-  render() {
     return (
       <React.Fragment>
-        <form method='POST' onSubmit={this.handleSubmit}>
+        <h1>Register</h1>
+        <form className='form' method='POST' onSubmit={handleSubmit}>
         <TextField 
           label="First Name"
-          onChange={this.handleChange('firstName')}
+          name="firstName"
+          onChange={handleInput('firstName')}
         />
         <br/>
         <TextField 
           label="Last Name"
-          onChange={this.handleChange('lastName')}
+          name="lastName"
+          onChange={handleInput('lastName')}
         />
         <br/>
         <TextField 
           label="Email"
-          onChange={this.handleChange('email')}
+          name="email"
+          onChange={handleInput('email')}
         />
         <br/>
         <TextField 
           label="Password"
-          onChange={this.handleChange('password')}
+          name="password"
+          onChange={handleInput('password')}
         />
         <br/>
         <Button
+          className='signupBtn'
           type='submit'
           variant='contained'
         >
@@ -74,7 +60,6 @@ class FormSignup extends Component {
       </React.Fragment>
         
     )
-  }
 }
 
 export default withStyles(styles)(FormSignup)
