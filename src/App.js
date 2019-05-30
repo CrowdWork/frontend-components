@@ -6,7 +6,7 @@ import Header from './components/Header/Header'
 import FormContainer from './components/FormContainer'
 import Signup from './components/Signup/Signup'
 import Login from './components/Login/Login'
-import AdminConsole from './components/AdminConsole/AdminConsole'
+import Dashboard from './components/Dashboard/Dashboard'
 import './App.css'
 
 // const env = "http://localhost:4000"
@@ -39,13 +39,6 @@ class App extends Component {
     }
   }
 
-  // Handle user input
-  handleInput = input => e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-
   handleSignup = () => {
     axios.post(`${env}/users`, {
       firstName: this.state.firstName,
@@ -68,24 +61,26 @@ class App extends Component {
       });
   }
 
-  handleLogin = () => {
-    axios.post(`${env}/users/login`, {
-      email: this.state.email,
-      password: this.state.password
-    })
-      .then(res => {
-        console.log(res.data.user.firstName)
-        localStorage.token = res.data.token
-        this.setState({
-          firstName: res.data.user.firstName,
-          lastName: res.data.user.lastName,
-          isLoggedIn: true
-        })
-        console.log(this.state)
+  onLoginSubmit = async (credentials) => {
+    try {
+      const loginUser = await axios.post(`${env}/users/login`, {
+        email: credentials.email,
+        password: credentials.password
       })
-      .catch(err => this.setState({
-        loginError: err.res
-      }))
+        
+      console.log(loginUser.data.user)
+      localStorage.token = loginUser.data.token
+      this.setState({
+        firstName: loginUser.data.user.firstName,
+        lastName: loginUser.data.user.lastName,
+        isLoggedIn: true
+      })
+      console.log(this.state)
+    } catch (err) {
+      this.setState({
+        loginError: err
+      })
+    }
   }
 
   handleLogout = () => {
@@ -103,9 +98,7 @@ class App extends Component {
       <div className="App-container">
         <Header 
           isLoggedIn={this.state.isLoggedIn}
-          handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
-          handleSignup={this.handleSignup}
         />
         <main>
           <Switch>
@@ -116,13 +109,13 @@ class App extends Component {
                 </FormContainer>
               )}
             />
-            <Route path="/login"
+            <Route exact path="/login"
               render={(props) => (
                 <FormContainer>
                   <Login 
                     {...props}
                     handleInput={this.handleInput}
-                    handleLogin={this.handleLogin}
+                    onSubmit={this.onLoginSubmit}
                   />
                 </FormContainer>
               )}
@@ -131,8 +124,7 @@ class App extends Component {
               exact path="/"
               render={(props) => !this.state.isLoggedIn 
               ? <Redirect to="/login" {...props}  />
-              : <AdminConsole 
-                  to="/admin"
+              : <Dashboard 
                   firstName={this.state.firstName}
                   isLoggedIn={this.state.isLoggedIn}
                   handleLogout={this.handleLogout}

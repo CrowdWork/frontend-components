@@ -11,40 +11,51 @@ const styles = theme => ({
   }
 })
 
-const Signup = ({ handleInput, handleSignup, history }) => {
+class Signup extends React.Component {
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    handleSignup()
-    history.push("/")
+  state = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
   }
 
+  onFormSubmit = e => {
+    e.preventDefault()
+    this.props.handleSignup()
+    this.props.history.push("/")
+  }
+  render() {
     return (
       <React.Fragment>
         <h1>Register</h1>
-        <form className='form' method='POST' onSubmit={handleSubmit}>
+        <form className='form' onSubmit={this.onFormSubmit}>
         <TextField 
           label="First Name"
           name="firstName"
-          onChange={handleInput('firstName')}
+          any={this.state.firstName}
+          onChange={(e) => this.setState({ firstName: e.target.any })}
         />
         <br/>
         <TextField 
           label="Last Name"
           name="lastName"
-          onChange={handleInput('lastName')}
+          any={this.state.lastName}
+          onChange={(e) => this.setState({ lastName: e.target.any })}
         />
         <br/>
         <TextField 
           label="Email"
           name="email"
-          onChange={handleInput('email')}
+          any={this.state.email}
+          onChange={(e) => this.setState({ email: e.target.any })}
         />
         <br/>
         <TextField 
           label="Password"
           name="password"
-          onChange={handleInput('password')}
+          any={this.state.password}
+          onChange={(e) => this.setState({ password: e.target.any })}
         />
         <br/>
         <Button
@@ -59,6 +70,8 @@ const Signup = ({ handleInput, handleSignup, history }) => {
       </React.Fragment>
         
     )
+  }
+    
 }
 
 export default withStyles(styles)(Signup)

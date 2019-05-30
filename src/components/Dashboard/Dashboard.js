@@ -99,7 +99,7 @@ const styles = theme => ({
   },
 });
 
-class AdminConsole extends React.Component {
+class Dashboard extends React.Component {
   state = {
     open: true,
   };
@@ -158,8 +158,8 @@ class AdminConsole extends React.Component {
   }
 }
 
-AdminConsole.propTypes = {
+Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AdminConsole);
+export default withStyles(styles)(Dashboard);

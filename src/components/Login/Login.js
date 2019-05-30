@@ -11,30 +11,37 @@ const styles = theme => ({
   }
 })
 
-
-const Login = ({handleInput, handleLogin, history}) => {
-  console.log(handleInput)
-
-  const handleSubmit = e => {
-    e.preventDefault()
-    handleLogin()
-    history.push("/")
+class Login extends React.Component {
+  state = {
+    email: '',
+    password: ''
   }
 
+  onFormSubmit = e => {
+    e.preventDefault()
+    this.props.onSubmit(this.state)
+    this.props.history.push("/")
+  }
+  
+
+  render() {
+    console.log(this.props)
     return (
       <React.Fragment>
         <h1>Login</h1>
-        <form className='form' method='POST' onSubmit={handleSubmit}>
+        <form className='form' onSubmit={this.onFormSubmit}>
         <TextField
           label="Email"
           name="email"
-          onChange={handleInput('email')}
+          value={this.state.email}
+          onChange={(e) => this.setState({ email: e.target.value })}
         />
         <br/>
         <TextField 
           label="Password"
           name="password"
-          onChange={handleInput('password')}
+          value={this.state.password}
+          onChange={(e) => this.setState({ password: e.target.value })}
         />
         <br/>
         <Button
@@ -47,6 +54,8 @@ const Login = ({handleInput, handleLogin, history}) => {
         </form>
       </React.Fragment>
     )
+  }
+    
 }
 
 export default withStyles(styles)(Login)
