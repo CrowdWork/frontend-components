@@ -1,7 +1,4 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
 import './Signup.css'
 
 const styles = theme => ({
@@ -27,51 +24,40 @@ class Signup extends React.Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <div className="container" onSubmit={this.onFormSubmit}>
         <h1>Register</h1>
-        <form className='form' onSubmit={this.onFormSubmit}>
-        <TextField 
-          label="First Name"
-          name="firstName"
-          any={this.state.firstName}
-          onChange={(e) => this.setState({ firstName: e.target.any })}
-        />
-        <br/>
-        <TextField 
-          label="Last Name"
-          name="lastName"
-          any={this.state.lastName}
-          onChange={(e) => this.setState({ lastName: e.target.any })}
-        />
-        <br/>
-        <TextField 
-          label="Email"
-          name="email"
-          any={this.state.email}
-          onChange={(e) => this.setState({ email: e.target.any })}
-        />
-        <br/>
-        <TextField 
-          label="Password"
-          name="password"
-          any={this.state.password}
-          onChange={(e) => this.setState({ password: e.target.any })}
-        />
-        <br/>
-        <Button
-          className='signupBtn'
-          type='submit'
-          variant='contained'
-        >
-          Submit
-        </Button>
+        <form className="col s12">
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="firstName" type="text" class="validate" />
+              <label htmlFor="firstName">First Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="last_name" type="text" class="validate" />
+              <label for="last_name">Last Name</label>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="input-field col s12">
+              <input id="email" type="email" className="validate" />
+              <label htmlFor="email">Email</label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <input id="password" type="password" className="validate" />
+              <label htmlFor="password">Password</label>
+            </div>
+          </div>
+          <button className="waves-effect waves-light btn right" type="submit" name="action">Submit</button>
         </form>
-        
-      </React.Fragment>
+      </div>
         
     )
   }
     
 }
 
-export default withStyles(styles)(Signup)
+export default Signup

@@ -1,17 +1,6 @@
-import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import './Login.css'
+import React, { Component } from 'react'
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column'
-  }
-})
-
-class Login extends React.Component {
+class Login extends Component {
   state = {
     email: '',
     password: ''
@@ -27,35 +16,27 @@ class Login extends React.Component {
   render() {
     console.log(this.props)
     return (
-      <React.Fragment>
+      <div className="container">
         <h1>Login</h1>
-        <form className='form' onSubmit={this.onFormSubmit}>
-        <TextField
-          label="Email"
-          name="email"
-          value={this.state.email}
-          onChange={(e) => this.setState({ email: e.target.value })}
-        />
-        <br/>
-        <TextField 
-          label="Password"
-          name="password"
-          value={this.state.password}
-          onChange={(e) => this.setState({ password: e.target.value })}
-        />
-        <br/>
-        <Button
-          className='loginBtn'
-          type='submit'
-          variant='contained'
-        >
-          Submit
-        </Button>
+        <form className="col s12" onSubmit={this.onFormSubmit}>
+          <div className="row">
+            <div className="input-field col s12">
+              <input id="email" type="email" value={this.state.email} className="validate" onChange={(e) => this.setState({ email: e.target.value })} />
+              <label htmlFor="email">Email</label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <input id="password" type="password" value={this.state.password} className="validate" onChange={(e) => this.setState({ password: e.target.value })} />
+              <label htmlFor="password">Password</label>
+            </div>
+          </div>
+          <button className="waves-effect waves-light btn right" type="submit" name="action">Submit</button>
         </form>
-      </React.Fragment>
+      </div>
     )
   }
     
 }
 
-export default withStyles(styles)(Login)
+export default Login

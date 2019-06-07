@@ -1,10 +1,14 @@
-import React from 'react'
-import SimpleTable from '@material-ui/core/SimpleTable'
+import React, { Component } from 'react'
+import SearchBar from '../SearchBar/SearchBar'
 
-const LegalIndex = (props) => {
-  return (
-    <div>
-      Legal Index
-    </div>
-  )
+class LegalIndex extends Component {
+  render() {
+    return (
+      <div>
+        <SearchBar />
+      </div>
+    )
+  }
 }
+
+export default LegalIndex

@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import decode from 'jwt-decode'
 import axios from 'axios'
-import Header from './components/Header/Header'
-import FormContainer from './components/FormContainer'
+import Navigation from './components/Navigation/Navigation'
 import Signup from './components/Signup/Signup'
 import Login from './components/Login/Login'
-import Dashboard from './components/Dashboard/Dashboard'
+import Home from './components/Home/Home'
+import LegalIndex from './components/LegalIndex/LegalIndex'
 import './App.css'
 
 // const env = "http://localhost:4000"
 const env = "https://ble-backend.herokuapp.com"
+const authHeader = { 
+  headers: {
+  'Authorization': localStorage.token
+}}
 
 class App extends Component {
   state = {
@@ -24,13 +28,23 @@ class App extends Component {
     userID: null,
   }
 
-  componentDidMount() {
-    console.log(localStorage)
+  async componentDidMount() {
     if (localStorage.token) {
       this.setState({
         isLoggedIn: true,
         userID: decode(localStorage.token)
       })
+      try {
+        const user = await axios.get(`${env}/users/me`, authHeader)
+        this.setState({
+          firstName: user.data.firstName,
+          lastName: user.data.lastName,
+          email: user.data.email
+        })
+      } catch (err) {
+        console.log('ERROR:', err)
+      }
+      
     } else {
       this.setState({
         isLoggedIn: false,
@@ -67,15 +81,17 @@ class App extends Component {
         email: credentials.email,
         password: credentials.password
       })
-        
-      console.log(loginUser.data.user)
+
       localStorage.token = loginUser.data.token
+
       this.setState({
         firstName: loginUser.data.user.firstName,
         lastName: loginUser.data.user.lastName,
+        email: loginUser.data.user.email,
         isLoggedIn: true
       })
-      console.log(this.state)
+      
+      this.props.history.push('/')
     } catch (err) {
       this.setState({
         loginError: err
@@ -83,7 +99,7 @@ class App extends Component {
     }
   }
 
-  handleLogout = () => {
+  onLogout = () => {
     this.setState({
       email: "",
       password: "",
@@ -96,40 +112,52 @@ class App extends Component {
   render() {
     return (
       <div className="App-container">
-        <Header 
+        <Navigation
+          firstName={this.state.firstName}
+          lastName={this.state.lastName}
+          email={this.state.email} 
           isLoggedIn={this.state.isLoggedIn}
-          handleLogout={this.handleLogout}
+          onLogout={this.onLogout}
         />
         <main>
           <Switch>
-            <Route path="/signup"
-              render={(props) => (
-                <FormContainer>
-                  <Signup {...props} handleInput={this.handleInput} handleSignup={this.handleSignup}/>
-                </FormContainer>
-              )}
-            />
-            <Route exact path="/login"
-              render={(props) => (
-                <FormContainer>
-                  <Login 
-                    {...props}
-                    handleInput={this.handleInput}
-                    onSubmit={this.onLoginSubmit}
-                  />
-                </FormContainer>
-              )}
-            />
             <Route 
               exact path="/"
-              render={(props) => !this.state.isLoggedIn 
-              ? <Redirect to="/login" {...props}  />
-              : <Dashboard 
+              render={(props) => this.state.isLoggedIn ? (
+                <Home 
+                  {...props}
                   firstName={this.state.firstName}
                   isLoggedIn={this.state.isLoggedIn}
                   handleLogout={this.handleLogout}
                 />
+              ) : (
+                <Redirect to="/login" />
+              )
               }
+            />
+            <Route path="/signup"
+              render={(props) => (
+                <Signup {...props} handleInput={this.handleInput} handleSignup={this.handleSignup}/>
+              )}
+            />
+            <Route path="/login"
+              render={(props) => this.state.isLoggedIn ? (
+                <Redirect to="/" />
+              ) : (
+                <Login 
+                  {...props}
+                  handleInput={this.handleInput}
+                  onSubmit={this.onLoginSubmit}
+                />
+              )
+              }
+            />
+            <Route path="/legal-index"
+              render={(props) => (
+                <LegalIndex
+                  {...props}
+                />
+              )}
             />
           </Switch>
         </main>
@@ -138,4 +166,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default withRouter(App)
