@@ -12,7 +12,9 @@ const Navigation = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
   }
   const dropdowns = document.querySelectorAll('.dropdown-trigger')
   for (let i = 0; i < dropdowns.length; i++){
-    M.Dropdown.init(dropdowns[i]);
+    M.Dropdown.init(dropdowns[i], {
+      coverTrigger: false
+    });
   }
   const collapsibles = document.querySelectorAll('.collapsible')
   for (let i = 0; i < collapsibles.length; i++){
@@ -104,14 +106,8 @@ const Navigation = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
         <li className="no-padding">
           <ul className="collapsible collapsible-accordion">
             <li>
-              <a className="collapsible-header waves-effect">Legal Index<i className="material-icons">search</i></a>
-              <div className="collapsible-body">
-                <ul>
-                  <li><a className="waves-effect" href="#!">First</a></li>
-                  <li><a className="waves-effect" href="#!">Second</a></li>
-                  <li><a className="waves-effect" href="#!">Third</a></li>
-                </ul>
-              </div>
+              <Link to="legal-index" className="waves-effect">Legal Index<i className="material-icons">search</i></Link>
+              
             </li>
           </ul>
         </li>

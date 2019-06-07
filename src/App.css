@@ -4,6 +4,7 @@
 main {
   height: 100%;
   padding: 24px;
+  background-color: #f9f8f8;
 }
 a {
   color: #fff;
