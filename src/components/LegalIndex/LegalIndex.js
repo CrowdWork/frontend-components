@@ -3,8 +3,8 @@ import axios from 'axios'
 import SearchBar from '../SearchBar/SearchBar'
 import CaseList from '../CaseList/CaseList'
 
-const env = "http://localhost:4000"
-// const env = "https://ble-backend.herokuapp.com"
+// const env = "http://localhost:4000"
+const env = "https://ble-backend.herokuapp.com"
 
 const authHeader = { 
   headers: {

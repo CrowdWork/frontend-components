@@ -9,8 +9,8 @@ import Home from './components/Home/Home'
 import LegalIndex from './components/LegalIndex/LegalIndex'
 import './App.css'
 
-const env = "http://localhost:4000"
-// const env = "https://ble-backend.herokuapp.com"
+// const env = "http://localhost:4000"
+const env = "https://ble-backend.herokuapp.com"
 const authHeader = { 
   headers: {
   'Authorization': localStorage.token
