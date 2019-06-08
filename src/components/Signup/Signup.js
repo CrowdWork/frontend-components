@@ -1,14 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 import './Signup.css'
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column'
-  }
-})
-
-class Signup extends React.Component {
+class Signup extends Component {
 
   state = {
     firstName: '',
@@ -19,35 +12,35 @@ class Signup extends React.Component {
 
   onFormSubmit = e => {
     e.preventDefault()
-    this.props.handleSignup()
+    this.props.onSubmit(this.state)
     this.props.history.push("/")
   }
   render() {
     return (
-      <div className="container" onSubmit={this.onFormSubmit}>
+      <div className="container">
         <h1>Register</h1>
-        <form className="col s12">
+        <form className="col s12" onSubmit={this.onFormSubmit}>
 
-          <div class="row">
-            <div class="input-field col s6">
-              <input id="firstName" type="text" class="validate" />
+          <div className="row">
+            <div className="input-field col s6">
+              <input id="firstName" type="text" className="validate" value={this.state.firstName} onChange={(e) => this.setState({ firstName: e.target.value })} />
               <label htmlFor="firstName">First Name</label>
             </div>
-            <div class="input-field col s6">
-              <input id="last_name" type="text" class="validate" />
-              <label for="last_name">Last Name</label>
+            <div className="input-field col s6">
+              <input id="lastName" type="text" className="validate" value={this.state.lastName} onChange={(e) => this.setState({ lastName: e.target.value })} />
+              <label htmlFor="lastName">Last Name</label>
             </div>
           </div>
 
           <div className="row">
             <div className="input-field col s12">
-              <input id="email" type="email" className="validate" />
+              <input id="email" type="email" className="validate" value={this.state.email} onChange={(e) => this.setState({ email: e.target.value })}/>
               <label htmlFor="email">Email</label>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
-              <input id="password" type="password" className="validate" />
+              <input id="password" type="password" className="validate" value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })}/>
               <label htmlFor="password">Password</label>
             </div>
           </div>

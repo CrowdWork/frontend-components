@@ -10,12 +10,7 @@ const Navigation = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
   for (let i = 0; i < sidenavs.length; i++){
     M.Sidenav.init(sidenavs[i]);
   }
-  const dropdowns = document.querySelectorAll('.dropdown-trigger')
-  for (let i = 0; i < dropdowns.length; i++){
-    M.Dropdown.init(dropdowns[i], {
-      coverTrigger: false
-    });
-  }
+  
   const collapsibles = document.querySelectorAll('.collapsible')
   for (let i = 0; i < collapsibles.length; i++){
     M.Collapsible.init(collapsibles[i]);
@@ -23,6 +18,10 @@ const Navigation = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
   const featureDiscoveries = document.querySelectorAll('.tap-target')
   for (let i = 0; i < featureDiscoveries.length; i++){
     M.FeatureDiscovery.init(featureDiscoveries[i]);
+  }
+  const chips = document.querySelectorAll('.chips')
+  for (let i = 0; i < chips.length; i++){
+    M.Chips.init(chips[i])
   }
   const materialboxes = document.querySelectorAll('.materialboxed')
   for (let i = 0; i < materialboxes.length; i++){
@@ -91,6 +90,7 @@ const Navigation = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
           }
           </div>
         </li>
+        <li><div className="subheader">Account</div></li>
         {isLoggedIn ? (
           <li><Link to="/">My Profile <i className="material-icons">account_circle</i></Link></li>
         ) : (
@@ -101,57 +101,18 @@ const Navigation = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
         
         {isLoggedIn ? (<li><Link to="/login" onClick={onLogout}>Logout<i className="material-icons">power_settings_new</i></Link></li>) : (null)}
         <li><div className="divider"></div></li>
-        <li><a className="subheader">Services</a></li>
-        
+        <li><div className="subheader">Services</div></li>
         <li className="no-padding">
-          <ul className="collapsible collapsible-accordion">
-            <li>
-              <Link to="legal-index" className="waves-effect">Legal Index<i className="material-icons">search</i></Link>
-              
-            </li>
-          </ul>
+          <Link to="legal-index" className="waves-effect">Legal Index<i className="material-icons">search</i></Link>
         </li>
         <li className="no-padding">
-          <ul className="collapsible collapsible-accordion">
-            <li>
-              <a className="collapsible-header waves-effect">Frankensense Classroom<i className="material-icons">school</i></a>
-              <div className="collapsible-body">
-                <ul>
-                  <li><a className="waves-effect" href="#!">First</a></li>
-                  <li><a className="waves-effect" href="#!">Second</a></li>
-                  <li><a className="waves-effect" href="#!">Third</a></li>
-                </ul>
-              </div>
-            </li>
-          </ul>
+          <Link to="frankinsense" className="waves-effect">Frankensense Classroom<i className="material-icons">school</i></Link>
         </li>
         <li className="no-padding">
-          <ul className="collapsible collapsible-accordion">
-            <li>
-              <a className="collapsible-header waves-effect">Court Finder <i className="material-icons">map</i></a>
-              <div className="collapsible-body">
-                <ul>
-                  <li><a className="waves-effect" href="#!">First</a></li>
-                  <li><a className="waves-effect" href="#!">Second</a></li>
-                  <li><a className="waves-effect" href="#!">Third</a></li>
-                </ul>
-              </div>
-            </li>
-          </ul>
+          <Link to="court-finder" className="waves-effect">Court Finder <i className="material-icons">map</i></Link>
         </li>
         <li className="no-padding">
-          <ul className="collapsible collapsible-accordion">
-            <li>
-              <a className="collapsible-header waves-effect">Practical Practice<i className="material-icons">work</i></a>
-              <div className="collapsible-body">
-                <ul>
-                  <li><a className="waves-effect" href="#!">First</a></li>
-                  <li><a className="waves-effect" href="#!">Second</a></li>
-                  <li><a className="waves-effect" href="#!">Third</a></li>
-                </ul>
-              </div>
-            </li>
-          </ul>
+          <Link to="practical-practice" className="waves-effect">Practical Practice<i className="material-icons">work</i></Link>
         </li>
       </ul>
       {/* END SIDE NAVIGATION */}

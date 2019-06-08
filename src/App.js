@@ -9,8 +9,8 @@ import Home from './components/Home/Home'
 import LegalIndex from './components/LegalIndex/LegalIndex'
 import './App.css'
 
-// const env = "http://localhost:4000"
-const env = "https://ble-backend.herokuapp.com"
+const env = "http://localhost:4000"
+// const env = "https://ble-backend.herokuapp.com"
 const authHeader = { 
   headers: {
   'Authorization': localStorage.token
@@ -53,26 +53,32 @@ class App extends Component {
     }
   }
 
-  handleSignup = () => {
-    axios.post(`${env}/users`, {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      password: this.state.password
-    })
-      .then(response => {
-        localStorage.token = response.data.token
-        this.setState({
-          isLoggedIn: true,
-          userID: decode(localStorage.token)
-        })
+  onSignupSumbit = async (userInfo) => {
+    try {
+      const newUser = await axios.post(`${env}/users`, {
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        email: userInfo.email,
+        password: userInfo.password
       })
-      .catch(err => {
+
+      localStorage.token = newUser.data.token
+
+      this.setState({
+        firstName: newUser.data.user.firstName,
+        lastName: newUser.data.user.lastName,
+        email: newUser.data.user.email,
+        isLoggedIn: true,
+        userID: decode(localStorage.token)
+      })
+
+      this.props.history.push('/')
+    } catch (err) {
         console.log(err)
         this.setState({
           signupError: err
         })
-      });
+    } 
   }
 
   onLoginSubmit = async (credentials) => {
@@ -83,7 +89,6 @@ class App extends Component {
       })
 
       localStorage.token = loginUser.data.token
-
       this.setState({
         firstName: loginUser.data.user.firstName,
         lastName: loginUser.data.user.lastName,
@@ -137,7 +142,10 @@ class App extends Component {
             />
             <Route path="/signup"
               render={(props) => (
-                <Signup {...props} handleInput={this.handleInput} handleSignup={this.handleSignup}/>
+                <Signup 
+                  {...props} 
+                  onSubmit={this.onSignupSumbit}
+                />
               )}
             />
             <Route path="/login"
@@ -146,7 +154,6 @@ class App extends Component {
               ) : (
                 <Login 
                   {...props}
-                  handleInput={this.handleInput}
                   onSubmit={this.onLoginSubmit}
                 />
               )

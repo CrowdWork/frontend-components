@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom'
-import SimpleTable from '../SimpleTable';
 
 class Home extends Component {
   state = {
     open: true,
   };
-
   
   render() {
     const { isLoggedIn, firstName } = this.props
