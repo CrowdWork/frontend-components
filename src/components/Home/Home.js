@@ -7,12 +7,18 @@ class Home extends Component {
   };
   
   render() {
-    const { isLoggedIn, firstName } = this.props
+    const { isLoggedIn, firstName, lastName, email } = this.props
     {console.log(firstName,'LOGGED IN:',isLoggedIn)}
     return (
       
       <div>
-        <h2>Hi, {firstName}</h2>
+        <h4>Your Account</h4>
+        <div className="divider"></div>
+        <h5>Name</h5>
+        <p>{firstName} {lastName}</p>
+        <h5>Email</h5>
+        <p>{email}</p>
+        <div className="divider"></div>
       </div>
     );
   }

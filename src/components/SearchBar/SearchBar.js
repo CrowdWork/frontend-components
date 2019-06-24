@@ -41,16 +41,16 @@ class SearchBar extends Component {
     return (
       <Fragment>
         <div className="row">
-          <form className="col s12" onSubmit={this.onFormSubmit}>
+          <form className="col s12 border" onSubmit={this.onFormSubmit}>
               <div className="input-field col s12">
                 <i className="material-icons prefix">search</i>
-                <input id="search-bar" type="text" value={this.state.term} data-target='dropdown1' className="dropdown-trigger validate" onChange={this.onInputChange} />
-                <label htmlFor="search-bar">Search</label>
+                <input id="search-bar" type="text" value={this.state.term} className="validate" onChange={this.onInputChange} />
+                <label htmlFor="search-bar">Search by {this.props.searchBy}</label>
               </div>
           </form>
         </div>
         
-        <div id="dropdown1" className="dropdown-content">
+        {/* <div id="dropdown1" className="dropdown-content">
           <form className="col s12">
               <div className="subheader search-by-subheader">Filter by:</div>
                 <div className="flex-row">
@@ -101,7 +101,7 @@ class SearchBar extends Component {
               <div className="divider"></div>
               <div className="subheader search-by-subheader">Search Boolean:</div>
           </form>
-          </div>
+          </div> */}
       </Fragment>
       
       

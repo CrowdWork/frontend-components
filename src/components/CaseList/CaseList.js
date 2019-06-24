@@ -4,7 +4,6 @@ import './CaseList.css'
 const CaseList = ({ cases }) => {
 
   const caseList = cases.map(each => {
-    console.log(each.caseName)
     return (
       <tr key={each._id}>
         <td>{each._source.caseName}</td>

@@ -11,7 +11,7 @@ import './App.css'
 
 // const env = "http://localhost:4000"
 const env = "https://ble-backend.herokuapp.com"
-const authHeader = { 
+const authHeader = {
   headers: {
   'Authorization': localStorage.token
 }}
@@ -132,6 +132,8 @@ class App extends Component {
                 <Home 
                   {...props}
                   firstName={this.state.firstName}
+                  lastName={this.state.lastName}
+                  email={this.state.email}
                   isLoggedIn={this.state.isLoggedIn}
                   handleLogout={this.handleLogout}
                 />

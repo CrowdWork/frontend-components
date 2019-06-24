@@ -6,7 +6,7 @@ import CaseList from '../CaseList/CaseList'
 // const env = "http://localhost:4000"
 const env = "https://ble-backend.herokuapp.com"
 
-const authHeader = { 
+const authHeader = {
   headers: {
   'Authorization': localStorage.token
 }}
@@ -17,10 +17,10 @@ class LegalIndex extends Component {
     cases: []
   }
 
-  onSearchSubmit = async term => {
+  onSearchSubmit = async (...terms) => {
 
     try {
-      const searchResult = await axios.get(`${env}/cases/search?query=${term}`)
+      const searchResult = await axios.get(`${env}/cases/search?query=${terms}`, authHeader)
       console.log(searchResult.data)
       this.setState({
         cases: searchResult.data
@@ -35,7 +35,10 @@ class LegalIndex extends Component {
     return (
       <Fragment>
         <h2 className="center">Case Finder</h2>
-        <SearchBar onSubmit={this.onSearchSubmit} onChange={this.onSearchSubmit}/>
+        <SearchBar searchBy="Case Name" onSubmit={this.onSearchSubmit} onChange={this.onSearchSubmit} />
+        <SearchBar searchBy="Citation" onSubmit={this.onSearchSubmit} onChange={this.onSearchSubmit} />
+        <SearchBar searchBy="Court" onSubmit={this.onSearchSubmit} onChange={this.onSearchSubmit} />
+        <SearchBar searchBy="Keyword(s)" onSubmit={this.onSearchSubmit} onChange={this.onSearchSubmit} />
         <CaseList cases={this.state.cases} />
       </Fragment>
     )
