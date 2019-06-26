@@ -55,6 +55,7 @@ class App extends Component {
 
   onSignupSumbit = async (userInfo) => {
     try {
+
       const newUser = await axios.post(`${env}/users`, {
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
@@ -89,6 +90,7 @@ class App extends Component {
       })
 
       localStorage.token = loginUser.data.token
+
       this.setState({
         firstName: loginUser.data.user.firstName,
         lastName: loginUser.data.user.lastName,
@@ -111,6 +113,7 @@ class App extends Component {
       isLoggedIn: false,
       userID: null
     })
+
     localStorage.clear()
   }
 

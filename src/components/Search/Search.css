@@ -1,4 +1,9 @@
-.row .col {
+.search-wrapper {
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+.row {
   padding: 0;
 }
 .search-by-subheader {

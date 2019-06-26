@@ -1,20 +1,19 @@
 import React from 'react'
 import './CaseList.css'
 
-const CaseList = ({ cases }) => {
+const CaseList = ({ searchResult }) => {
+    const caseList = searchResult.map(each => {
+      return (
+        <tr key={each._id}>
+          <td>{each._source.caseName}</td>
+          <td>{each._source.citation}</td>
+          <td>{each._source.court}</td>
+          <td>{each._source.year}</td>
+        </tr>
+      )
+    })
 
-  const caseList = cases.map(each => {
-    return (
-      <tr key={each._id}>
-        <td>{each._source.caseName}</td>
-        <td>{each._source.citation}</td>
-        <td>{each._source.court}</td>
-        <td>{each._source.year}</td>
-      </tr>
-    )
-  })
-
-  return (
+  return caseList.length ? (
       <table className="table bordered">
       <thead>
         <tr>
@@ -28,6 +27,8 @@ const CaseList = ({ cases }) => {
         {caseList}
       </tbody>
     </table>
+  ) : (
+    <p className="center">Seek and ye shall find!</p>
   )
 }
 

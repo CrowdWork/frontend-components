@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
-import SearchBar from '../SearchBar/SearchBar'
+import Search from '../Search/Search'
 import CaseList from '../CaseList/CaseList'
 
 // const env = "http://localhost:4000"
@@ -14,32 +14,35 @@ const authHeader = {
 class LegalIndex extends Component {
 
   state = {
-    cases: []
+    searchResult: []
   }
 
-  onSearchSubmit = async (...terms) => {
-
+  onSearchSubmit = async (searchBody) => {
+    console.log(searchBody)
+    for (let searchTerm in searchBody) {
+      if (!searchBody[searchTerm]) {
+        searchBody[searchTerm] = ""
+      }
+    }
+    console.log(searchBody)
+    
     try {
-      const searchResult = await axios.get(`${env}/cases/search?query=${terms}`, authHeader)
-      console.log(searchResult.data)
+      const searchResult = await axios.get(`${env}/cases/search?query=${JSON.stringify(searchBody)}`, authHeader)
+      console.log(searchResult)
       this.setState({
-        cases: searchResult.data
+        searchResult: searchResult.data
       })
     } catch (err) {
       console.log(err)
     }
-    
   }
 
   render() {
     return (
       <Fragment>
         <h2 className="center">Case Finder</h2>
-        <SearchBar searchBy="Case Name" onSubmit={this.onSearchSubmit} onChange={this.onSearchSubmit} />
-        <SearchBar searchBy="Citation" onSubmit={this.onSearchSubmit} onChange={this.onSearchSubmit} />
-        <SearchBar searchBy="Court" onSubmit={this.onSearchSubmit} onChange={this.onSearchSubmit} />
-        <SearchBar searchBy="Keyword(s)" onSubmit={this.onSearchSubmit} onChange={this.onSearchSubmit} />
-        <CaseList cases={this.state.cases} />
+        <Search onSubmit={this.onSearchSubmit} />
+        <CaseList searchResult={this.state.searchResult} />
       </Fragment>
     )
   }
