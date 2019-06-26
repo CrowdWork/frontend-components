@@ -53,17 +53,17 @@ class Search extends Component {
               </div>
               <div className="input-field col s6">
                 <input id="keywordsInput" type="text" value={this.state.keywordsInput} onChange={(e) => this.setState({ keywordsInput: e.target.value })} />
-                <label htmlFor="keywordsInput">Search Keyword(s)</label>
+                <label htmlFor="keywordsInput">Keyword(s)</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s6">
                 <input id="judgesInput" type="text" value={this.state.judgesInput} onChange={(e) => this.setState({ judgesInput: e.target.value })} />
-                <label htmlFor="judgesInput">Search Judge(s)</label>
+                <label htmlFor="judgesInput">Judge(s)</label>
               </div>
               <div className="input-field col s6">
                 <input id="docTypeInput" type="text" value={this.state.docTypeInput} onChange={(e) => this.setState({ docTypeInput: e.target.value })} />
-                <label htmlFor="docTypeInput">Search Document Type</label>
+                <label htmlFor="docTypeInput">Document Type</label>
               </div>
             </div>
             <button type="submit" name="action" className="waves-effect waves-light btn-large right">
