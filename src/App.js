@@ -7,6 +7,7 @@ import Signup from './components/Signup/Signup'
 import Login from './components/Login/Login'
 import Home from './components/Home/Home'
 import LegalIndex from './components/LegalIndex/LegalIndex'
+import Admin from './components/Admin/Admin'
 import './App.css'
 
 // const env = "http://localhost:4000"
@@ -144,6 +145,13 @@ class App extends Component {
                 <Redirect to="/login" />
               )
               }
+            />
+            <Route path="/admin" 
+              render={(props) => (
+                <Admin
+                  {...props}
+                />
+              )}
             />
             <Route path="/signup"
               render={(props) => (

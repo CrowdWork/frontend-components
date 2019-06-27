@@ -60,6 +60,7 @@ const Navigation = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
               <Link to="/" className="brand-logo">BLE</Link>
               {isLoggedIn ? (
                 <ul className="right hide-on-med-and-down">
+                  <li><Link to="/"><i className="material-icons">account_circle</i></Link></li>
                   <li><Link to="/login" onClick={onLogout}>Logout</Link></li>
 				        </ul>
                 ) : (

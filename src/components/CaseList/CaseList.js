@@ -14,7 +14,7 @@ const CaseList = ({ searchResult }) => {
     })
 
   return caseList.length ? (
-      <table className="table bordered">
+      <table className="table bordered condensed">
       <thead>
         <tr>
           <th>Case Name</th>

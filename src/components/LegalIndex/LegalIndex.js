@@ -40,7 +40,7 @@ class LegalIndex extends Component {
   render() {
     return (
       <Fragment>
-        <h2 className="center">Case Finder</h2>
+        <h4 className="center">Legal Index</h4>
         <Search onSubmit={this.onSearchSubmit} />
         <CaseList searchResult={this.state.searchResult} />
       </Fragment>
