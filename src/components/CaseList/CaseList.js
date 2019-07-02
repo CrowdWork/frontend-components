@@ -13,7 +13,7 @@ const CaseList = ({ searchResult }) => {
             <div className="card-stacked">
               <div className="card-content">
                 <div>
-                  <h6 className="header">{each._source.caseName}</h6>
+                  <h6 className="header"><strong>{each._source.caseName}</strong></h6>
                   <p>{each._source.citation}</p>
                   <p>{each._source.court}</p>
                 </div>
