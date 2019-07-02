@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom'
+import './Home.css'
 
 class Home extends Component {
   state = {
@@ -9,14 +10,14 @@ class Home extends Component {
   render() {
     const { isLoggedIn, firstName, lastName, email } = this.props
     {console.log(firstName,'LOGGED IN:',isLoggedIn)}
+
     return (
-      
-      <div>
-        <h4>Your Account</h4>
+      <div className="account-overview-wrapper">
+        <h4>Account Overview</h4>
         <div className="divider"></div>
-        <h5>Name</h5>
+        <h6>NAME</h6>
         <p>{firstName} {lastName}</p>
-        <h5>Email</h5>
+        <h6>EMAIL</h6>
         <p>{email}</p>
         <div className="divider"></div>
       </div>

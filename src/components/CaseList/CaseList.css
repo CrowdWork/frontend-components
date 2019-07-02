@@ -1,3 +1,20 @@
-tr {
-  padding: 16px 0;
+.caselist-wrapper {
+  width: 100%;
+}
+.card-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.card-content:nth-child(1) {
+  text-align: left;
+}
+.result-header {
+  text-align: left;
+}
+h6.header {
+  margin: 0 0 6.67px;
+}
+.list-utils {
+  display: flex;
 }

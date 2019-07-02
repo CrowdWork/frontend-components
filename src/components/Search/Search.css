@@ -1,7 +1,5 @@
 .search-wrapper {
-  max-width: 600px;
-  display: flex;
-  justify-content: center;
+  width: 100%;
 }
 .row {
   padding: 0;

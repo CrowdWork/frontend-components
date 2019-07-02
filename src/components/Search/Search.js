@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import M from 'materialize-css'
 import moment from 'moment'
 import './Search.css'
-
 
 class Search extends Component {
   state = {
@@ -39,17 +38,17 @@ class Search extends Component {
             <div className="row">
               <div className="input-field col s6">
                 <input id="caseNameInput" type="text" value={this.state.caseNameInput} onChange={(e) => this.setState({ caseNameInput: e.target.value })} />
-                <label htmlFor="caseNameInput">Case Name</label>
+                <label htmlFor="caseNameInput">Case Name(s)</label>
               </div>
               <div className="input-field col s6">
                 <input id="citationInput" type="text" value={this.state.citationInput} onChange={(e) => this.setState({ citationInput: e.target.value })} />
-                <label htmlFor="citationInput">Citation</label>
+                <label htmlFor="citationInput">Citation(s)</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s6">
-                <input id="courtInput" type="text" value={this.state.courtInput} onChange={(e) => this.setState({ courtInput: e.target.value })} />
-                <label htmlFor="courtInput">Search Court</label>
+                <input id="courtInput" type="text" value={this.state.courtInput} onChange={(e) => { this.setState({ courtInput: e.target.value })}} />
+                <label htmlFor="courtInput">Court(s)</label>
               </div>
               <div className="input-field col s6">
                 <input id="keywordsInput" type="text" value={this.state.keywordsInput} onChange={(e) => this.setState({ keywordsInput: e.target.value })} />
@@ -63,10 +62,13 @@ class Search extends Component {
               </div>
               <div className="input-field col s6">
                 <input id="docTypeInput" type="text" value={this.state.docTypeInput} onChange={(e) => this.setState({ docTypeInput: e.target.value })} />
-                <label htmlFor="docTypeInput">Document Type</label>
+                <label htmlFor="docTypeInput">Document Type(s)</label>
               </div>
             </div>
-            <button type="submit" name="action" className="waves-effect waves-light btn-large right">
+            <div className="row">
+              <div id="test-slider"></div>
+            </div>
+            <button type="submit" name="action" className="waves-light btn-large right">
               <i className="material-icons prefix">search</i>
             </button>
           </form>

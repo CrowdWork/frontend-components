@@ -23,6 +23,8 @@ class Admin extends Component {
     try {
       await Papa.parse(file, {
         header: true,
+        worker: true,
+        skipEmptyLines: true,
         step: row => {
           axios.post(`${env}/cases`, {
             'caseName': row.data['Case Name'],
@@ -41,7 +43,6 @@ class Admin extends Component {
         complete: results => {
           document.querySelector("#upload").disabled = false
           document.querySelector("#upload-btn").disabled = false
-          console.log(results)
         }
       }, authHeader)
     } catch (err) {
