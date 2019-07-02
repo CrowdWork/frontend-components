@@ -4,8 +4,8 @@ import Search from '../Search/Search'
 import CaseList from '../CaseList/CaseList'
 import './LegalIndex.css'
 
-const env = "http://localhost:4000"
-// const env = "https://ble-backend.herokuapp.com"
+// const env = "http://localhost:4000"
+const env = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
