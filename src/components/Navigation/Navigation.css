@@ -17,7 +17,7 @@ a.dropdown-trigger:focus {
   outline: 0;
 }
 
-.dropdown-content {
+.dropdown-content li>span {
   white-space: nowrap;
 }
 

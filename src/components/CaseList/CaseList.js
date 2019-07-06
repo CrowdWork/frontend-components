@@ -30,7 +30,7 @@ const CaseList = ({ searchResult }) => {
       )
     })
 
-  return caseList.length ? (
+  return (
     <div className="caselist-wrapper">
       <div className="list-utils">
         <h6 className="result-header header">Showing {caseList.length} {caseList.length > 1 ? ('Results') : ('Result')}</h6>
@@ -40,20 +40,19 @@ const CaseList = ({ searchResult }) => {
       <ul>
         {caseList}
       </ul>
-      <ul class="pagination">
-          <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-          <li class="active"><a href="#!">1</a></li>
-          <li><a href="#!">2</a></li>
-          <li><a href="#!">3</a></li>
-          <li><a href="#!">4</a></li>
-          <li><a href="#!">5</a></li>
-          <li><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-        </ul>
+
+      <ul className="pagination">
+        <li className="disabled"><a href="#!"><i className="material-icons">chevron_left</i></a></li>
+        <li className="active"><a href="#!">1</a></li>
+        <li><a href="#!">2</a></li>
+        <li><a href="#!">3</a></li>
+        <li><a href="#!">4</a></li>
+        <li><a href="#!">5</a></li>
+        <li><a href="#!"><i className="material-icons">chevron_right</i></a></li>
+      </ul>
     </div>
-    
-  ) : (
-    <p className="center">Seek and ye shall find!</p>
   )
+    
 }
 
 export default CaseList
