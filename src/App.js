@@ -1,3 +1,4 @@
+import './App.css'
 import React, { Component } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import decode from 'jwt-decode'
@@ -8,10 +9,12 @@ import Login from './components/Login/Login'
 import Home from './components/Home/Home'
 import LegalIndex from './components/LegalIndex/LegalIndex'
 import Admin from './components/Admin/Admin'
-import './App.css'
+import CaseDetail from './components/CaseDetail/CaseDetail'
 
-// const env = "http://localhost:4000"
-const env = "https://ble-backend.herokuapp.com"
+
+const url = "http://localhost:4000"
+// const url = "https://ble-backend.herokuapp.com"
+
 const authHeader = {
   headers: {
   'Authorization': localStorage.token
@@ -19,14 +22,16 @@ const authHeader = {
 
 class App extends Component {
   state = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
     isLoggedIn: false,
     signupError: null,
     loginError: null,
     userID: null,
+    searchResult: null,
+    errorMessage: ''
   }
 
   async componentDidMount() {
@@ -36,7 +41,7 @@ class App extends Component {
         userID: decode(localStorage.token)
       })
       try {
-        const user = await axios.get(`${env}/users/me`, authHeader)
+        const user = await axios.get(`${url}/users/me`, authHeader)
         this.setState({
           firstName: user.data.firstName,
           lastName: user.data.lastName,
@@ -57,7 +62,7 @@ class App extends Component {
   onSignupSumbit = async (userInfo) => {
     try {
 
-      const newUser = await axios.post(`${env}/users`, {
+      const newUser = await axios.post(`${url}/users`, {
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         email: userInfo.email,
@@ -85,7 +90,7 @@ class App extends Component {
 
   onLoginSubmit = async (credentials) => {
     try {
-      const loginUser = await axios.post(`${env}/users/login`, {
+      const loginUser = await axios.post(`${url}/users/login`, {
         email: credentials.email,
         password: credentials.password
       })
@@ -109,13 +114,30 @@ class App extends Component {
 
   onLogout = () => {
     this.setState({
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       isLoggedIn: false,
       userID: null
     })
 
     localStorage.clear()
+  }
+
+  onSearchSubmit = async (searchBody) => {
+    for (let searchTerm in searchBody) {
+      if (!searchBody[searchTerm]) {
+        searchBody[searchTerm] = ''
+      }
+    }
+    console.log(searchBody)
+    
+    try {
+      const searchResult = await axios.get(`${url}/cases/search?query=${JSON.stringify(searchBody)}`, authHeader)
+      console.log(searchResult)
+      this.setState({ searchResult: searchResult.data })
+    } catch (err) {
+        this.setState( {errorMessage: err.message })
+    }
   }
 
   render() {
@@ -176,9 +198,17 @@ class App extends Component {
               render={(props) => (
                 <LegalIndex
                   {...props}
+                  onSubmit={this.onSearchSubmit}
+                  searchResult={this.state.searchResult}
                 />
               )}
             />
+            <Route path="/:case_id" 
+              render={(props) => (
+                <CaseDetail
+                  {...props}
+                />
+              )} />
           </Switch>
         </main>
       </div>

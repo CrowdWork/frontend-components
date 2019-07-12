@@ -1,28 +1,33 @@
-import React, { Fragment } from 'react'
 import './CaseList.css'
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
+import M from 'materialize-css'
+
 
 const CaseList = ({ searchResult }) => {
-    const caseList = searchResult.map(each => {
-      each._source.caseName.replace(/^\s+/g, '')
-      if (each._source.caseName.length > 50) {
-        each._source.caseName = each._source.caseName.substring(0, 50) + '...'
-      }
+
+  const caseList = searchResult.map(thisCase => {
+    // each._source.caseName.replace(/^\s+/g, '')
+    if (thisCase._source.caseName.length > 40) {
+      thisCase._source.caseName = thisCase._source.caseName.substring(0, 50) + '...'
+    }
       return (
-        <li className="col s12 m7" key={each._id}>
+        <li className="col s12 m7" key={thisCase._id}>
           <div className="card horizontal">
             <div className="card-stacked">
               <div className="card-content">
                 <div>
-                  <h6 className="header"><strong>{each._source.caseName}</strong></h6>
-                  <p>{each._source.citation}</p>
-                  <p>{each._source.court}</p>
+                  <h6 className="header"><strong>{thisCase._source.caseName}</strong></h6>
+                  <p>{thisCase._source.citation}</p>
+                  
                 </div>
-                <div>
-                  <p>{each._source.year}</p>
+                <div className="court-year">
+                  <p>{thisCase._source.court}</p>
+                  <p>{thisCase._source.year}</p>
                 </div>
               </div>
               <div className="card-action">
-                <a href="#" className="left">Detail</a>
+                <Link to={`/${thisCase._id}`} className="left">Detail</Link>
               </div>
             </div>
           </div>
