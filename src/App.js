@@ -12,8 +12,8 @@ import Admin from './components/Admin/Admin'
 import CaseDetail from './components/CaseDetail/CaseDetail'
 
 
-const url = "http://localhost:4000"
-// const url = "https://ble-backend.herokuapp.com"
+// const url = "http://localhost:4000"
+const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
