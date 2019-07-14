@@ -1,7 +1,6 @@
+import './Search.css'
 import React, { Component } from 'react'
 import M from 'materialize-css'
-import moment from 'moment'
-import './Search.css'
 
 class Search extends Component {
   state = {
@@ -11,7 +10,6 @@ class Search extends Component {
     docTypeInput: "",
     judgesInput: "",
     keywordsInput: "",
-    
   }
 
   componentDidMount() {

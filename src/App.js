@@ -22,16 +22,20 @@ const authHeader = {
 
 class App extends Component {
   state = {
-    firstName: '',
-    lastName: '',
+    batchedSearchResults: [],
+    count: 20,
     email: '',
-    password: '',
+    esSearchResults: [],
+    errorMessage: '',
+    firstName: '',
     isLoggedIn: false,
-    signupError: null,
+    lastName: '',
     loginError: null,
-    userID: null,
-    searchResult: null,
-    errorMessage: ''
+    password: '',
+    searchBody: null,
+    signupError: null,
+    start: 0,
+    userID: null
   }
 
   async componentDidMount() {
@@ -60,8 +64,8 @@ class App extends Component {
   }
 
   onSignupSumbit = async (userInfo) => {
-    try {
 
+    try {
       const newUser = await axios.post(`${url}/users`, {
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
@@ -124,23 +128,53 @@ class App extends Component {
   }
 
   onSearchSubmit = async (searchBody) => {
+    this.setState({
+      batchedSearchResults: [],
+      esSearchResults: [],
+      start: 0
+    })
+    const { count } = this.state
+
     for (let searchTerm in searchBody) {
       if (!searchBody[searchTerm]) {
         searchBody[searchTerm] = ''
       }
     }
-    console.log(searchBody)
+
+    this.setState({ searchBody })
     
     try {
-      const searchResult = await axios.get(`${url}/cases/search?query=${JSON.stringify(searchBody)}`, authHeader)
-      console.log(searchResult)
-      this.setState({ searchResult: searchResult.data })
+      const searchResult = await axios.get(`${url}/cases/search?count=${count}&start=${this.state.start}&query=${JSON.stringify(searchBody)}`, authHeader)
+      console.log(searchResult.data)
+      this.setState({ 
+        esSearchResults: searchResult.data,
+        batchedSearchResults: this.state.batchedSearchResults.concat(searchResult.data.slice(0, count))
+      })
     } catch (err) {
         this.setState( {errorMessage: err.message })
     }
   }
 
+  loadMoreResults = () => {
+    console.log('Loading more results...')
+    const { count } = this.state
+    
+    try {
+      this.setState({ 
+        start: this.state.start + this.state.count
+      })
+      this.setState({
+        batchedSearchResults: this.state.batchedSearchResults.concat(this.state.esSearchResults.slice(this.state.start, (this.state.start + this.state.count)))
+      })
+      console.log(this.state.start)
+    } catch (err) {
+        console.log(`ERROR: ${err}`)
+        this.setState( {errorMessage: err.message })
+    }
+  }
+
   render() {
+    console.log(this.state)
     return (
       <div className="App-container">
         <Navigation
@@ -198,8 +232,10 @@ class App extends Component {
               render={(props) => (
                 <LegalIndex
                   {...props}
+                  esSearchResults={this.state.esSearchResults}
+                  batchedSearchResults={this.state.batchedSearchResults}
                   onSubmit={this.onSearchSubmit}
-                  searchResult={this.state.searchResult}
+                  loadMoreResults={this.loadMoreResults}
                 />
               )}
             />

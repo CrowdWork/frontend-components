@@ -2,15 +2,18 @@ import './CaseList.css'
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import M from 'materialize-css'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import Preloader from '../Preloader/Preloader'
 
 
-const CaseList = ({ searchResult }) => {
+const CaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) => {
 
-  const caseList = searchResult.map(thisCase => {
+  const caseList = batchedSearchResults.map(thisCase => {
     // each._source.caseName.replace(/^\s+/g, '')
     if (thisCase._source.caseName.length > 40) {
-      thisCase._source.caseName = thisCase._source.caseName.substring(0, 50) + '...'
+      thisCase._source.caseName = thisCase._source.caseName.substring(0, 40) + '...'
     }
+    
       return (
         <li className="col s12 m7" key={thisCase._id}>
           <div className="card horizontal">
@@ -34,37 +37,32 @@ const CaseList = ({ searchResult }) => {
         </li>
       )
     })
-
+    console.log('Batched Results: ' + batchedSearchResults.length)
+    console.log('Case List: ' + caseList.length)
   return (
     <div className="caselist-wrapper">
       <div className="list-utils">
         <h6 className="result-header header">Showing {caseList.length} {caseList.length > 1 ? ('Results') : ('Result')}</h6>
         
       </div>
-      
-      <ul>
-        {caseList}
-      </ul>
-
-      <ul className="pagination">
-        <li className="disabled"><a href="#!"><i className="material-icons">chevron_left</i></a></li>
-        <li className="active"><a href="#!">1</a></li>
-        <li><a href="#!">2</a></li>
-        <li><a href="#!">3</a></li>
-        <li><a href="#!">4</a></li>
-        <li><a href="#!">5</a></li>
-        <li><a href="#!"><i className="material-icons">chevron_right</i></a></li>
-      </ul>
+      <InfiniteScroll
+        dataLength={batchedSearchResults.length}
+        next={loadMoreResults}
+        hasMore={caseList.length < esSearchResults.length}
+        scrollThreshold={1}
+        loader={<Preloader />}
+        endMessage={
+          <p style={{textAlign: 'center'}}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+        <ul>
+          {caseList}
+        </ul>
+      </InfiniteScroll>
     </div>
   )
-    
 }
 
 export default CaseList
-
-{/* <tr key={each._id}>
-          <td>{each._source.caseName}</td>
-          <td>{each._source.citation}</td>
-          <td>{each._source.court}</td>
-          <td>{each._source.year}</td>
-        </tr> */}
