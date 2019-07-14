@@ -33,6 +33,7 @@ class App extends Component {
     loginError: null,
     password: '',
     searchBody: null,
+    searchAttempted: false,
     signupError: null,
     start: 0,
     userID: null
@@ -147,6 +148,7 @@ class App extends Component {
       const searchResult = await axios.get(`${url}/cases/search?count=${count}&start=${this.state.start}&query=${JSON.stringify(searchBody)}`, authHeader)
       console.log(searchResult.data)
       this.setState({ 
+        searchAttempted: true,
         esSearchResults: searchResult.data,
         batchedSearchResults: this.state.batchedSearchResults.concat(searchResult.data.slice(0, count))
       })
@@ -160,7 +162,7 @@ class App extends Component {
     const { count } = this.state
     
     try {
-      this.setState({ 
+      this.setState({
         start: this.state.start + this.state.count
       })
       this.setState({
@@ -186,7 +188,7 @@ class App extends Component {
         />
         <main>
           <Switch>
-            <Route 
+            <Route
               exact path="/"
               render={(props) => this.state.isLoggedIn ? (
                 <Home 
@@ -236,6 +238,7 @@ class App extends Component {
                   batchedSearchResults={this.state.batchedSearchResults}
                   onSubmit={this.onSearchSubmit}
                   loadMoreResults={this.loadMoreResults}
+                  searchAttempted={this.state.searchAttempted}
                 />
               )}
             />

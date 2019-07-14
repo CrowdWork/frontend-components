@@ -6,20 +6,22 @@ import CaseList from '../CaseList/CaseList'
 const LegalIndex = (props) => {
 
   const renderContent = () => {
-    if (props.esSearchResults.length === 0) {
+    if (props.esSearchResults.length === 0 && !props.searchAttempted) {
       return props.errorMessage ?
         (<div>Error: {props.errorMessage}</div>) :
         (<div>Try searching!</div>)
     }
-    if (props.esSearchResults !== 0) {
-      console.log('Batched Results: ' + props.batchedSearchResults.length)
-      return props.errorMessage ?
+    if (props.searchAttempted && !props.errorMessage) {
+      return props.esSearchResults.length === 0 ?
         (<div>Search did not return a match. Please try again.</div>) :
         (<CaseList
           esSearchResults={props.esSearchResults}
           batchedSearchResults={props.batchedSearchResults}
           loadMoreResults={props.loadMoreResults}
         />)
+    }
+    if (props.errorMessage) {
+      return <div>Error: {props.errorMessage}</div>
     }
 
     return <div>Loading...</div>
