@@ -10,12 +10,6 @@ const CaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) =>
 
   const caseList = batchedSearchResults.map(thisCase => {
     // each._source.caseName.replace(/^\s+/g, '')
-<<<<<<< HEAD
-    if (thisCase._source.caseName.length > 40) {
-      thisCase._source.caseName = thisCase._source.caseName.substring(0, 40) + '...'
-    }
-=======
->>>>>>> case-detail
     
       return (
         <li className="col s12 m7" key={thisCase._id}>
