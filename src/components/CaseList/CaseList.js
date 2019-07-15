@@ -10,9 +10,12 @@ const CaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) =>
 
   const caseList = batchedSearchResults.map(thisCase => {
     // each._source.caseName.replace(/^\s+/g, '')
+<<<<<<< HEAD
     if (thisCase._source.caseName.length > 40) {
       thisCase._source.caseName = thisCase._source.caseName.substring(0, 40) + '...'
     }
+=======
+>>>>>>> case-detail
     
       return (
         <li className="col s12 m7" key={thisCase._id}>
@@ -20,7 +23,7 @@ const CaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) =>
             <div className="card-stacked">
               <div className="card-content">
                 <div>
-                  <h6 className="header"><strong>{thisCase._source.caseName}</strong></h6>
+                  <h6 className="header"><strong>{thisCase._source.caseName.length > 40 ? (thisCase._source.caseName.substring(0, 40) + '...') : (thisCase._source.caseName)}</strong></h6>
                   <p>{thisCase._source.citation}</p>
                   
                 </div>
@@ -30,7 +33,7 @@ const CaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) =>
                 </div>
               </div>
               <div className="card-action">
-                <Link to={`/${thisCase._id}`} className="left">Detail</Link>
+                <Link to={`/${thisCase._source.mongo_id}`} className="left">Detail</Link>
               </div>
             </div>
           </div>
