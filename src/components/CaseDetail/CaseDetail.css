@@ -1,3 +1,33 @@
+#CaseDetail-container {
+  width: 100%;
+  max-width: 900px;
+  height: 100%;
+}
 #card-panel-wrapper {
   width: 100%;
+}
+.flex-space-btw {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+i {
+  margin-bottom: 13.224px;
+}
+a {
+  color: #000;
+  cursor: pointer;
+}
+a.btn {
+  width: auto;
+}
+#navBack {
+  margin-bottom: 0;
+}
+#card-panel-wrapper > a {
+  display: flex;
+  align-items: flex-end;
+}
+#favorite-icon {
+  color: red;
 }

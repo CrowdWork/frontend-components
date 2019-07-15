@@ -8,16 +8,14 @@ const CaseList = ({ searchResult }) => {
 
   const caseList = searchResult.map(thisCase => {
     // each._source.caseName.replace(/^\s+/g, '')
-    if (thisCase._source.caseName.length > 40) {
-      thisCase._source.caseName = thisCase._source.caseName.substring(0, 50) + '...'
-    }
+    
       return (
         <li className="col s12 m7" key={thisCase._id}>
           <div className="card horizontal">
             <div className="card-stacked">
               <div className="card-content">
                 <div>
-                  <h6 className="header"><strong>{thisCase._source.caseName}</strong></h6>
+                  <h6 className="header"><strong>{thisCase._source.caseName.length > 40 ? (thisCase._source.caseName.substring(0, 40) + '...') : (thisCase._source.caseName)}</strong></h6>
                   <p>{thisCase._source.citation}</p>
                   
                 </div>
@@ -27,7 +25,7 @@ const CaseList = ({ searchResult }) => {
                 </div>
               </div>
               <div className="card-action">
-                <Link to={`/${thisCase._id}`} className="left">Detail</Link>
+                <Link to={`/${thisCase._source.mongo_id}`} className="left">Detail</Link>
               </div>
             </div>
           </div>

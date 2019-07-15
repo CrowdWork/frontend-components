@@ -203,7 +203,7 @@ class App extends Component {
                 />
               )}
             />
-            <Route path="/:case_id" 
+            <Route path="/:mongo_id"
               render={(props) => (
                 <CaseDetail
                   {...props}
