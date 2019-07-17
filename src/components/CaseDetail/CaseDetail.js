@@ -1,4 +1,5 @@
 import './CaseDetail.css'
+import M from 'materialize-css'
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
@@ -8,21 +9,41 @@ const url = "http://localhost:4000"
 
 class CaseDetail extends Component {
   state = {
-    courtCase: ''
+    courtCase: '',
+    isFavorite: false
   }
 
-  async componentDidMount() {
-    try {
-      const getCourtCase = await axios.get(`${url}/cases/detail/${this.props.match.params.mongo_id}`)
-      this.setState({ courtCase: getCourtCase.data[0] })
-      console.log(getCourtCase)
-    } catch (err) {
+  componentDidMount() {
+    axios.get(`${url}/cases/detail/${this.props.match.params.mongo_id}`)
+    .then(res => {
+      this.setState({ 
+        courtCase: res.data[0],
+        isFavorite: res.data[0].favorite
+      })
+    })
+    .catch(err => {
       console.log(err)
+    })
+  }
+  componentDidUpdate() {
+    console.log(this.state.isFavorite)
+    axios.patch(`${url}/cases/detail/${this.props.match.params.mongo_id}`, {
+      favorite: this.state.isFavorite
+    })
+  }
+  
+  onToggleFavorite = async () => {
+    if (this.state.isFavorite) {
+      this.setState({ isFavorite: false })
+      M.toast({html: 'Case removed from your favorites!'})
+     } else {
+      this.setState({ isFavorite: true })
+      M.toast({html: 'Case saved to your favorites!'})
     }
   }
   
   render() {
-    
+    console.log(this.state.isFavorite)
     return (
       <div id="CaseDetail-container" className="row">
         <div id="card-panel-wrapper" className="col s12 m5">
@@ -30,7 +51,7 @@ class CaseDetail extends Component {
           
           <div className="flex-space-btw">
             <h4>Case Details</h4>
-            <i id="favorite-icon" className="material-icons">favorite_border</i>
+            <i id="favorite-icon" className="material-icons" onClick={this.onToggleFavorite}>{this.state.isFavorite ? 'favorite' : 'favorite_border'}</i>
           </div>
             
           <div className="card-panel white">

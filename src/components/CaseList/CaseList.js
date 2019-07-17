@@ -1,16 +1,14 @@
 import './CaseList.css'
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import M from 'materialize-css'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Preloader from '../Preloader/Preloader'
 
 
 const CaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) => {
-
   const caseList = batchedSearchResults.map(thisCase => {
     // each._source.caseName.replace(/^\s+/g, '')
-    
+      console.log(thisCase._source.mongo_id)
       return (
         <li className="col s12 m7" key={thisCase._id}>
           <div className="card horizontal">
@@ -19,7 +17,6 @@ const CaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) =>
                 <div>
                   <h6 className="header"><strong>{thisCase._source.caseName.length > 40 ? (thisCase._source.caseName.substring(0, 40) + '...') : (thisCase._source.caseName)}</strong></h6>
                   <p>{thisCase._source.citation}</p>
-                  
                 </div>
                 <div className="court-year">
                   <p>{thisCase._source.court}</p>
