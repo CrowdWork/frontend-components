@@ -18,13 +18,6 @@ class CaseDetail extends Component {
     return this.fetchCase()
    
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log('componentDidUpdate')
-  //   console.log(prevState === this.state)
-  //   if (prevState.isFavorite !== this.state.isFavorite) {
-  //     return this.fetchCase()
-  //   }
-  // }
 
   fetchCase = async () => {
     try {
@@ -48,7 +41,8 @@ class CaseDetail extends Component {
   onToggleFavorite = async () => {
     if (this.state.isFavorite === true) {
       this.setState({ isFavorite: false })
-      M.toast({html: 'Case removed from your favorites!'})
+      const toastHTML = '<span>Case removed from your favorites!</span><button class="btn-flat toast-action">View Favorites</button>'
+      M.toast({html: toastHTML})
       try {
         const updateCase = await axios.patch(`${url}/cases/detail/${this.props.match.params.mongo_id}`, {
           favorite: false
@@ -60,7 +54,8 @@ class CaseDetail extends Component {
       
     } else {
         this.setState({ isFavorite: true })
-        M.toast({html: 'Case saved to your favorites!'})
+        const toastHTML = '<span>Case added to your favorites!</span><button class="btn-flat toast-action">View Favorites</button>'
+        M.toast({html: toastHTML})
         try {
           await axios.patch(`${url}/cases/detail/${this.props.match.params.mongo_id}`, {
             favorite: true
@@ -94,13 +89,13 @@ class CaseDetail extends Component {
           <a className="btn" onClick={this.props.history.goBack}><i id="navBack" className="material-icons">arrow_back</i> Back to results</a>
           
           <div className="flex-space-btw">
-            <h4>Case Details</h4>
+          <h5>{this.state.courtCase.caseName}</h5>
             <i id="favorite-icon" className="material-icons" onClick={this.onToggleFavorite}>{this.state.isFavorite ? 'favorite' : 'favorite_border'}</i>
           </div>
             
           <div className="card-panel white">
             
-            <h5>{this.state.courtCase.caseName}</h5>
+            
             <table className="bordered">
               <tbody>
                 <tr>
@@ -138,7 +133,6 @@ class CaseDetail extends Component {
       </div>
     )
   }
-  
 }
 
 export default CaseDetail
