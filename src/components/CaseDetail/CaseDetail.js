@@ -14,36 +14,80 @@ class CaseDetail extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${url}/cases/detail/${this.props.match.params.mongo_id}`)
-    .then(res => {
+    console.log('componentDidMount')
+    return this.fetchCase()
+   
+  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log('componentDidUpdate')
+  //   console.log(prevState === this.state)
+  //   if (prevState.isFavorite !== this.state.isFavorite) {
+  //     return this.fetchCase()
+  //   }
+  // }
+
+  fetchCase = async () => {
+    try {
+      const getCase = await axios.get(`${url}/cases/detail/${this.props.match.params.mongo_id}`)
+      const fetchedCase = getCase.data[0]
+      for (const prop in fetchedCase) {
+        if (Array.isArray(fetchedCase[prop])) {
+          fetchedCase[prop] = fetchedCase[prop].join().split(',')
+        }
+      }
+      console.log(fetchedCase)
       this.setState({ 
-        courtCase: res.data[0],
-        isFavorite: res.data[0].favorite
+        courtCase: fetchedCase,
+        isFavorite: fetchedCase.favorite
       })
-    })
-    .catch(err => {
+    } catch (err) {
       console.log(err)
-    })
-  }
-  componentDidUpdate() {
-    console.log(this.state.isFavorite)
-    axios.patch(`${url}/cases/detail/${this.props.match.params.mongo_id}`, {
-      favorite: this.state.isFavorite
-    })
-  }
-  
-  onToggleFavorite = async () => {
-    if (this.state.isFavorite) {
-      this.setState({ isFavorite: false })
-      M.toast({html: 'Case removed from your favorites!'})
-     } else {
-      this.setState({ isFavorite: true })
-      M.toast({html: 'Case saved to your favorites!'})
     }
   }
   
+  onToggleFavorite = async () => {
+    if (this.state.isFavorite === true) {
+      this.setState({ isFavorite: false })
+      M.toast({html: 'Case removed from your favorites!'})
+      try {
+        const updateCase = await axios.patch(`${url}/cases/detail/${this.props.match.params.mongo_id}`, {
+          favorite: false
+        })
+        if (updateCase) this.fetchCase()
+      } catch (err) {
+        console.log(err)
+      }
+      
+    } else {
+        this.setState({ isFavorite: true })
+        M.toast({html: 'Case saved to your favorites!'})
+        try {
+          await axios.patch(`${url}/cases/detail/${this.props.match.params.mongo_id}`, {
+            favorite: true
+          })
+        } catch (err) {
+          console.log(err)
+        }
+      }
+    }
+
+    renderJudges() {
+      const { courtCase } = this.state
+      if (courtCase) {
+        return courtCase.judges.map(judge => <li key={courtCase.judges.indexOf(judge)}>{judge}</li>)
+      }
+    }
+
+    renderKeywords() {
+      const { courtCase } = this.state
+      if (courtCase) {
+        return courtCase.keyWords.map(keyWord => <li key={courtCase.keyWords.indexOf(keyWord)}>{keyWord}</li>)
+      }
+    }
+
   render() {
     console.log(this.state.isFavorite)
+    // console.log(`FAVORITE: ${this.state.courtCase.judges[0]}`)
     return (
       <div id="CaseDetail-container" className="row">
         <div id="card-panel-wrapper" className="col s12 m5">
@@ -73,11 +117,11 @@ class CaseDetail extends Component {
                 </tr>
                 <tr>
                   <th>Judge(s)</th>
-                  <td>{this.state.courtCase.judges}</td>
+                  <td>{this.renderJudges()}</td>
                 </tr>
                 <tr>
                   <th>Keyword(s)</th>
-                  <td>{this.state.courtCase.keyWords}</td>
+                  <td>{this.renderKeywords()}</td>
                 </tr>
                 <tr>
                   <th>Summary</th>
