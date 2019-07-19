@@ -28,7 +28,6 @@ class CaseDetail extends Component {
           fetchedCase[prop] = fetchedCase[prop].join().split(',')
         }
       }
-      console.log(fetchedCase)
       this.setState({ 
         courtCase: fetchedCase,
         isFavorite: fetchedCase.favorite
@@ -81,8 +80,6 @@ class CaseDetail extends Component {
     }
 
   render() {
-    console.log(this.state.isFavorite)
-    // console.log(`FAVORITE: ${this.state.courtCase.judges[0]}`)
     return (
       <div id="CaseDetail-container" className="row">
         <div id="card-panel-wrapper" className="col s12 m5">
