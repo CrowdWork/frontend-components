@@ -1,4 +1,5 @@
 import './App.css'
+import M from 'materialize-css'
 import React, { Component } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import decode from 'jwt-decode'
@@ -12,8 +13,8 @@ import Admin from './components/Admin/Admin'
 import CaseDetail from './components/CaseDetail/CaseDetail'
 
 
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
+const url = "http://localhost:4000"
+// const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
@@ -27,6 +28,7 @@ class App extends Component {
     email: '',
     esSearchResults: [],
     errorMessage: '',
+    favorites: [],
     firstName: '',
     isLoggedIn: false,
     lastName: '',
@@ -40,6 +42,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    console.log('APP MOUNTED')
     if (localStorage.token) {
       this.setState({
         isLoggedIn: true,
@@ -47,10 +50,12 @@ class App extends Component {
       })
       try {
         const user = await axios.get(`${url}/users/me`, authHeader)
+        console.log(user.data.favorites)
         this.setState({
           firstName: user.data.firstName,
           lastName: user.data.lastName,
-          email: user.data.email
+          email: user.data.email,
+          favorites: user.data.favorites
         })
       } catch (err) {
         console.log('ERROR:', err)
@@ -159,7 +164,6 @@ class App extends Component {
 
   loadMoreResults = () => {
     console.log('Loading more results...')
-    const { count } = this.state
     
     try {
       this.setState({
@@ -174,6 +178,39 @@ class App extends Component {
         this.setState( {errorMessage: err.message })
     }
   }
+
+  onToggleFavorite = async (mongo_id) => {
+    if (this.state.favorites.includes(mongo_id)) {
+      try {
+        console.log(`Trying to DELETE`)
+        const updatedFavorites = await axios.delete(`${url}/${mongo_id}/favorite`, authHeader)
+        const toastHTML = '<span>Case removed from your favorites!</span><button class="btn-flat toast-action">View Favorites</button>'
+        M.toast({html: toastHTML})
+        this.setState({
+          favorites: updatedFavorites.data
+        })
+        console.log(this.state.favorites.includes(mongo_id))
+        console.log(this.state.favorites)
+      } catch (err) {
+        console.log(err)
+      }
+      
+    } else {
+        try {
+          console.log(`Trying to POST`)
+          const updatedFavorites = await axios.get(`${url}/${mongo_id}/favorite`, authHeader)
+          const toastHTML = '<span>Case added to your favorites!</span><button class="btn-flat toast-action">View Favorites</button>'
+          M.toast({html: toastHTML})
+          this.setState({
+            favorites: updatedFavorites.data
+          })
+          console.log(this.state.favorites.includes(mongo_id))
+          console.log(this.state.favorites)
+        } catch (err) {
+          console.log(err)
+        }
+      }
+    }
 
   render() {
     return (
@@ -245,6 +282,8 @@ class App extends Component {
               render={(props) => (
                 <CaseDetail
                   {...props}
+                  favorites={this.state.favorites}
+                  onToggleFavorite={this.onToggleFavorite}
                 />
               )} />
           </Switch>

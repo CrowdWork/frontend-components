@@ -1,11 +1,11 @@
 import './CaseDetail.css'
-import M from 'materialize-css'
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 const url = "http://localhost:4000"
 // const url = "https://ble-backend.herokuapp.com"
+
 
 class CaseDetail extends Component {
   state = {
@@ -15,11 +15,12 @@ class CaseDetail extends Component {
 
   componentDidMount() {
     console.log('componentDidMount')
-    return this.fetchCase()
+    this.fetchCase()
    
   }
 
   fetchCase = async () => {
+    console.log('fetchCase()')
     try {
       const getCase = await axios.get(`${url}/cases/detail/${this.props.match.params.mongo_id}`)
       const fetchedCase = getCase.data[0]
@@ -30,40 +31,18 @@ class CaseDetail extends Component {
       }
       this.setState({ 
         courtCase: fetchedCase,
-        isFavorite: fetchedCase.favorite
+        isFavorite: this.props.favorites.includes(this.props.match.params.mongo_id)
       })
+      
     } catch (err) {
       console.log(err)
     }
   }
   
   onToggleFavorite = async () => {
-    if (this.state.isFavorite === true) {
-      this.setState({ isFavorite: false })
-      const toastHTML = '<span>Case removed from your favorites!</span><button class="btn-flat toast-action">View Favorites</button>'
-      M.toast({html: toastHTML})
-      try {
-        const updateCase = await axios.patch(`${url}/cases/detail/${this.props.match.params.mongo_id}`, {
-          favorite: false
-        })
-        if (updateCase) this.fetchCase()
-      } catch (err) {
-        console.log(err)
-      }
-      
-    } else {
-        this.setState({ isFavorite: true })
-        const toastHTML = '<span>Case added to your favorites!</span><button class="btn-flat toast-action">View Favorites</button>'
-        M.toast({html: toastHTML})
-        try {
-          await axios.patch(`${url}/cases/detail/${this.props.match.params.mongo_id}`, {
-            favorite: true
-          })
-        } catch (err) {
-          console.log(err)
-        }
-      }
-    }
+    await this.props.onToggleFavorite(this.props.match.params.mongo_id)
+    this.fetchCase()
+  }
 
     renderJudges() {
       const { courtCase } = this.state
@@ -75,7 +54,7 @@ class CaseDetail extends Component {
     renderKeywords() {
       const { courtCase } = this.state
       if (courtCase) {
-        return courtCase.keyWords.map(keyWord => <li key={courtCase.keyWords.indexOf(keyWord)}>{keyWord}</li>)
+        return courtCase.keyWords.map(keyWord => <li key={Math.floor(Math.random() * 1000000)}>{keyWord}</li>)
       }
     }
 
@@ -83,7 +62,7 @@ class CaseDetail extends Component {
     return (
       <div id="CaseDetail-container" className="row">
         <div id="card-panel-wrapper" className="col s12 m5">
-          <a className="btn" onClick={this.props.history.goBack}><i id="navBack" className="material-icons">arrow_back</i> Back to results</a>
+          <a href="#!" className="btn" onClick={this.props.history.goBack}><i id="navBack" className="material-icons">arrow_back</i> Back to results</a>
           
           <div className="flex-space-btw">
           <h5>{this.state.courtCase.caseName}</h5>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom'
 import './Home.css'
 
 class Home extends Component {
@@ -8,8 +7,7 @@ class Home extends Component {
   };
   
   render() {
-    const { isLoggedIn, firstName, lastName, email } = this.props
-    {console.log(firstName,'LOGGED IN:',isLoggedIn)}
+    const { firstName, lastName, email } = this.props
 
     return (
       <div className="account-overview-wrapper">

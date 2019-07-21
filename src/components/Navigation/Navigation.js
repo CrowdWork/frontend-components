@@ -32,7 +32,7 @@ const Navigation = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
                 {isLoggedIn ? (
                   <Fragment>
                   <ul className="right hide-on-med-and-down">
-                    <li><a href="#" className="dropdown-trigger btn black" data-target="user-dropdown">{firstName}<i className="material-icons">arrow_drop_down</i></a></li>
+                    <li><a href="#!" className="dropdown-trigger btn black" data-target="user-dropdown">{firstName}<i className="material-icons">arrow_drop_down</i></a></li>
                   </ul>
                   <ul id='user-dropdown' className='dropdown-content'>
                   <li><Link to="/">My Profile <i className="material-icons">account_circle</i></Link></li>
@@ -58,9 +58,9 @@ const Navigation = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
           <li>
             <div className="user-view">
             <div className="background">
-              <img src="https://i.imgur.com/5ui8Nqnm.jpg" />
+              <img src="https://i.imgur.com/5ui8Nqnm.jpg" alt='abstract background img'/>
             </div>
-            <img className="circle padding-bottom" src="http://placehold.it/640/333" />
+            <img className="circle padding-bottom" src="http://placehold.it/640/333" alt='avatar placeholder'/>
             {isLoggedIn ? 
               ( <Fragment>
                   <span className="white-text name">{firstName} {lastName}</span>
