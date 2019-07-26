@@ -1,5 +1,9 @@
 .caselist-wrapper {
   width: 100%;
+  min-width: 400px;
+}
+.card-wrapper {
+  padding: 0;
 }
 .card-content {
   display: flex;

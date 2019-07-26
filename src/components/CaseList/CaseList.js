@@ -10,7 +10,7 @@ const CaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) =>
     // each._source.caseName.replace(/^\s+/g, '')
       console.log(thisCase._source.mongo_id)
       return (
-        <li className="col s12 m7" key={thisCase._id}>
+        <li className="col s12 card-wrapper" key={thisCase._id}>
           <div className="card horizontal">
             <div className="card-stacked">
               <div className="card-content">
@@ -36,25 +36,28 @@ const CaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) =>
   return (
     <div className="caselist-wrapper">
       <div className="list-utils">
-        <h6 className="result-header header">Showing {caseList.length} {caseList.length > 1 ? ('Results') : ('Result')}</h6>
+        <h6 className="result-header header">Showing 1 to {caseList.length} of {esSearchResults.length} {caseList.length > 1 ? ('Results') : ('Result')}</h6>
         
       </div>
-      <InfiniteScroll
-        dataLength={batchedSearchResults.length}
-        next={loadMoreResults}
-        hasMore={caseList.length < esSearchResults.length}
-        scrollThreshold={1}
-        loader={<Preloader />}
-        endMessage={
-          <p style={{textAlign: 'center'}}>
-            <b>Yay! You have seen it all</b>
-          </p>
-        }
-      >
-        <ul>
-          {caseList}
-        </ul>
-      </InfiniteScroll>
+      <div>
+        <InfiniteScroll
+          dataLength={batchedSearchResults.length}
+          next={loadMoreResults}
+          hasMore={caseList.length < esSearchResults.length}
+          scrollThreshold={1}
+          loader={<Preloader />}
+          endMessage={
+            <p style={{textAlign: 'center'}}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          <ul>
+            {caseList}
+          </ul>
+        </InfiniteScroll>
+      </div>
+      
     </div>
   )
 }

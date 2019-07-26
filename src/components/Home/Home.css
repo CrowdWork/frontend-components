@@ -1,3 +1,7 @@
 .account-overview-wrapper {
   align-self: stretch;
+  min-height: 100vh;
+}
+.no-padding {
+  padding: 0;
 }

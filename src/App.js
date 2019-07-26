@@ -4,7 +4,8 @@ import React, { Component } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import decode from 'jwt-decode'
 import axios from 'axios'
-import Navigation from './components/Navigation/Navigation'
+import Header from './components/Header/Header'
+import SideNav from './components/SideNav/SideNav'
 import Signup from './components/Signup/Signup'
 import Login from './components/Login/Login'
 import Home from './components/Home/Home'
@@ -43,6 +44,7 @@ class App extends Component {
 
   async componentDidMount() {
     console.log('APP MOUNTED')
+    
     if (localStorage.token) {
       this.setState({
         isLoggedIn: true,
@@ -215,79 +217,97 @@ class App extends Component {
   render() {
     return (
       <div className="App-container">
-        <Navigation
-          firstName={this.state.firstName}
-          lastName={this.state.lastName}
-          email={this.state.email} 
-          isLoggedIn={this.state.isLoggedIn}
-          onLogout={this.onLogout}
-        />
-        <main>
-          <Switch>
-            <Route
-              exact path="/"
-              render={(props) => this.state.isLoggedIn ? (
-                <Home 
-                  {...props}
-                  firstName={this.state.firstName}
-                  lastName={this.state.lastName}
-                  email={this.state.email}
-                  isLoggedIn={this.state.isLoggedIn}
-                  handleLogout={this.handleLogout}
-                />
-              ) : (
-                <Redirect to="/login" />
-              )
-              }
+        <div id="header-row" className="row">
+          <Header
+            className="Header-container"
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            email={this.state.email}
+            isLoggedIn={this.state.isLoggedIn}
+            onLogout={this.onLogout}
+          />
+        </div>
+        <div id="content-row" className="row">
+          <div id="sideNav-col"className="col m0 l4 xl9">
+            <SideNav
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+              email={this.state.email}
+              isLoggedIn={this.state.isLoggedIn}
+              onLogout={this.onLogout}
             />
-            <Route path="/admin" 
-              render={(props) => (
-                <Admin
-                  {...props}
+          </div>
+            <div id="main-col" className="col m12 l8 xl3">
+            <main>
+              <Switch>
+                <Route
+                  exact path="/"
+                  render={(props) => this.state.isLoggedIn ? (
+                    <Home 
+                      {...props}
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      handleLogout={this.handleLogout}
+                    />
+                  ) : (
+                    <Redirect to="/login" />
+                  )
+                  }
                 />
-              )}
-            />
-            <Route path="/signup"
-              render={(props) => (
-                <Signup 
-                  {...props} 
-                  onSubmit={this.onSignupSumbit}
+                <Route path="/admin" 
+                  render={(props) => (
+                    <Admin
+                      {...props}
+                    />
+                  )}
                 />
-              )}
-            />
-            <Route path="/login"
-              render={(props) => this.state.isLoggedIn ? (
-                <Redirect to="/" />
-              ) : (
-                <Login 
-                  {...props}
-                  onSubmit={this.onLoginSubmit}
+                <Route path="/signup"
+                  render={(props) => (
+                    <Signup 
+                      {...props} 
+                      onSubmit={this.onSignupSumbit}
+                    />
+                  )}
                 />
-              )
-              }
-            />
-            <Route path="/legal-index"
-              render={(props) => (
-                <LegalIndex
-                  {...props}
-                  esSearchResults={this.state.esSearchResults}
-                  batchedSearchResults={this.state.batchedSearchResults}
-                  onSubmit={this.onSearchSubmit}
-                  loadMoreResults={this.loadMoreResults}
-                  searchAttempted={this.state.searchAttempted}
+                <Route path="/login"
+                  render={(props) => this.state.isLoggedIn ? (
+                    <Redirect to="/" />
+                  ) : (
+                    <Login 
+                      {...props}
+                      onSubmit={this.onLoginSubmit}
+                    />
+                  )
+                  }
                 />
-              )}
-            />
-            <Route path="/:mongo_id"
-              render={(props) => (
-                <CaseDetail
-                  {...props}
-                  favorites={this.state.favorites}
-                  onToggleFavorite={this.onToggleFavorite}
+                <Route path="/legal-index"
+                  render={(props) => (
+                    <LegalIndex
+                      {...props}
+                      esSearchResults={this.state.esSearchResults}
+                      batchedSearchResults={this.state.batchedSearchResults}
+                      onSubmit={this.onSearchSubmit}
+                      loadMoreResults={this.loadMoreResults}
+                      searchAttempted={this.state.searchAttempted}
+                    />
+                  )}
                 />
-              )} />
-          </Switch>
-        </main>
+                <Route path="/:mongo_id"
+                  render={(props) => (
+                    <CaseDetail
+                      {...props}
+                      favorites={this.state.favorites}
+                      onToggleFavorite={this.onToggleFavorite}
+                    />
+                  )} />
+              </Switch>
+            </main>
+            </div>
+            
+        </div>
+        
       </div>
     )
   }

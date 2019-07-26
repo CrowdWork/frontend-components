@@ -4,12 +4,12 @@ import Search from '../Search/Search'
 import CaseList from '../CaseList/CaseList'
 
 const LegalIndex = (props) => {
-
+  
   const renderContent = () => {
     if (props.esSearchResults.length === 0 && !props.searchAttempted) {
       return props.errorMessage ?
         (<div>Error: {props.errorMessage}</div>) :
-        (<div>Try searching!</div>)
+        (<div className="center">Try searching!</div>)
     }
     if (props.searchAttempted && !props.errorMessage) {
       return props.esSearchResults.length === 0 ?
@@ -28,10 +28,18 @@ const LegalIndex = (props) => {
   }
 
     return (
-      <div className="legal-index-wrapper center">
-        <h4 className="center">Legal Index</h4>
-        <Search onSubmit={props.onSubmit} />
-        {renderContent()}
+      <div className="legal-index-wrapper container">
+     
+        <h3>Legal Index</h3>
+        <div className="row">
+          <div className="col s12">
+            <Search onSubmit={props.onSubmit} />
+          </div>
+        </div>
+        <div className="row">
+          {renderContent()}
+        </div>
+        
       </div>
     )
 }

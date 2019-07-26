@@ -65,7 +65,7 @@ class CaseDetail extends Component {
           <a href="#!" className="btn" onClick={this.props.history.goBack}><i id="navBack" className="material-icons">arrow_back</i> Back to results</a>
           
           <div className="flex-space-btw">
-          <h5>{this.state.courtCase.caseName}</h5>
+            <h5>{this.state.courtCase.caseName}</h5>
             <i id="favorite-icon" className="material-icons" onClick={this.onToggleFavorite}>{this.state.isFavorite ? 'favorite' : 'favorite_border'}</i>
           </div>
             

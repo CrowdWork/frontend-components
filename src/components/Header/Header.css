@@ -1,3 +1,6 @@
+.Header-container {
+  grid-area: h;
+}
 .sidenav .user-view {
   display: flex;
   flex-direction: column;
