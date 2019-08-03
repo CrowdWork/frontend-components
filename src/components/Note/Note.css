@@ -1,0 +1,17 @@
+#note-form {
+  padding: 16px;
+}
+
+#title {
+  font-weight: 700;
+}
+
+#body {
+  height: auto;
+}
+#title, #body {
+  padding: 16.5px;
+}
+#body:focus, #title:focus {
+  border: 3px solid #000;
+}

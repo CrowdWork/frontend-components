@@ -5,3 +5,17 @@
 .no-padding {
   padding: 0;
 }
+.list-card {
+  position: relative;
+  height: 100%;
+  width: 100;
+}
+#list-section-title {
+  padding-left: calc(10.875px * 2);
+}
+#note-section-title {
+  padding-left: calc(10.875px * 2);
+}
+#modalNote {
+  height: 80vh;
+}

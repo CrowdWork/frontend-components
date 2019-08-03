@@ -43,3 +43,9 @@ a.btn {
 .breadcrumb, .breadcrumb:before {
   color: black;
 }
+.go-back:hover {
+  text-decoration: underline;
+}
+#modal1 {
+  height: 50%;
+}

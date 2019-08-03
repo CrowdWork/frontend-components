@@ -25,3 +25,6 @@ h6.header {
 .court-year {
   text-align: right;
 }
+li.card-wrapper {
+  padding: 0;
+}

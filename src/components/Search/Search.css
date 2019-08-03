@@ -26,3 +26,6 @@
   display: flex;
   flex-direction: row;
 }
+#searchForm {
+  padding: 30px;
+}

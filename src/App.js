@@ -1,5 +1,4 @@
 import './App.css'
-import M from 'materialize-css'
 import React, { Component } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import decode from 'jwt-decode'
@@ -11,7 +10,9 @@ import Login from './components/Login/Login'
 import Home from './components/Home/Home'
 import LegalIndex from './components/LegalIndex/LegalIndex'
 import Admin from './components/Admin/Admin'
+import List from './components/List/List'
 import CaseDetail from './components/CaseDetail/CaseDetail'
+import Note from './components/Note/Note'
 
 
 const url = "http://localhost:4000"
@@ -29,11 +30,12 @@ class App extends Component {
     email: '',
     esSearchResults: [],
     errorMessage: '',
-    favorites: [],
     firstName: '',
     isLoggedIn: false,
     lastName: '',
+    lists: [],
     loginError: null,
+    notes: [],
     password: '',
     searchBody: null,
     searchAttempted: false,
@@ -44,7 +46,6 @@ class App extends Component {
 
   async componentDidMount() {
     console.log('APP MOUNTED')
-    
     if (localStorage.token) {
       this.setState({
         isLoggedIn: true,
@@ -52,17 +53,19 @@ class App extends Component {
       })
       try {
         const user = await axios.get(`${url}/users/me`, authHeader)
-        console.log(user.data.favorites)
+        const lists = await axios.get(`${url}/lists`, authHeader)
+        const notes = await axios.get(`${url}/notes`, authHeader)
+        console.log(notes)
         this.setState({
           firstName: user.data.firstName,
           lastName: user.data.lastName,
           email: user.data.email,
-          favorites: user.data.favorites
+          lists: lists.data,
+          notes: notes.data
         })
       } catch (err) {
         console.log('ERROR:', err)
       }
-      
     } else {
       this.setState({
         isLoggedIn: false,
@@ -72,7 +75,6 @@ class App extends Component {
   }
 
   onSignupSumbit = async (userInfo) => {
-
     try {
       const newUser = await axios.post(`${url}/users`, {
         firstName: userInfo.firstName,
@@ -80,7 +82,6 @@ class App extends Component {
         email: userInfo.email,
         password: userInfo.password
       })
-
       localStorage.token = newUser.data.token
 
       this.setState({
@@ -106,7 +107,6 @@ class App extends Component {
         email: credentials.email,
         password: credentials.password
       })
-
       localStorage.token = loginUser.data.token
 
       this.setState({
@@ -148,7 +148,6 @@ class App extends Component {
         searchBody[searchTerm] = ''
       }
     }
-
     this.setState({ searchBody })
     
     try {
@@ -166,7 +165,6 @@ class App extends Component {
 
   loadMoreResults = () => {
     console.log('Loading more results...')
-    
     try {
       this.setState({
         start: this.state.start + this.state.count
@@ -181,38 +179,50 @@ class App extends Component {
     }
   }
 
-  onToggleFavorite = async (mongo_id) => {
-    if (this.state.favorites.includes(mongo_id)) {
-      try {
-        console.log(`Trying to DELETE`)
-        const updatedFavorites = await axios.delete(`${url}/${mongo_id}/favorite`, authHeader)
-        const toastHTML = '<span>Case removed from your favorites!</span><button class="btn-flat toast-action">View Favorites</button>'
-        M.toast({html: toastHTML})
-        this.setState({
-          favorites: updatedFavorites.data
-        })
-        console.log(this.state.favorites.includes(mongo_id))
-        console.log(this.state.favorites)
-      } catch (err) {
-        console.log(err)
-      }
-      
-    } else {
-        try {
-          console.log(`Trying to POST`)
-          const updatedFavorites = await axios.get(`${url}/${mongo_id}/favorite`, authHeader)
-          const toastHTML = '<span>Case added to your favorites!</span><button class="btn-flat toast-action">View Favorites</button>'
-          M.toast({html: toastHTML})
-          this.setState({
-            favorites: updatedFavorites.data
-          })
-          console.log(this.state.favorites.includes(mongo_id))
-          console.log(this.state.favorites)
-        } catch (err) {
-          console.log(err)
-        }
-      }
+  onAddList = async (listBody) => {
+    try {
+      await axios.post(`${url}/lists`, {
+        title: listBody.listTitle,
+        public: listBody.listPublic
+      }, authHeader)
+      const lists = await axios.get(`${url}/lists`, authHeader)
+      this.setState({
+        lists: lists.data
+      })
+    } catch (err) {
+      console.log(err)
     }
+  }
+
+  deleteList = async (list_id) => {
+    console.log('FIRE DELETE LIST')
+    try {
+      await axios.delete(`${url}/lists/delete/${list_id}`, authHeader)
+      const lists = await axios.get(`${url}/lists`, authHeader)
+      this.setState({
+        lists: lists.data
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  onAddNote = async (note) => {
+    console.log(note)
+    try {
+      await axios.post(`${url}/notes`, { 
+        title: note.noteTitle,
+        body: note.noteBody
+      }, authHeader)
+      const notes = await axios.get(`${url}/notes`, authHeader)
+      console.log(notes)
+      this.setState({
+        notes: notes.data
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   render() {
     return (
@@ -235,6 +245,7 @@ class App extends Component {
               email={this.state.email}
               isLoggedIn={this.state.isLoggedIn}
               onLogout={this.onLogout}
+              onAddNote={this.onAddNote}
             />
           </div>
             <div id="main-col" className="col m12 l8 xl3">
@@ -248,22 +259,28 @@ class App extends Component {
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
                       email={this.state.email}
+                      caseDetail={this.state.caseDetail}
+                      lists={this.state.lists}
+                      notes={this.state.notes}
                       isLoggedIn={this.state.isLoggedIn}
                       handleLogout={this.handleLogout}
+                      onAddList={this.onAddList}
+                      onAddNote={this.onAddNote}
                     />
                   ) : (
                     <Redirect to="/login" />
                   )
                   }
                 />
-                <Route path="/admin" 
+                <Route exact path="/admin" 
                   render={(props) => (
                     <Admin
                       {...props}
+                      {...this.state}
                     />
                   )}
                 />
-                <Route path="/signup"
+                <Route exact path="/signup"
                   render={(props) => (
                     <Signup 
                       {...props} 
@@ -271,7 +288,7 @@ class App extends Component {
                     />
                   )}
                 />
-                <Route path="/login"
+                <Route exact path="/login"
                   render={(props) => this.state.isLoggedIn ? (
                     <Redirect to="/" />
                   ) : (
@@ -282,7 +299,7 @@ class App extends Component {
                   )
                   }
                 />
-                <Route path="/legal-index"
+                <Route exact path="/legal-index"
                   render={(props) => (
                     <LegalIndex
                       {...props}
@@ -291,23 +308,41 @@ class App extends Component {
                       onSubmit={this.onSearchSubmit}
                       loadMoreResults={this.loadMoreResults}
                       searchAttempted={this.state.searchAttempted}
+                      onFetchCase={this.onFetchCase}
+                      onAddNote={this.onAddNote}
                     />
                   )}
                 />
-                <Route path="/:mongo_id"
+                <Route path="/list/:list_id"
+                  render={(props) => (
+                    <List
+                      {...props}
+                      onAddNote={this.onAddNote}
+                      onFetchCase={this.onFetchCase}
+                      deleteList={this.deleteList}
+                    />
+                  )}
+                />
+                <Route path="/case/:mongo_id"
                   render={(props) => (
                     <CaseDetail
                       {...props}
-                      favorites={this.state.favorites}
-                      onToggleFavorite={this.onToggleFavorite}
+                      lists={this.state.lists}
+                      onAddNote={this.onAddNote}
                     />
                   )} />
+                  <Route path="/notes/:_id"
+                    render={(props) => (
+                      <Note
+                        {...props}
+                        
+                      />
+                    )}
+                  />
               </Switch>
             </main>
             </div>
-            
         </div>
-        
       </div>
     )
   }

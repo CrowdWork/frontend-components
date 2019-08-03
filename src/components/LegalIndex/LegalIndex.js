@@ -1,7 +1,7 @@
 import './LegalIndex.css'
 import React from 'react'
 import Search from '../Search/Search'
-import CaseList from '../CaseList/CaseList'
+import EsCaseList from '../EsCaseList/EsCaseList'
 
 const LegalIndex = (props) => {
   
@@ -12,12 +12,14 @@ const LegalIndex = (props) => {
         (<div className="center">Try searching!</div>)
     }
     if (props.searchAttempted && !props.errorMessage) {
+      console.log(props.batchedSearchResults)
       return props.esSearchResults.length === 0 ?
         (<div>Search did not return a match. Please try again.</div>) :
-        (<CaseList
+        (<EsCaseList
           esSearchResults={props.esSearchResults}
           batchedSearchResults={props.batchedSearchResults}
           loadMoreResults={props.loadMoreResults}
+          onFetchCase={props.onFetchCase}
         />)
     }
     if (props.errorMessage) {
@@ -30,7 +32,7 @@ const LegalIndex = (props) => {
     return (
       <div className="legal-index-wrapper container">
      
-        <h3>Legal Index</h3>
+        <h3 className="center">Legal Index</h3>
         <div className="row">
           <div className="col s12">
             <Search onSubmit={props.onSubmit} />

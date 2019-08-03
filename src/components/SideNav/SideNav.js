@@ -33,7 +33,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
           </li>
           <li><div className="subheader">Account</div></li>
           {isLoggedIn ? (
-            <li><Link to="/">My Profile <i className="material-icons">account_circle</i></Link></li>
+            <li><Link to="/">Dashboard <i className="material-icons">dashboard</i></Link></li>
           ) : (
             <Fragment>
               <li><Link to="/signup">Guest <i className="material-icons">account_circle</i></Link></li>
@@ -75,7 +75,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
           </li>
           <li><div className="subheader">Account</div></li>
           {isLoggedIn ? (
-            <li><Link to="/">My Profile <i className="material-icons">account_circle</i></Link></li>
+            <li><Link to="/">Dashboard <i className="material-icons">dashboard</i></Link></li>
           ) : (
             <Fragment>
               <li><Link to="/signup">Guest <i className="material-icons">account_circle</i></Link></li>

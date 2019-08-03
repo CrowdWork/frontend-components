@@ -31,7 +31,7 @@ class Search extends Component {
   render() {
     return (
       
-        <div className="row search-wrapper">
+        <div className="row search-wrapper card">
         <form id="searchForm" className="col s12 border" onSubmit={this.onFormSubmit}>
             <div className="row">
               <div className="input-field col s6">
