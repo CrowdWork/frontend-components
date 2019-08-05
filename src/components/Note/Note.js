@@ -2,8 +2,8 @@ import './Note.css'
 import React, { Component } from 'react'
 import axios from 'axios'
 
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
+const url = "http://localhost:4000"
+// const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
