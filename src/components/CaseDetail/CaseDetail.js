@@ -90,7 +90,7 @@ class CaseDetail extends Component {
   render() {
     console.log('RENDER CASE DETAIL')
     return (
-      <div id="CaseDetail-container" className="row">
+      <div id="CaseDetail-container" className="container">
 
       {/*MODAL STRUCTURE */}
   <div id="modal1" className="modal">
@@ -112,11 +112,10 @@ class CaseDetail extends Component {
 
         <div id="card-panel-wrapper" className="col s12 m5">
           <Link to="javascript:void(0)" className="go-back" onClick={this.props.history.goBack}>Back to results</Link>
-          
           <div className="flex-space-btw">
             <h5>{this.state.caseDetail.caseName}</h5>
             <div>
-              <a href="javascript:void(0)" data-target="modal1" className="btn btn-large modal-trigger"><i className="large material-icons">playlist_add</i></a>
+              <button data-target="modal1" className="btn btn-large modal-trigger"><i className="large material-icons">playlist_add</i></button>
             </div>
           </div>
 

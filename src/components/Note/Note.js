@@ -56,23 +56,32 @@ class Note extends Component {
     }
   }
 
-  onFormSubmit = e => {
-    e.preventDefault()
-    this.props.onSubmit(this.state)
+  onDeleteNote = () => {
+    const confirmDelete = prompt(
+      `Note: this action cannot be undone. \nPlease type "DELETE" below to proceed.`)
+    if (confirmDelete === 'DELETE') {
+      try {
+        this.props.deleteNote(this.state._id)
+        this.props.history.push('/')
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
 
   render() {
     return (
-      <div id="note-form row">
-        <form onSubmit={this.onUpdateNote} className="col s12">
-          <div className="row">
-            <div className="input-field col s12">
-              <input id="title" placeholder="Title..." value={this.state.title || ''} type="text" onChange={(e) => this.setState({ title: e.target.value })}/>
-            </div>
-            <div className="input-field col s12">
-              <textarea id="body" className="materialize-textarea" value={this.state.body} onChange={(e) => this.setState({ body: e.target.value })}></textarea>
-            </div>
-            <button type="submit" href="javascript:void(0)" className="btn right" name="action">Save Changes</button>
+      <div className="container">
+        <form onSubmit={this.onUpdateNote}>
+          <div className="input-field container">
+            <input className="container" id="title" placeholder="Title..." value={this.state.title || ''} type="text" onChange={(e) => this.setState({ title: e.target.value })}/>
+          </div>
+          <div className="input-field container">
+            <textarea id="body" className="materialize-textarea body" value={this.state.body} onChange={(e) => this.setState({ body: e.target.value })}></textarea>
+          </div>
+          <div className="container">
+          <a href="javascript:void(0)" className="btn red right" onClick={() => this.onDeleteNote(this.state._id)}>Delete Note</a>
+          <button type="submit" href="javascript:void(0)" className="btn right" name="action">Save Changes</button>
           </div>
         </form>
       </div>

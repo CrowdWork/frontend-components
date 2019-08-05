@@ -1,7 +1,7 @@
-.caselist-wrapper {
+/* .caselist-wrapper {
   width: 100%;
   min-width: 400px;
-}
+} */
 .card-wrapper {
   padding: 0;
 }
@@ -28,6 +28,6 @@ h6.header {
 li.card-wrapper {
   padding: 0;
 }
-#List-title {
+/* #List-title {
   padding-left: calc(10.5px * 2);
-}
+} */

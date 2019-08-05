@@ -59,7 +59,7 @@ class List extends Component {
       return cases.map(thisCase => {
         console.log(thisCase)
         return (
-          <li className="col s12 card-wrapper" key={thisCase._id}>
+          <li className="card-wrapper" key={thisCase._id}>
             <div className="card horizontal">
               <div className="card-stacked">
                 <div className="card-content">
@@ -88,19 +88,19 @@ class List extends Component {
   render() {
     console.log("RENDER LIST")
     return (
-      <div className="caselist-wrapper">
-        <a href="javascript:void(0)" className="go-back" onClick={this.props.history.goBack}>Back to Dashboard</a>
+      <div className="container">
         <div className="row">
-          <h4 id="List-title">{this.state.list.title}</h4>
+          <div className="col s12">
+            <a href="javascript:void(0)" className="go-back" onClick={this.props.history.goBack}>Back to Dashboard</a>
+            <h4 id="List-title">{this.state.list.title}</h4>
+            <ul>
+              {this.renderList(this.state.list.cases)}
+            </ul>
+            {this.state.list.title === 'Favorites' ? (null):
+              (<a href="javascript:void(0)" className="btn red right" onClick={() => this.onListDelete(this.state.list._id)}>Delete List</a>
+            )}
+          </div>
         </div>
-        <div className="row">
-          <ul>
-            {this.renderList(this.state.list.cases)}
-          </ul>
-        </div>
-        {this.state.list.title === 'Favorites' ? (null):
-        (<a href="javascript:void(0)" className="btn red right" onClick={() => this.onListDelete(this.state.list._id)}>Delete List</a>
-        )}
       </div>
     )
   }

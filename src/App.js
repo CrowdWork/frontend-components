@@ -13,10 +13,11 @@ import Admin from './components/Admin/Admin'
 import List from './components/List/List'
 import CaseDetail from './components/CaseDetail/CaseDetail'
 import Note from './components/Note/Note'
+import Order from './components/Order/Order'
 
 
-const url = "http://localhost:4000"
-// const url = "https://ble-backend.herokuapp.com"
+// const url = "http://localhost:4000"
+const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
@@ -36,11 +37,14 @@ class App extends Component {
     lists: [],
     loginError: null,
     notes: [],
+    orderToken: '',
     password: '',
+    phoneNumber: '',
     searchBody: null,
     searchAttempted: false,
     signupError: null,
     start: 0,
+    subscribed: true,
     userID: null
   }
 
@@ -60,6 +64,7 @@ class App extends Component {
           firstName: user.data.firstName,
           lastName: user.data.lastName,
           email: user.data.email,
+          phoneNumber: user.data.phoneNumber,
           lists: lists.data,
           notes: notes.data
         })
@@ -80,6 +85,7 @@ class App extends Component {
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         email: userInfo.email,
+        phoneNumber: userInfo.phoneNumber,
         password: userInfo.password
       })
       localStorage.token = newUser.data.token
@@ -94,10 +100,10 @@ class App extends Component {
 
       this.props.history.push('/')
     } catch (err) {
-        console.log(err)
-        this.setState({
-          signupError: err
-        })
+      console.log(err)
+      this.setState({
+        signupError: err
+      })
     } 
   }
 
@@ -113,6 +119,7 @@ class App extends Component {
         firstName: loginUser.data.user.firstName,
         lastName: loginUser.data.user.lastName,
         email: loginUser.data.user.email,
+        phoneNumber: loginUser.data.user.phoneNumber,
         isLoggedIn: true
       })
       
@@ -128,6 +135,7 @@ class App extends Component {
     this.setState({
       email: '',
       password: '',
+      phoneNumber: '',
       isLoggedIn: false,
       userID: null
     })
@@ -224,6 +232,32 @@ class App extends Component {
     }
   }
 
+  deleteNote = async (note_id) => {
+    console.log('FIRE DELETE LIST')
+    try {
+      await axios.delete(`${url}/notes/delete/${note_id}`, authHeader)
+      const notes = await axios.get(`${url}/notes`, authHeader)
+      this.setState({
+        notes: notes.data
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  onSubscribe = async () => {
+    try {
+      const orderSubmit = await axios.get(`${url}/orders`, authHeader)
+      console.log(orderSubmit.data)
+      this.setState({
+        orderToken: orderSubmit.data.token
+      })
+      this.props.history.push("/checkout")
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   render() {
     return (
       <div className="App-container">
@@ -259,6 +293,7 @@ class App extends Component {
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
                       email={this.state.email}
+                      phoneNumber={this.state.phoneNumber}
                       caseDetail={this.state.caseDetail}
                       lists={this.state.lists}
                       notes={this.state.notes}
@@ -335,9 +370,24 @@ class App extends Component {
                     render={(props) => (
                       <Note
                         {...props}
-                        
+                        deleteNote={this.deleteNote}
                       />
                     )}
+                  />
+                  <Route path="/subscribe"
+                    render={(props) => this.state.isLoggedIn ? (
+                      <Order
+                        {...props}
+                        onSubmit={this.onSubscribe}
+                      />
+                    ) : (
+                      <Redirect to="/" />
+                    )}
+                  />
+                  <Route path="/checkout"
+                    component={() => {
+                      window.location.href = `https://sandbox.expresspaygh.com/api/checkout.php?token=${this.state.orderToken}`
+                    }}
                   />
               </Switch>
             </main>

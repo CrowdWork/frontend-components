@@ -1,6 +1,7 @@
 import './Home.css'
 import M from 'materialize-css'
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import ListCard from '../ListCard/ListCard'
 
 class Home extends Component {
@@ -52,6 +53,7 @@ class Home extends Component {
             <ListCard
               listRoute={`/notes/${note._id}`}
               title={note.title}
+              body={note.body}
             />
           </div>
         )
@@ -62,50 +64,80 @@ class Home extends Component {
   onListFormSubmit = (e) => {
     e.preventDefault()
     this.props.onAddList(this.state)
+    this.setState({
+      listTitle: '',
+      listPublic: false,
+      noteTitle: '',
+      noteBody: ''
+    })
   }
   onNoteFormSubmit = (e) => {
     e.preventDefault()
     this.props.onAddNote(this.state)
+    this.setState({
+      listTitle: '',
+      listPublic: false,
+      noteTitle: '',
+      noteBody: ''
+    })
   }
 
   render() {
     console.log(this.props.lists)
     return (
-      <div className="account-overview-wrapper">
-        <h3>Dashboard</h3>
-          <ul id="tabs-swipe-demo" className="tabs tabs-fixed-width">
-            <li className="tab col s4"><a href="#tab-lists">Lists</a></li>
-            <li className="tab col s4"><a href="#tab-notes">Notes</a></li>
-            <li className="tab col s4"><a href="#tab-account">Account</a></li>
-          </ul>
+      <div className="account-overview-wrapper col s12">
+        <div className="container">
+          <h3>Dashboard</h3>
+        </div>
+        <ul id="tabs-swipe-demo" className="tabs tabs-fixed-width">
+          <li className="tab col s4"><a href="#tab-lists">Lists</a></li>
+          <li className="tab col s4"><a href="#tab-notes">Notes</a></li>
+          <li className="tab col s4"><a href="#tab-account" className="active">Account</a></li>
+        </ul>
+          
           <div id="tab-account" className="col s12">
             <div className="row">
-              <div className="col s12">
+              <div className="col s12 offset-l2">
                 <h5>Account</h5>
                 <p>Manage your account settings.</p>
               </div>
-              <ul className="no-padding collapsible col s12 m8 l6">
+              <div className="col s12 offset-l2">
+              <ul className="no-padding collapsible col s12 l8">
                 <li>
                   <div className="collapsible-header"><i className="material-icons">perm_identity</i>Personal Details</div>
                   <div className="collapsible-body">
-                    <h6>NAME</h6>
-                    <p><b>{this.props.firstName} {this.props.lastName}</b></p>
-                    <h6>EMAIL</h6>
-                    <p><b>{this.props.email}</b></p>
-                    {/* <h6>PHONE</h6>
-                    <p><b></b></p>
-                    <h6>PROFESSION</h6> */}
+                    <div className="row">
+                      <div className="col s12 m4 offset-m2">
+                        <h6>NAME</h6>
+                        <p><b>{this.props.firstName} {this.props.lastName}</b></p>
+                      </div>
+                      <div className="col s12 m4">
+                        <h6>EMAIL</h6>
+                        <p><b>{this.props.email}</b></p>
+                      </div>
+                      <div className="col s12 m4 offset-m2">
+                        <h6>PHONE</h6>
+                        <p><b>{this.props.phoneNumber}</b></p>
+                      </div>
+                      <div className="col s12 m4">
+                        <h6>PROFESSION</h6>
+                        <p><b></b></p>
+                      </div>
+                    </div>
+                    
                   </div>
                 </li>
                 <li>
                   <div className="collapsible-header"><i className="material-icons">payment</i>Billing & Subscriptions</div>
-                  <div className="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                  <div className="collapsible-body"><Link to='/subscribe' className="btn-flat indigo-text">Test Subscription</Link></div>
                 </li>
                 <li>
                   <div className="collapsible-header"><i className="material-icons">security</i>Password & Security</div>
                   <div className="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                 </li>
               </ul>
+              </div>
+              
             </div>
           </div>
           <div id="tab-lists" className="col s12">
