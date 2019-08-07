@@ -1,6 +1,4 @@
-.Header-container {
-  grid-area: h;
-}
+
 .sidenav .user-view {
   display: flex;
   flex-direction: column;
@@ -8,7 +6,9 @@
   align-items: center;
   padding: 16px 16px 8px;
 }
-
+a.brand-logo {
+  height: 100%;
+}
 .subheader {
   padding: 0 32px;
 }
@@ -23,4 +23,7 @@ a.dropdown-trigger:focus {
 .dropdown-content li>span {
   white-space: nowrap;
 }
-
+#brand-logo {
+  font-size: 19px;
+  padding: 0 15px;
+}

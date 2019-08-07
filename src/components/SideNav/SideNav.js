@@ -9,9 +9,8 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
   M.Sidenav.init(sidenav, {
     draggable: true,
     preventScrolling: true
-  });
+  })
   
-
   return (
     <Fragment>
     

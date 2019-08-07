@@ -22,7 +22,7 @@ const EsCaseList = ({ batchedSearchResults, esSearchResults, onFetchCase, loadMo
                 </div>
               </div>
               <div className="card-action">
-                <Link to={`case/${thisCase._source.mongo_id}`} className="left">Detail</Link>
+                <Link to={`/case/${thisCase._source.mongo_id}`} className="left">Detail</Link>
               </div>
             </div>
           </div>
@@ -33,28 +33,26 @@ const EsCaseList = ({ batchedSearchResults, esSearchResults, onFetchCase, loadMo
     console.log('Case List: ' + caseList.length)
   return (
     <div className="caselist-wrapper">
-      <div className="list-utils">
-        <h6 className="result-header header">Showing 1 - {caseList.length} of {esSearchResults.length} {caseList.length > 1 ? ('Results') : ('Result')}</h6>
-        
+      
+      <InfiniteScroll
+        dataLength={batchedSearchResults.length}
+        next={loadMoreResults}
+        hasMore={caseList.length < esSearchResults.length}
+        scrollThreshold={1}
+        loader={<Preloader />}
+        endMessage={
+          <p style={{textAlign: 'center'}}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+      <div className="list-utils center-align">
+        <h6 className="result-header header center">Showing 1 - {caseList.length} of {esSearchResults.length} {caseList.length > 1 ? ('Results') : ('Result')}</h6>
       </div>
-      <div>
-        <InfiniteScroll
-          dataLength={batchedSearchResults.length}
-          next={loadMoreResults}
-          hasMore={caseList.length < esSearchResults.length}
-          scrollThreshold={1}
-          loader={<Preloader />}
-          endMessage={
-            <p style={{textAlign: 'center'}}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
-        >
-          <ul>
-            {caseList}
-          </ul>
-        </InfiniteScroll>
-      </div>
+      <ul>
+        {caseList}
+      </ul>
+      </InfiniteScroll>
     </div>
   )
 }

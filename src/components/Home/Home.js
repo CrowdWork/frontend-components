@@ -40,7 +40,6 @@ class Home extends Component {
         </div>
       )
     })
-    
   }
 
   renderNotes() {
@@ -90,9 +89,9 @@ class Home extends Component {
           <h3>Dashboard</h3>
         </div>
         <ul id="tabs-swipe-demo" className="tabs tabs-fixed-width">
+        <li className="tab col s4"><a href="#tab-account" className="active">Account</a></li>
           <li className="tab col s4"><a href="#tab-lists">Lists</a></li>
           <li className="tab col s4"><a href="#tab-notes">Notes</a></li>
-          <li className="tab col s4"><a href="#tab-account" className="active">Account</a></li>
         </ul>
           
           <div id="tab-account" className="col s12">

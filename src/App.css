@@ -13,6 +13,7 @@ html, body {
 }
 #header-row {
   margin: 0;
+  height: 70px;
 }
 #content-row {
   margin: 0;

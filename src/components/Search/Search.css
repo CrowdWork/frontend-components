@@ -1,31 +1,4 @@
-.search-wrapper {
-  width: 100%;
-  min-width: 400px;
-  max-width: 900px;
-}
-.row {
-  padding: 0;
-}
-.search-by-subheader {
-  padding: 0;
-}
-#dropdown1 {
-  padding: 20px;
-}
-#dropdown1 span {
-  padding: 0 35px;
-}
-#dropdown1 .divider {
-  margin: 5.5px 0 20px 0;
-}
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
 #searchForm {
   padding: 30px;
+  outline: 1px solid grey;
 }

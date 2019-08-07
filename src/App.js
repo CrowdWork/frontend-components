@@ -16,8 +16,8 @@ import Note from './components/Note/Note'
 import Order from './components/Order/Order'
 
 
-const url = "http://localhost:4000"
-// const url = "https://ble-backend.herokuapp.com"
+// const url = "http://localhost:4000"
+const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
@@ -263,7 +263,6 @@ class App extends Component {
       <div className="App-container">
         <div id="header-row" className="row">
           <Header
-            className="Header-container"
             firstName={this.state.firstName}
             lastName={this.state.lastName}
             email={this.state.email}

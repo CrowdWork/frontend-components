@@ -3,8 +3,7 @@ import M from 'materialize-css'
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
-
-const Header = ({ firstName, isLoggedIn, onLogout }) => {
+const Header = ({ firstName, lastName, isLoggedIn, onLogout }) => {
   
   const dropdowns = document.querySelectorAll('.dropdown-trigger')
   for (let i = 0; i < dropdowns.length; i++){
@@ -18,39 +17,28 @@ const Header = ({ firstName, isLoggedIn, onLogout }) => {
   }
   
     return (
-      <div className="Header-container">
-        <div>
         <nav>
           <div className="nav-wrapper black">
-            <div id="upper-top-nav" className="row">
-              <div className="col s12">
-                <a href="#!" data-target="mobile" className="sidenav-trigger hide-on-large"><i className="material-icons">menu</i></a>
-                <Link to="/" className="brand-logo">Barnor Law Engine</Link>
-                {isLoggedIn ? (
-                  <Fragment>
-                  <ul className="right hide-on-med-and-down">
-                    <li><a href="#!" className="dropdown-trigger btn black" data-target="user-dropdown">{firstName}<i className="material-icons">arrow_drop_down</i></a></li>
-                  </ul>
-                  <ul id='user-dropdown' className='dropdown-content'>
-                  <li><Link to="/">My Profile <i className="material-icons">account_circle</i></Link></li>
-                    <li className="divider" tabIndex="-1"></li>
-                    <li><Link to="/login" onClick={onLogout}>Logout<i className="material-icons">power_settings_new</i></Link></li>
-                  </ul>
-                  </Fragment>
-                  
-                  ) : (
-                  <ul className="right hide-on-med-and-down">
-                    <li><Link to="/signup">Signup</Link></li>
-                  </ul>)
-                  }
-                  
-              </div>			
-            </div>
+            <a href="#!" data-target="mobile" className="sidenav-trigger hide-on-large"><i className="material-icons">menu</i></a>
+            <Link to="/" id="brand-logo" className="brand-logo">BARNOR LAW ENGINE</Link>
+            {isLoggedIn ? (
+            <Fragment>
+              <ul className="hide-on-med-and-down right">
+                <li><a href="#!" className="dropdown-trigger btn black" data-target="user-dropdown">{`${firstName[0]}${lastName[0]}`}<i className="material-icons">arrow_drop_down</i></a></li>
+              </ul>
+              <ul id='user-dropdown' className='dropdown-content left'>
+                <li><Link to="/">My Profile <i className="material-icons">account_circle</i></Link></li>
+                <li className="divider" tabIndex="-1"></li>
+                <li><Link to="/login" onClick={onLogout}>Logout<i className="material-icons">power_settings_new</i></Link></li>
+              </ul>
+            </Fragment>
+              ) : (
+            <ul className="hide-on-med-and-down right">
+              <li><Link to="/signup">Signup</Link></li>
+            </ul>)
+            }
           </div>
         </nav>
-        </div>
-        
-      </div>
     )
 }
 
