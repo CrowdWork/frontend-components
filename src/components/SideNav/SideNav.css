@@ -22,3 +22,6 @@
 .background > img {
   width: 100%;
 }
+.selectedLink {
+  background: fuchsia;
+}

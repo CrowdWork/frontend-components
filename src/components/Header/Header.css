@@ -24,6 +24,8 @@ a.dropdown-trigger:focus {
   white-space: nowrap;
 }
 #brand-logo {
-  font-size: 19px;
+  text-align: center;
+  width: 100%;
+  font-size: 15px;
   padding: 0 15px;
 }

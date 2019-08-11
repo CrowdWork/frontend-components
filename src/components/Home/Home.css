@@ -1,6 +1,5 @@
 .account-overview-wrapper {
   align-self: stretch;
-  min-height: 100vh;
 }
 .no-padding {
   padding: 0;
@@ -18,4 +17,29 @@
 }
 #modalNote {
   height: 50%;
+}
+#button-addnote {
+  padding: 0;
+}
+.h1-style {
+  padding: 0 16px;
+}
+.Lists--buttons {
+  background: #FFF;
+  cursor: pointer;
+  color: #000;
+  border-radius: 2px;
+  width: 100px;
+}
+.buttons-flex {
+  display: flex;
+}
+.margin-left-10875 {
+  margin-left: 10.875px;
+}
+.margin-right-8 {
+  margin-right: 8px;
+}
+.margin-right-16 {
+  margin-right: 16px;
 }

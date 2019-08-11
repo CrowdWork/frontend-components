@@ -11,6 +11,7 @@ import Home from './components/Home/Home'
 import LegalIndex from './components/LegalIndex/LegalIndex'
 import Admin from './components/Admin/Admin'
 import List from './components/List/List'
+import ListCard from './components/ListCard/ListCard'
 import CaseDetail from './components/CaseDetail/CaseDetail'
 import Note from './components/Note/Note'
 import Order from './components/Order/Order'
@@ -215,6 +216,12 @@ class App extends Component {
     }
   }
 
+  fetchPubLists = async () => {
+    console.log('Render public lists')
+    const pubLists = await axios.get(`${url}/lists/pub`)
+    this.setState({ lists: pubLists })
+  }
+
   onAddNote = async (note) => {
     console.log(note)
     try {
@@ -298,6 +305,7 @@ class App extends Component {
                       notes={this.state.notes}
                       isLoggedIn={this.state.isLoggedIn}
                       handleLogout={this.handleLogout}
+                      fetchPubLists={this.fetchPubLists}
                       onAddList={this.onAddList}
                       onAddNote={this.onAddNote}
                     />

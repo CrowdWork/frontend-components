@@ -1,6 +1,6 @@
 import './SideNav.css'
 import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import M from 'materialize-css'
 
 
@@ -74,7 +74,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
           </li>
           <li><div className="subheader">Account</div></li>
           {isLoggedIn ? (
-            <li><Link to="/">Dashboard <i className="material-icons">dashboard</i></Link></li>
+            <li><NavLink to="/">Dashboard <i className="material-icons" activeClassName="selectedLink">dashboard</i></NavLink></li>
           ) : (
             <Fragment>
               <li><Link to="/signup">Guest <i className="material-icons">account_circle</i></Link></li>

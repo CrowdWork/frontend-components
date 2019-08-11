@@ -31,6 +31,7 @@ class List extends Component {
       console.log(err)
     }
   }
+
   async removeFromList(mongo_id) {
     console.log('REMOVE CASE FROM LIST')
     const { list } = this.state

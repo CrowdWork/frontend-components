@@ -3,13 +3,18 @@ import M from 'materialize-css'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import ListCard from '../ListCard/ListCard'
+import Axios from 'axios'
+
+const url = "http://localhost:4000"
+// const url = "https://ble-backend.herokuapp.com"
 
 class Home extends Component {
   state = {
       listTitle: '',
       listPublic: false,
       noteTitle: '',
-      noteBody: ''
+      noteBody: '',
+      selectedOption: 'my-lists'
   }
 
   componentDidMount() {
@@ -24,6 +29,10 @@ class Home extends Component {
     }
   }
 
+  onHandleChange(e) {
+    this.setState({ selectedOption: e.target.value })
+    this.props.fetchPubLists()
+  }
   renderLists() {
     console.log('RENDER LISTS')
     const { lists } = this.props
@@ -84,10 +93,8 @@ class Home extends Component {
   render() {
     console.log(this.props.lists)
     return (
-      <div className="account-overview-wrapper col s12">
-        <div className="container">
-          <h3>Dashboard</h3>
-        </div>
+      <div className="account-overview-wrapper">
+        {/* <h1 className="h1-style">Dashboard</h1> */}
         <ul id="tabs-swipe-demo" className="tabs tabs-fixed-width">
         <li className="tab col s4"><a href="#tab-account" className="active">Account</a></li>
           <li className="tab col s4"><a href="#tab-lists">Lists</a></li>
@@ -165,14 +172,30 @@ class Home extends Component {
                 <h5>Lists</h5>
                 <p>View and manage your lists.</p>
               </div>
-              <div className="col s2">
-                <a href="javascript:void(0)" data-target="modal1" className="btn-flat btn-large modal-trigger"><i className="large material-icons">playlist_add</i></a>
+              <div className="col s2 buttons-flex">
+                <a href="javascript:void(0)" data-target="modal1" className="btn-flat modal-trigger Lists--buttons"><i className="large material-icons">playlist_add</i></a>
               </div>
             </div>
             <div className="row">
-              <div className="col s12">
-                {this.renderLists()}
+              <div className="buttons-flex margin-left-10875">
+                <form onSubmit={this.renderPubLists}>
+                  <p className="margin-right-16">
+                    <label>
+                      <input name="group1" value="my-lists" type="radio" checked={this.state.selectedOption === "my-lists"} onChange={(e) => this.setState({ selectedOption: e.target.value })} />
+                        <span>My Lists</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="group1" value='public-lists' checked={this.state.selectedOption === "public-lists"} onChange={(e) => this.setState({ selectedOption: e.target.value })} type="radio" />
+                      <span>Public</span>
+                    </label>
+                  </p>
+                </form>
+                
               </div>
+              
+              {this.renderLists()}
             </div>
           </div>
           <div id="tab-notes" className="col s12">
@@ -200,16 +223,13 @@ class Home extends Component {
                 <p>Manage your notes.</p>
               </div>
               <div className="col s2">
-                <a href="javascript:void(0)" data-target="modalNote" className="btn-flat btn-large modal-trigger"><i className="large material-icons">note_add</i></a>
+                <a href="javascript:void(0)" data-target="modalNote" className="btn-flat modal-trigger"><i id="button-addnote" className="large material-icons">note_add</i></a>
               </div>
             </div>
             <div className="row">
-              <div className="col s12">
-                {this.renderNotes()}
-              </div>
+              {this.renderNotes()}
             </div>
           </div>
-        <div className="divider"></div>
       </div>
     );
   }
