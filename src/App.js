@@ -58,7 +58,7 @@ class App extends Component {
       })
       try {
         const user = await axios.get(`${url}/users/me`, authHeader)
-        const lists = await axios.get(`${url}/lists`, authHeader)
+        this.returnMyLists()
         const notes = await axios.get(`${url}/notes`, authHeader)
         console.log(notes)
         this.setState({
@@ -66,7 +66,6 @@ class App extends Component {
           lastName: user.data.lastName,
           email: user.data.email,
           phoneNumber: user.data.phoneNumber,
-          lists: lists.data,
           notes: notes.data
         })
       } catch (err) {
@@ -78,6 +77,11 @@ class App extends Component {
         userID: null
       })
     }
+  }
+
+  returnMyLists = async () => {
+    const lists = await axios.get(`${url}/lists`, authHeader)
+    this.setState({ lists: lists.data })
   }
 
   onSignupSumbit = async (userInfo) => {
@@ -217,9 +221,9 @@ class App extends Component {
   }
 
   fetchPubLists = async () => {
-    console.log('Render public lists')
     const pubLists = await axios.get(`${url}/lists/pub`)
-    this.setState({ lists: pubLists })
+    console.log(pubLists.data)
+    this.setState({ lists: pubLists.data })
   }
 
   onAddNote = async (note) => {
@@ -296,6 +300,7 @@ class App extends Component {
                   render={(props) => this.state.isLoggedIn ? (
                     <Home 
                       {...props}
+                      userID={this.state.userID}
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
                       email={this.state.email}
@@ -305,6 +310,7 @@ class App extends Component {
                       notes={this.state.notes}
                       isLoggedIn={this.state.isLoggedIn}
                       handleLogout={this.handleLogout}
+                      returnMyLists={this.returnMyLists}
                       fetchPubLists={this.fetchPubLists}
                       onAddList={this.onAddList}
                       onAddNote={this.onAddNote}
@@ -359,6 +365,7 @@ class App extends Component {
                   render={(props) => (
                     <List
                       {...props}
+                      userID={this.state.userID}
                       onAddNote={this.onAddNote}
                       onFetchCase={this.onFetchCase}
                       deleteList={this.deleteList}
@@ -369,6 +376,7 @@ class App extends Component {
                   render={(props) => (
                     <CaseDetail
                       {...props}
+                      userID={this.state.userID}
                       lists={this.state.lists}
                       onAddNote={this.onAddNote}
                     />

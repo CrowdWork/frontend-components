@@ -75,7 +75,8 @@ class List extends Component {
                 </div>
                 <div className="card-action">
                   <Link to={`/case/${thisCase.mongo_id}`} className="left">Detail</Link>
-                  <a href='javascript:void(0)' onClick={() => this.removeFromList(thisCase.mongo_id)} className="right">Remove from list</a>
+                  {this.state.list.title === 'Favorites' || this.state.list.owner !== this.props.userID._id ? (null) :
+                  (<a href='javascript:void(0)' onClick={() => this.removeFromList(thisCase.mongo_id)} className="right">Remove from list</a>)}
                 </div>
               </div>
             </div>
@@ -88,6 +89,8 @@ class List extends Component {
   
   render() {
     console.log("RENDER LIST")
+    console.log(this.state.list.owner === this.props.userID._id)
+    console.log(this.props.userID._id)
     return (
       <div className="container">
         <div className="row">
@@ -97,7 +100,7 @@ class List extends Component {
             <ul>
               {this.renderList(this.state.list.cases)}
             </ul>
-            {this.state.list.title === 'Favorites' ? (null):
+            {this.state.list.title === 'Favorites' || this.state.list.owner !== this.props.userID._id ? (null) :
               (<a href="javascript:void(0)" className="btn red right" onClick={() => this.onListDelete(this.state.list._id)}>Delete List</a>
             )}
           </div>

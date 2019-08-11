@@ -3,7 +3,6 @@ import M from 'materialize-css'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import ListCard from '../ListCard/ListCard'
-import Axios from 'axios'
 
 const url = "http://localhost:4000"
 // const url = "https://ble-backend.herokuapp.com"
@@ -29,9 +28,16 @@ class Home extends Component {
     }
   }
 
-  onHandleChange(e) {
+  onPubListSelected = (e) => {
+    console.log('Public selected')
+    e.preventDefault()
     this.setState({ selectedOption: e.target.value })
     this.props.fetchPubLists()
+  }
+  onMyListSelected = (e) => {
+    console.log('Public selected')
+    this.setState({ selectedOption: e.target.value })
+    this.props.returnMyLists()
   }
   renderLists() {
     console.log('RENDER LISTS')
@@ -91,6 +97,7 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.props.userID)
     console.log(this.props.lists)
     return (
       <div className="account-overview-wrapper">
@@ -168,31 +175,31 @@ class Home extends Component {
             </div>
             {/*END LIST MODAL */}
             <div className="row valign-wrapper">
-              <div id="list-section-title" className="col s10">
+              <div className="col s12 margin-left-10875">
                 <h5>Lists</h5>
                 <p>View and manage your lists.</p>
               </div>
-              <div className="col s2 buttons-flex">
-                <a href="javascript:void(0)" data-target="modal1" className="btn-flat modal-trigger Lists--buttons"><i className="large material-icons">playlist_add</i></a>
-              </div>
+              
             </div>
             <div className="row">
               <div className="buttons-flex margin-left-10875">
-                <form onSubmit={this.renderPubLists}>
+                <form>
                   <p className="margin-right-16">
                     <label>
-                      <input name="group1" value="my-lists" type="radio" checked={this.state.selectedOption === "my-lists"} onChange={(e) => this.setState({ selectedOption: e.target.value })} />
+                      <input name="group1" value="my-lists" type="radio" checked={this.state.selectedOption === "my-lists"} onChange={this.onMyListSelected} />
                         <span>My Lists</span>
                     </label>
                   </p>
                   <p>
                     <label>
-                      <input name="group1" value='public-lists' checked={this.state.selectedOption === "public-lists"} onChange={(e) => this.setState({ selectedOption: e.target.value })} type="radio" />
+                      <input name="group1" value='public-lists' checked={this.state.selectedOption === "public-lists"} onChange={this.onPubListSelected} type="radio" />
                       <span>Public</span>
                     </label>
                   </p>
                 </form>
-                
+                <div className="buttons-flex">
+                  <a href="javascript:void(0)" data-target="modal1" className="btn-floating btn-large modal-trigger margin-right-10875 Lists--buttons"><i className="margin-0 large material-icons">playlist_add</i></a>
+                </div>
               </div>
               
               {this.renderLists()}

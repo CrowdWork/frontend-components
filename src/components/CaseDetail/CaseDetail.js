@@ -71,10 +71,11 @@ class CaseDetail extends Component {
     console.log('renderListOptions()')
     console.log(lists)
     if (lists) {
-      const myOptions = lists.map(list => <option value={list._id} key={Math.floor(Math.random() * 1000000)}>{list.title}</option>)
-      console.log(myOptions)
-      return myOptions
-    }
+      return lists.map(list => {
+        return list.owner === this.props.userID._id ? (<option value={list._id} key={Math.floor(Math.random() * 1000000)}>{list.title}</option>) : (null) 
+        })
+      }
+    
   }
 
   addToList = async (e) => {

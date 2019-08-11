@@ -25,20 +25,32 @@
   padding: 0 16px;
 }
 .Lists--buttons {
-  background: #FFF;
+  background: teal;
   cursor: pointer;
-  color: #000;
+  color: #FFF;
   border-radius: 2px;
-  width: 100px;
+  height: 100%;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .buttons-flex {
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.margin-0 {
+  margin: 0;
 }
 .margin-left-10875 {
   margin-left: 10.875px;
 }
 .margin-right-8 {
   margin-right: 8px;
+}
+.margin-right-10875 {
+  margin-right: 10.875px;
 }
 .margin-right-16 {
   margin-right: 16px;
