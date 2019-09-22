@@ -15,6 +15,7 @@ import ListCard from './components/ListCard/ListCard'
 import CaseDetail from './components/CaseDetail/CaseDetail'
 import Note from './components/Note/Note'
 import Order from './components/Order/Order'
+import Classroom from './components/Classroom/Classroom'
 
 
 // const url = "http://localhost:4000"
@@ -22,8 +23,9 @@ const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
-  'Authorization': localStorage.token
-}}
+    'Authorization': localStorage.token
+  }
+}
 
 class App extends Component {
   state = {
@@ -109,7 +111,7 @@ class App extends Component {
       this.setState({
         signupError: err
       })
-    } 
+    }
   }
 
   onLoginSubmit = async (credentials) => {
@@ -127,7 +129,7 @@ class App extends Component {
         phoneNumber: loginUser.data.user.phoneNumber,
         isLoggedIn: true
       })
-      
+
       this.props.history.push('/')
     } catch (err) {
       this.setState({
@@ -162,17 +164,17 @@ class App extends Component {
       }
     }
     this.setState({ searchBody })
-    
+
     try {
       const searchResult = await axios.get(`${url}/cases/search?count=${count}&start=${this.state.start}&query=${JSON.stringify(searchBody)}`, authHeader)
       console.log(searchResult.data)
-      this.setState({ 
+      this.setState({
         searchAttempted: true,
         esSearchResults: searchResult.data,
         batchedSearchResults: this.state.batchedSearchResults.concat(searchResult.data.slice(0, count))
       })
     } catch (err) {
-        this.setState( {errorMessage: err.message })
+      this.setState({ errorMessage: err.message })
     }
   }
 
@@ -187,8 +189,8 @@ class App extends Component {
       })
       console.log(this.state.start)
     } catch (err) {
-        console.log(`ERROR: ${err}`)
-        this.setState( {errorMessage: err.message })
+      console.log(`ERROR: ${err}`)
+      this.setState({ errorMessage: err.message })
     }
   }
 
@@ -229,7 +231,7 @@ class App extends Component {
   onAddNote = async (note) => {
     console.log(note)
     try {
-      await axios.post(`${url}/notes`, { 
+      await axios.post(`${url}/notes`, {
         title: note.noteTitle,
         body: note.noteBody
       }, authHeader)
@@ -282,7 +284,7 @@ class App extends Component {
           />
         </div>
         <div id="content-row" className="row">
-          <div id="sideNav-col"className="col m0 l4 xl9">
+          <div id="sideNav-col" className="col m0 l4 xl9">
             <SideNav
               firstName={this.state.firstName}
               lastName={this.state.lastName}
@@ -292,13 +294,13 @@ class App extends Component {
               onAddNote={this.onAddNote}
             />
           </div>
-            <div id="main-col" className="col m12 l8 xl3">
+          <div id="main-col" className="col m12 l8 xl3">
             <main>
               <Switch>
                 <Route
                   exact path="/"
                   render={(props) => this.state.isLoggedIn ? (
-                    <Home 
+                    <Home
                       {...props}
                       userID={this.state.userID}
                       firstName={this.state.firstName}
@@ -316,11 +318,11 @@ class App extends Component {
                       onAddNote={this.onAddNote}
                     />
                   ) : (
-                    <Redirect to="/login" />
-                  )
+                      <Redirect to="/login" />
+                    )
                   }
                 />
-                <Route exact path="/admin" 
+                <Route exact path="/admin"
                   render={(props) => (
                     <Admin
                       {...props}
@@ -330,8 +332,8 @@ class App extends Component {
                 />
                 <Route exact path="/signup"
                   render={(props) => (
-                    <Signup 
-                      {...props} 
+                    <Signup
+                      {...props}
                       onSubmit={this.onSignupSumbit}
                     />
                   )}
@@ -340,11 +342,11 @@ class App extends Component {
                   render={(props) => this.state.isLoggedIn ? (
                     <Redirect to="/" />
                   ) : (
-                    <Login 
-                      {...props}
-                      onSubmit={this.onLoginSubmit}
-                    />
-                  )
+                      <Login
+                        {...props}
+                        onSubmit={this.onLoginSubmit}
+                      />
+                    )
                   }
                 />
                 <Route exact path="/legal-index"
@@ -381,32 +383,34 @@ class App extends Component {
                       onAddNote={this.onAddNote}
                     />
                   )} />
-                  <Route path="/notes/:_id"
-                    render={(props) => (
-                      <Note
-                        {...props}
-                        deleteNote={this.deleteNote}
-                      />
-                    )}
-                  />
-                  <Route path="/subscribe"
-                    render={(props) => this.state.isLoggedIn ? (
-                      <Order
-                        {...props}
-                        onSubmit={this.onSubscribe}
-                      />
-                    ) : (
+                <Route path="/notes/:_id"
+                  render={(props) => (
+                    <Note
+                      {...props}
+                      deleteNote={this.deleteNote}
+                    />
+                  )}
+                />
+                <Route path="/subscribe"
+                  render={(props) => this.state.isLoggedIn ? (
+                    <Order
+                      {...props}
+                      onSubmit={this.onSubscribe}
+                    />
+                  ) : (
                       <Redirect to="/" />
                     )}
-                  />
-                  <Route path="/checkout"
-                    component={() => {
-                      window.location.href = `https://sandbox.expresspaygh.com/api/checkout.php?token=${this.state.orderToken}`
-                    }}
-                  />
+                />
+                <Route path="/checkout"
+                  component={() => {
+                    window.location.href = `https://sandbox.expresspaygh.com/api/checkout.php?token=${this.state.orderToken}`
+                  }}
+                />
+                <Route path="/frankinsense"
+                  render={(props) => <Classroom {...this.state} {...props} />} />
               </Switch>
             </main>
-            </div>
+          </div>
         </div>
       </div>
     )
