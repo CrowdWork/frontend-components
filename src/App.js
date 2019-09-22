@@ -459,7 +459,7 @@ class App extends Component {
           />
           <Route path="/admin"
             render={(props) => !this.state.isLoggedIn ? (
-              <Redirect to="/" />
+              <Redirect to="/admin" />
             ) : (
               <Fragment>
                 <div id="header-row" className="row">

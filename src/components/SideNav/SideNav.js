@@ -20,7 +20,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
             <div className="background">
               <img src="https://i.imgur.com/5ui8Nqnm.jpg" alt='abstract background img'/>
             </div>
-            {isLoggedIn && ( 
+            {isLoggedIn && (
               <Fragment>
                 <span className="white-text name">{firstName} {lastName}</span>
                 <span className="white-text email">{email}</span>
