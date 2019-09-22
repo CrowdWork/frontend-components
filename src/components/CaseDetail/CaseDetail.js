@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
+const url = "http://localhost:4000"
+// const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
@@ -38,7 +38,7 @@ class CaseDetail extends Component {
     try {
       const getCase = await axios.get(`${url}/cases/detail/${this.props.match.params.mongo_id}`)
       const fetchedCase = getCase.data
-      console.log(getCase)
+      console.log(fetchedCase)
       for (const prop in fetchedCase) {
         if (Array.isArray(fetchedCase[prop])) {
           fetchedCase[prop] = fetchedCase[prop].join().split(',')
@@ -75,7 +75,6 @@ class CaseDetail extends Component {
         return list.owner === this.props.userID._id ? (<option value={list._id} key={Math.floor(Math.random() * 1000000)}>{list.title}</option>) : (null) 
         })
       }
-    
   }
 
   addToList = async (e) => {

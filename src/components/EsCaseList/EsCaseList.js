@@ -47,7 +47,7 @@ const EsCaseList = ({ batchedSearchResults, esSearchResults, onFetchCase, loadMo
         }
       >
       <div className="list-utils center-align">
-        <h6 className="result-header header center">Showing 1 - {caseList.length} of {esSearchResults.length} {caseList.length > 1 ? ('Results') : ('Result')}</h6>
+        <h6 className="result-header header center">Showing 1 - {caseList.length} of {esSearchResults.length} {caseList.length > 1 ? ('Cases') : ('Case')}</h6>
       </div>
       <ul>
         {caseList}

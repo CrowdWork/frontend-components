@@ -9,9 +9,9 @@
   height: 100%;
   width: 100;
 }
-#list-section-title {
-  padding-left: calc(10.875px * 2);
-}
+/* #list-section-title {
+  margin-left: calc(10.875px * 2);
+} */
 #note-section-title {
   padding-left: calc(10.875px * 2);
 }

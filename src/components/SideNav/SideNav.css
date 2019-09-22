@@ -11,6 +11,7 @@
 #desktop {
   transform: translateX(0%);
   position: static;
+  
   margin-right: 0;
   min-height: 100;
   padding: 0;
