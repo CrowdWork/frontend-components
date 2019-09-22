@@ -25,7 +25,25 @@ a.dropdown-trigger:focus {
 }
 #brand-logo {
   text-align: center;
-  width: 100%;
   font-size: 15px;
-  padding: 0 15px;
+}
+.nav-wrapper {
+  padding-left: 15px;
+  height: 100%;
+  z-index: 100;
+}
+nav {
+  height: 100%;
+}
+.display-flex {
+  display: flex;
+}
+.height-full {
+  height: 100%;
+}
+.margin-0 {
+  margin: 0;
+}
+nav ul a.btn {
+  margin: 0;
 }

@@ -1,0 +1,56 @@
+.parallax-container .section {
+  width: 100%;
+}
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  background: url("/img/mike-castro-demaria-vEnB66L4cnQ-unsplash.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.parallax > img {
+  transform: translate3d(-50%, 244.317px, 0px);
+  opacity: 1;
+}
+#login-btn {
+  border: 1px solid black;
+  margin-right: 16px;
+}
+#login-btn:hover {
+  background: rgba(255,255,255,0)
+}
+.height-100vh {
+  height: 100vh;
+}
+.display-flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.just-spacebetween {
+  justify-content: space-between; 
+}
+.flex-just-start {
+  justify-content: flex-start;
+}
+.margin-top-16px {
+  margin-top: 16px;
+}
+.banner {
+  /* background-image: url('/img/ren-ran-bBiuSdck8tU-unsplash.jpg'); */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  padding-top: 0;
+}
+.overlay {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

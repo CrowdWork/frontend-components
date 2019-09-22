@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
+const url = "http://localhost:4000"
+// const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
@@ -75,7 +75,7 @@ class List extends Component {
                 </div>
                 <div className="card-action">
                   <Link to={`/case/${thisCase.mongo_id}`} className="left">Detail</Link>
-                  {this.state.list.title === 'Favorites' || this.state.list.owner !== this.props.userID._id ? (null) :
+                  {this.state.list.owner !== this.props.userID._id ? (null) :
                   (<a href='javascript:void(0)' onClick={() => this.removeFromList(thisCase.mongo_id)} className="right">Remove from list</a>)}
                 </div>
               </div>

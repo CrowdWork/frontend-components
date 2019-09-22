@@ -3,7 +3,7 @@ import M from 'materialize-css'
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
-const Header = ({ firstName, lastName, isLoggedIn, onLogout }) => {
+const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
   
   const dropdowns = document.querySelectorAll('.dropdown-trigger')
   for (let i = 0; i < dropdowns.length; i++){
@@ -18,13 +18,17 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout }) => {
   
     return (
         <nav>
-          <div className="nav-wrapper black">
-            <a href="#!" data-target="mobile" className="sidenav-trigger hide-on-large"><i className="material-icons">menu</i></a>
-            <Link to="/" id="brand-logo" className="brand-logo">BARNOR LAW ENGINE</Link>
+          <div className="nav-wrapper white z-depth-1">
+            <a href="#!" data-target="mobile" className="sidenav-trigger hide-on-large black-text"><i className="material-icons">menu</i></a>
+            <Link to="/" id="brand-logo" className="brand-logo black-text">{title}</Link>
             {isLoggedIn ? (
             <Fragment>
-              <ul className="hide-on-med-and-down right">
-                <li><a href="#!" className="dropdown-trigger btn black" data-target="user-dropdown">{`${firstName[0]}${lastName[0]}`}<i className="material-icons">arrow_drop_down</i></a></li>
+              <ul className="hide-on-med-and-down right height-full">
+                <li className="height-full">
+                  <a href="#!" className="dropdown-trigger btn black height-full display-flex z-depth-0 margin-0" data-target="user-dropdown">{`${firstName[0]}${lastName[0]}`}
+                    <i className="material-icons margin-0">arrow_drop_down</i>
+                  </a>
+                </li>
               </ul>
               <ul id='user-dropdown' className='dropdown-content left'>
                 <li><Link to="/">My Profile <i className="material-icons">account_circle</i></Link></li>
@@ -34,7 +38,7 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout }) => {
             </Fragment>
               ) : (
             <ul className="hide-on-med-and-down right">
-              <li><Link to="/signup">Signup</Link></li>
+              <li><Link to="/signup" className="black-text">Signup</Link></li>
             </ul>)
             }
           </div>
