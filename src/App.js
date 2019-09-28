@@ -16,8 +16,16 @@ import CaseDetail from './components/CaseDetail/CaseDetail'
 import Note from './components/Note/Note'
 import Order from './components/Order/Order'
 import Landing from './components/Landing/Landing'
+import Classroom from './components/Classroom/Classroom'
+import { async } from 'q'
+import Subject from './components/Subject/Subject'
+import TopicInfo from './components/TopicInfo/TopicInfo';
 
-
+const subjects = {
+  subs: {
+    subjects: ['Civil Procedure', 'Ghana Legal Systems', 'Law of Interpretation', 'Crimnial Law', "Family Law", 'Constitutional Law', 'Evidence']
+  }
+}
 const url = "http://localhost:4000"
 // const url = "https://ble-backend.herokuapp.com"
 
@@ -49,10 +57,14 @@ class App extends Component {
     signupError: null,
     start: 0,
     subscribed: true,
-    userID: null
+    userID: null,
+    subjectLoaded: '',
+    subjectSelected: '',
+    topic: '',
   }
 
   async componentDidMount() {
+    this.pickSubjectData()
     console.log('APP MOUNTED')
     console.log(`Logged in: ${this.state.isLoggedIn}`)
     if (localStorage.token) {
@@ -80,6 +92,32 @@ class App extends Component {
         isLoggedIn: false,
         userID: null
       })
+    }
+  }
+  // adding a function that loads all subjects for the Frankisense classroom
+
+  pickSubjectData = () => {
+    try {
+      this.setState({ subjectLoaded: subjects })
+    } catch (error) {
+      console.log('ERROR', error)
+    }
+  }
+  // adding a function that picks a specific subject
+  subjectSelection = (value) => {
+    try {
+      this.setState({ subjectSelected: value })
+
+    } catch (error) {
+      console.log('ERROR', error)
+    }
+  }
+
+  topicSelection = (value) => {
+    try {
+      this.setState({ topic: value })
+    } catch (error) {
+      console.log("error", error)
     }
   }
 
@@ -494,9 +532,122 @@ class App extends Component {
                     </div>
                   </div>
                 </Fragment>
+
               )}
           />
+          <Route path="/frankinsense"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+                <Fragment>
+                  <div id="header-row" className="row">
+                    <Header
+                      title="FRANKINSENSE CLASSROOM"
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                    />
+                  </div>
+                  <div id="content-row" className="row">
+                    <aside id="sideNav-col" className="col s0 l3 xl2">
+                      <SideNav
+                        firstName={this.state.firstName}
+                        lastName={this.state.lastName}
+                        email={this.state.email}
+                        isLoggedIn={this.state.isLoggedIn}
+                        onLogout={this.onLogout}
+                        onAddNote={this.onAddNote}
+                      />
+                    </aside>
+                    <div id="main-col" className="col s12 l9 xl10">
+                      <main>
+                        <Classroom
+                          subjectCache={this.state.subjectLoaded}
+                          subjectSelected={this.subjectSelection}
+                        />
+                      </main>
+                    </div>
+                  </div>
+                </Fragment>
+              )} />
+
+          <Route path="/classroom/:subject"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+                <Fragment>
+                  <div id="header-row" className="row">
+                    <Header
+                      title="TOPICS"
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                    />
+                  </div>
+                  <div id="content-row" className="row">
+                    <aside id="sideNav-col" className="col s0 l3 xl2">
+                      <SideNav
+                        subject={this.state.subjectSelected}
+                        firstName={this.state.firstName}
+                        lastName={this.state.lastName}
+                        email={this.state.email}
+                        isLoggedIn={this.state.isLoggedIn}
+                        onLogout={this.onLogout}
+                        onAddNote={this.onAddNote}
+                      />
+                    </aside>
+                    <div id="main-col" className="col s12 l9 xl10">
+                      <main>
+                        <Subject
+                          topicSelected={this.topicSelection}
+
+                        />
+                      </main>
+                    </div>
+                  </div>
+                </Fragment>
+              )} />
+
+          <Route path="/subject/:topic"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+                <Fragment>
+                  <div id="header-row" className="row">
+                    <Header
+                      title={this.state.topic.toUpperCase()}
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                    />
+                  </div>
+                  <div id="content-row" className="row">
+                    <aside id="sideNav-col" className="col s0 l3 xl2">
+                      <SideNav
+                        firstName={this.state.firstName}
+                        lastName={this.state.lastName}
+                        email={this.state.email}
+                        isLoggedIn={this.state.isLoggedIn}
+                        onLogout={this.onLogout}
+                        onAddNote={this.onAddNote}
+                      />
+                    </aside>
+                    <div id="main-col" className="col s12 l9 xl10">
+                      <main>
+                        <TopicInfo />
+                      </main>
+                    </div>
+                  </div>
+                </Fragment>
+              )} />
         </Switch>
+
         {/* <div id="content-row" className="row">
           
                 <Route exact path="/admin" 
