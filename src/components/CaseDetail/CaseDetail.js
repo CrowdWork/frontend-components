@@ -30,6 +30,10 @@ class CaseDetail extends Component {
     for (let i = 0; i < select.length; i++){
       M.FormSelect.init(select[i])
     }
+    const tooltips = document.querySelectorAll('.tooltipped')
+    for (let i = 0; i < tooltips.length; i++){
+      M.Tooltip.init(tooltips[i])
+    }
   }
 
   fetchCase = async () => {
@@ -38,7 +42,7 @@ class CaseDetail extends Component {
     try {
       const getCase = await axios.get(`${url}/cases/detail/${this.props.match.params.mongo_id}`)
       const fetchedCase = getCase.data
-      console.log(fetchedCase)
+      console.log(getCase)
       for (const prop in fetchedCase) {
         if (Array.isArray(fetchedCase[prop])) {
           fetchedCase[prop] = fetchedCase[prop].join().split(',')
@@ -97,15 +101,15 @@ class CaseDetail extends Component {
       {/*MODAL STRUCTURE */}
   <div id="modal1" className="modal">
     <div className="modal-content">
-      <h4>I want to...</h4>
+      <h4>Adding to...</h4>
       <form onSubmit={this.addToList}>
-        <label>Add this case to a list</label>
+        {/* <label>Select a list</label> */}
         <select className="browser-default" value={this.state.listId} onChange={(e) => this.setState({ listId: e.target.value })}>
           <option value="" disabled>Select a list...</option>
           {this.renderListOptions(this.props.lists)}
         </select>
         
-        <button type="submit" name="action" className="modal-close btn-flat right">Save</button>
+        <button type="submit" name="action" className="modal-close btn-flat bottom right">Save</button>
       </form>
     </div>
     
@@ -117,7 +121,7 @@ class CaseDetail extends Component {
           <div className="flex-space-btw">
             <h5>{this.state.caseDetail.caseName}</h5>
             <div>
-              <button data-target="modal1" className="btn btn-large modal-trigger"><i className="large material-icons">playlist_add</i></button>
+              <button data-target="modal1" className="btn tooltipped modal-trigger" data-position="left" data-tooltip="Add this case to a list"><i className="large material-icons">playlist_add</i></button>
             </div>
           </div>
 

@@ -34,7 +34,7 @@ class Account extends Component {
             <div className="row">
               <div className="col s12">
                 <h5>Account</h5>
-                <p>Manage your account settings.</p>
+                <p>Manage your account settings</p>
               </div>
               <div className="col s12">
               <ul className="no-padding collapsible col s12 l8">

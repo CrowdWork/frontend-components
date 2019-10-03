@@ -157,6 +157,7 @@ class App extends Component {
   }
 
   onSearchSubmit = async (searchBody) => {
+    console.log(searchBody)
     this.setState({
       batchedSearchResults: [],
       esSearchResults: [],
@@ -443,13 +444,132 @@ class App extends Component {
                         esSearchResults={this.state.esSearchResults}
                         batchedSearchResults={this.state.batchedSearchResults}
                         fetchPubLists={this.fetchPubLists}
-                        onSubmit={this.onSearchSubmit}
+                        onSearchSubmit={this.onSearchSubmit}
                         lists={this.state.lists}
                         loadMoreResults={this.loadMoreResults}
                         searchAttempted={this.state.searchAttempted}
                         onFetchCase={this.onFetchCase}
                         onAddNote={this.onAddNote}
                         returnMyLists={this.returnMyLists}
+                      />
+                    </main>
+                  </div>
+                </div>
+              </Fragment>
+            )}
+          />
+          <Route path="/case/:mongo_id"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+              <Fragment>
+                <div id="header-row" className="row">
+                  <Header
+                    title="CASE DETAIL"
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </div>
+                <div id="content-row" className="row">
+                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
+                    />
+                  </aside>
+                  <div id="main-col" className="col s12 l9 xl10">
+                    <main>
+                    <CaseDetail
+                      {...props}
+                      userID={this.state.userID}
+                      lists={this.state.lists}
+                      onAddNote={this.onAddNote}
+                    />
+                    </main>
+                  </div>
+                </div>
+              </Fragment>
+            )}
+          />
+          <Route path="/list/:list_id"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+              <Fragment>
+                <div id="header-row" className="row">
+                  <Header
+                    title="LIST DETAIL"
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </div>
+                <div id="content-row" className="row">
+                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
+                    />
+                  </aside>
+                  <div id="main-col" className="col s12 l9 xl10">
+                    <main>
+                    <List
+                      {...props}
+                      userID={this.state.userID}
+                      onAddNote={this.onAddNote}
+                      onFetchCase={this.onFetchCase}
+                      deleteList={this.deleteList}
+                    />
+                    </main>
+                  </div>
+                </div>
+              </Fragment>
+            )}
+          />
+          <Route path="/notes/:_id"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+              <Fragment>
+                <div id="header-row" className="row">
+                  <Header
+                    title="NOTE DETAIL"
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </div>
+                <div id="content-row" className="row">
+                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
+                    />
+                  </aside>
+                  <div id="main-col" className="col s12 l9 xl10">
+                    <main>
+                      <Note
+                        {...props}
+                        deleteNote={this.deleteNote}
                       />
                     </main>
                   </div>
@@ -497,70 +617,6 @@ class App extends Component {
           />
         </Switch>
         {/* <div id="content-row" className="row">
-          
-                <Route exact path="/admin" 
-                  render={(props) => this.state.isLoggedIn ? (
-                    <Admin
-                      {...props}
-                      {...this.state}
-                    />
-                  ) : (
-                    <Redirect to="/login" />
-                  )}
-                />
-                <Route exact path="/signup"
-                  render={(props) => (
-                    <Signup 
-                      {...props} 
-                      onSubmit={this.onSignupSumbit}
-                    />
-                  )}
-                />
-              
-                <Route exact path="/legal-index"
-                  render={(props) => this.state.isLoggedIn ? (
-                    <LegalIndex
-                      {...props}
-                      esSearchResults={this.state.esSearchResults}
-                      batchedSearchResults={this.state.batchedSearchResults}
-                      onSubmit={this.onSearchSubmit}
-                      loadMoreResults={this.loadMoreResults}
-                      searchAttempted={this.state.searchAttempted}
-                      onFetchCase={this.onFetchCase}
-                      onAddNote={this.onAddNote}
-                    />
-                  ) : (
-                    <Redirect to="/login" />
-                  )}
-                />
-                <Route path="/list/:list_id"
-                  render={(props) => (
-                    <List
-                      {...props}
-                      userID={this.state.userID}
-                      onAddNote={this.onAddNote}
-                      onFetchCase={this.onFetchCase}
-                      deleteList={this.deleteList}
-                    />
-                  )}
-                />
-                <Route path="/case/:mongo_id"
-                  render={(props) => (
-                    <CaseDetail
-                      {...props}
-                      userID={this.state.userID}
-                      lists={this.state.lists}
-                      onAddNote={this.onAddNote}
-                    />
-                  )} />
-                  <Route path="/notes/:_id"
-                    render={(props) => (
-                      <Note
-                        {...props}
-                        deleteNote={this.deleteNote}
-                      />
-                    )}
-                  />
                   <Route path="/subscribe"
                     render={(props) => this.state.isLoggedIn ? (
                       <Order
