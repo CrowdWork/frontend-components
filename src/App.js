@@ -1,4 +1,5 @@
 import './App.css'
+import M from 'materialize-css'
 import React, { Component, Fragment } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import decode from 'jwt-decode'
@@ -63,6 +64,7 @@ class App extends Component {
     topic: '',
   }
 
+
   async componentDidMount() {
     this.pickSubjectData()
     console.log('APP MOUNTED')
@@ -94,6 +96,8 @@ class App extends Component {
       })
     }
   }
+
+
   // adding a function that loads all subjects for the Frankisense classroom
 
   pickSubjectData = () => {
@@ -580,7 +584,7 @@ class App extends Component {
                 <Fragment>
                   <div id="header-row" className="row">
                     <Header
-                      title="TOPICS"
+                      title={`TOPICS - ${this.state.subjectSelected.toUpperCase()}`}
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
                       email={this.state.email}

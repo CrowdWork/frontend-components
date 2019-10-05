@@ -11,18 +11,16 @@ const Classroom = ({ subjectCache, subjectSelected }) => {
         < div className="row" id='container' >
             {subjectList.map((subject =>
                 <div className="col s12 m4 offset-l1">
-                    <div className="card z-depth-4Name">
+                    <div className="card z-depth-4Name hoverable">
                         <Link onClick={() => subjectSelected(subject)} to={`classroom/${subject}`}>
                             <div className="card-content">
                                 <span className="card-title">{subject}</span>
                             </div>
                         </Link>
-
                     </div>
                 </div>
             ))
             }
-
         </div >
     )
 }

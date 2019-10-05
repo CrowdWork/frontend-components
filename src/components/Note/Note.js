@@ -7,8 +7,9 @@ const url = "http://localhost:4000"
 
 const authHeader = {
   headers: {
-  'Authorization': localStorage.token
-}}
+    'Authorization': localStorage.token
+  }
+}
 
 class Note extends Component {
   state = {
@@ -71,17 +72,18 @@ class Note extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <form onSubmit={this.onUpdateNote}>
           <div className="input-field container">
-            <input className="container" id="title" placeholder="Title..." value={this.state.title || ''} type="text" onChange={(e) => this.setState({ title: e.target.value })}/>
+            <input className="container" id="title" placeholder="Title..." value={this.state.title || ''} type="text" onChange={(e) => this.setState({ title: e.target.value })} />
           </div>
           <div className="input-field container">
             <textarea id="body" className="materialize-textarea body" value={this.state.body} onChange={(e) => this.setState({ body: e.target.value })}></textarea>
           </div>
           <div className="container">
-          <a href="javascript:void(0)" className="btn red right" onClick={() => this.onDeleteNote(this.state._id)}>Delete Note</a>
-          <button type="submit" href="javascript:void(0)" className="btn right" name="action">Save Changes</button>
+            <a href="javascript:void(0)" className="btn red left offset-s1" onClick={() => this.onDeleteNote(this.state._id)}>Delete Note</a>
+            <p className='offset-s1'> </p>
+            <button type="submit" href="javascript:void(0)" className="btn right offset-s1" name="action">Save Changes</button>
           </div>
         </form>
       </div>
