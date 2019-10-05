@@ -48,7 +48,7 @@ const EsCaseList = ({ batchedSearchResults, sizeLimit, esSearchResults, loadMore
         }
       >
       <div className="list-utils">
-        <span className="result-header">Showing 1 - {(sizeLimit ? (caseList.slice(0,sizeLimit).length) : (caseList.length))} of {sizeLimit ? (sizeLimit) : (esSearchResults.length)} {caseList.length > 1 ? ('Cases') : ('Case')}</span>
+        <span className="result-header">Showing 1 - {(sizeLimit ? (caseList.slice(0,sizeLimit).length) : (caseList.length))} of {sizeLimit ? (Math.min(sizeLimit, esSearchResults.length)) : (esSearchResults.length)} {caseList.length > 1 ? ('Cases') : ('Case')}</span>
         <div className="filters-wrapper">
           <div>
             <label>Limit</label>
