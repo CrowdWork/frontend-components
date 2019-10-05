@@ -18,8 +18,8 @@ import Order from './components/Order/Order'
 import Landing from './components/Landing/Landing'
 
 
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
+const url = "http://localhost:4000"
+// const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
@@ -46,6 +46,7 @@ class App extends Component {
     searchBody: null,
     searchAttempted: false,
     signupError: null,
+    sizeLimit: null,
     start: 0,
     subscribed: true,
     userID: null
@@ -156,13 +157,20 @@ class App extends Component {
     this.props.history.push('/')
   }
 
+  onLimitChange = (sizeLimit) => {
+    this.setState({ sizeLimit })
+  }
+
   onSearchSubmit = async (searchBody) => {
     console.log(searchBody)
+
     this.setState({
       batchedSearchResults: [],
       esSearchResults: [],
-      start: 0
+      start: 0,
+      sizeLimit: null
     })
+
     const { count } = this.state
 
     for (let searchTerm in searchBody) {
@@ -170,16 +178,19 @@ class App extends Component {
         searchBody[searchTerm] = ''
       }
     }
+
     this.setState({ searchBody })
     
     try {
       const searchResult = await axios.get(`${url}/cases/search?count=${count}&start=${this.state.start}&query=${JSON.stringify(searchBody)}`, authHeader)
       console.log(searchResult.data)
+
       this.setState({ 
         searchAttempted: true,
         esSearchResults: searchResult.data,
         batchedSearchResults: this.state.batchedSearchResults.concat(searchResult.data.slice(0, count))
       })
+
     } catch (err) {
         this.setState( {errorMessage: err.message })
     }
@@ -191,10 +202,13 @@ class App extends Component {
       this.setState({
         start: this.state.start + this.state.count
       })
+
       this.setState({
         batchedSearchResults: this.state.batchedSearchResults.concat(this.state.esSearchResults.slice(this.state.start, (this.state.start + this.state.count)))
       })
+
       console.log(this.state.start)
+
     } catch (err) {
         console.log(`ERROR: ${err}`)
         this.setState( {errorMessage: err.message })
@@ -207,10 +221,13 @@ class App extends Component {
         title: listBody.listTitle,
         public: listBody.listPublic
       }, authHeader)
+
       const lists = await axios.get(`${url}/lists`, authHeader)
+
       this.setState({
         lists: lists.data
       })
+
     } catch (err) {
       console.log(err)
     }
@@ -446,10 +463,12 @@ class App extends Component {
                         fetchPubLists={this.fetchPubLists}
                         onSearchSubmit={this.onSearchSubmit}
                         lists={this.state.lists}
+                        sizeLimit={this.state.sizeLimit}
                         loadMoreResults={this.loadMoreResults}
                         searchAttempted={this.state.searchAttempted}
                         onFetchCase={this.onFetchCase}
                         onAddNote={this.onAddNote}
+                        onLimitChange={this.onLimitChange}
                         returnMyLists={this.returnMyLists}
                       />
                     </main>

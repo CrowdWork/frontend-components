@@ -83,12 +83,6 @@ class Search extends Component {
     this.state.queryStringAggregator.forEach(q => queryString += q)
     console.log(queryString)
     this.props.onSearchSubmit(queryString)
-
-    this.setState({
-      // rowQuery: '',
-      // queryStringAggregator: [],
-      // queryArr: []
-    })
   }
 
   handleReset = () => {

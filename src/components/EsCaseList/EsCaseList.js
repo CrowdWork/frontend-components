@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Preloader from '../Preloader/Preloader'
 
-const EsCaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) => {
+const EsCaseList = ({ batchedSearchResults, sizeLimit, esSearchResults, loadMoreResults, onLimitChange }) => {
   const caseList = batchedSearchResults.map(thisCase => {
       console.log(thisCase._source.mongo_id)
       return (
@@ -30,9 +30,6 @@ const EsCaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) 
       )
     })
 
-    const onLimitChange = (e) => {
-      console.log(e.target.value)
-    }
     console.log('Batched Results: ' + batchedSearchResults.length)
     console.log('Case List: ' + caseList.length)
   return (
@@ -41,8 +38,8 @@ const EsCaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) 
       <InfiniteScroll
         dataLength={batchedSearchResults.length}
         next={loadMoreResults}
-        hasMore={caseList.length < esSearchResults.length}
-        scrollThreshold={1}
+        hasMore={(sizeLimit ? (caseList.slice(0,sizeLimit).length) : (caseList.length)) < esSearchResults.length}
+        scrollThreshold={90}
         loader={<Preloader />}
         endMessage={
           <p style={{textAlign: 'center'}}>
@@ -51,13 +48,12 @@ const EsCaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) 
         }
       >
       <div className="list-utils">
-        <span className="result-header">Showing 1 - {caseList.length} of {esSearchResults.length} {caseList.length > 1 ? ('Cases') : ('Case')}</span>
+        <span className="result-header">Showing 1 - {(sizeLimit ? (caseList.slice(0,sizeLimit).length) : (caseList.length))} of {sizeLimit ? (caseList.slice(0,sizeLimit).length) : (esSearchResults.length)} {caseList.length > 1 ? ('Cases') : ('Case')}</span>
         <div className="filters-wrapper">
           <div>
             <label>Limit</label>
-            <select defaultValue="500" className="browser-default" onChange={onLimitChange}>
+            <select defaultValue="500" className="browser-default" onChange={(e) => onLimitChange(e.target.value)}>
               <option value="500">500</option>
-              <option value="5">5</option>
               <option value="10">10</option>
               <option value="20">20</option>
               <option value="50">50</option>
@@ -74,7 +70,7 @@ const EsCaseList = ({ batchedSearchResults, esSearchResults, loadMoreResults }) 
         </div>
       </div>
       <ul>
-        {caseList}
+        {sizeLimit ? (caseList.slice(0, sizeLimit)) : (caseList)}
       </ul>
       </InfiniteScroll>
     </div>
