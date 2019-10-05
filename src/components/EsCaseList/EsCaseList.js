@@ -57,7 +57,7 @@ const EsCaseList = ({ batchedSearchResults, sizeLimit, esSearchResults, loadMore
               <option value="20">20</option>
               <option value="50">50</option>
               <option value="100">100</option>
-              <option value="500">500</option>
+              <option value="500">All</option>
             </select>
           </div>
           <div>
