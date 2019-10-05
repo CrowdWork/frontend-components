@@ -38,8 +38,8 @@ const EsCaseList = ({ batchedSearchResults, sizeLimit, esSearchResults, loadMore
       <InfiniteScroll
         dataLength={batchedSearchResults.length}
         next={loadMoreResults}
-        hasMore={(sizeLimit ? (caseList.slice(0,sizeLimit).length) : (caseList.length)) < esSearchResults.length}
-        scrollThreshold={90}
+        hasMore={(sizeLimit ? (caseList.length < sizeLimit) : (caseList.length < esSearchResults.length))}
+        scrollThreshold={.7}
         loader={<Preloader />}
         endMessage={
           <p style={{textAlign: 'center'}}>
@@ -48,16 +48,16 @@ const EsCaseList = ({ batchedSearchResults, sizeLimit, esSearchResults, loadMore
         }
       >
       <div className="list-utils">
-        <span className="result-header">Showing 1 - {(sizeLimit ? (caseList.slice(0,sizeLimit).length) : (caseList.length))} of {sizeLimit ? (caseList.slice(0,sizeLimit).length) : (esSearchResults.length)} {caseList.length > 1 ? ('Cases') : ('Case')}</span>
+        <span className="result-header">Showing 1 - {(sizeLimit ? (caseList.slice(0,sizeLimit).length) : (caseList.length))} of {sizeLimit ? (sizeLimit) : (esSearchResults.length)} {caseList.length > 1 ? ('Cases') : ('Case')}</span>
         <div className="filters-wrapper">
           <div>
             <label>Limit</label>
             <select defaultValue="500" className="browser-default" onChange={(e) => onLimitChange(e.target.value)}>
-              <option value="500">500</option>
               <option value="10">10</option>
               <option value="20">20</option>
               <option value="50">50</option>
               <option value="100">100</option>
+              <option value="500">500</option>
             </select>
           </div>
           <div>
