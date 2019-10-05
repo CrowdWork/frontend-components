@@ -18,8 +18,8 @@ import Order from './components/Order/Order'
 import Landing from './components/Landing/Landing'
 
 
-const url = "http://localhost:4000"
-// const url = "https://ble-backend.herokuapp.com"
+// const url = "http://localhost:4000"
+const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
