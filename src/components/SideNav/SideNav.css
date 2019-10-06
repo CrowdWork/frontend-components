@@ -26,3 +26,6 @@
 .selectedLink {
   background: fuchsia;
 }
+.disabled-link{
+  pointer-events: none;
+}

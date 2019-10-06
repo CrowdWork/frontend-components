@@ -22,7 +22,7 @@ const EsCaseList = ({ batchedSearchResults, sizeLimit, esSearchResults, loadMore
                 </div>
               </div>
               <div className="card-action">
-                <Link to={`/case/${thisCase._source.mongo_id}`} className="right">Detail</Link>
+                <Link to={`/case/${thisCase._source.mongo_id}`} target="_blank" className="right">Detail</Link>
               </div>
             </div>
           </div>

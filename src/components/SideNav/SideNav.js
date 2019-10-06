@@ -10,6 +10,10 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
     draggable: true,
     preventScrolling: true
   })
+  const tooltips = document.querySelectorAll('.tooltipped')
+    for (let i = 0; i < tooltips.length; i++){
+      M.Tooltip.init(tooltips[i])
+    }
   
   return (
     <Fragment>
@@ -31,7 +35,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
           </li>
           <li><div className="subheader">Account</div></li>
           {isLoggedIn ? (
-            <li><Link to="/">Account <i className="material-icons">dashboard</i></Link></li>
+            <li><Link to="/">Account <i className="material-icons">account_circle</i></Link></li>
           ) : (
             <Fragment>
               <li><Link to="/signup">Guest <i className="material-icons">account_circle</i></Link></li>
@@ -50,10 +54,10 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
             <Link to="/frankinsense">Frankensense Classroom<i className="material-icons">school</i></Link>
           </li>
           <li className="no-padding">
-            <Link to="/court-finder">Court Finder <i className="material-icons">map</i></Link>
+            <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Court Finder <i className="material-icons">map</i></a>
           </li>
           <li className="no-padding">
-            <Link to="/practical-practice">Practical Practice<i className="material-icons">work</i></Link>
+            <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Practical Practice <i className="material-icons">work</i></a>
           </li>
         </ul>
         
@@ -74,7 +78,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
           </li>
           <li><div className="subheader">Account</div></li>
           {isLoggedIn ? (
-            <li><NavLink to="/">Account <i className="material-icons" activeclassname="selectedLink">dashboard</i></NavLink></li>
+            <li><NavLink to="/">Account <i className="material-icons" activeclassname="selectedLink">account_circle</i></NavLink></li>
           ) : (
             <Fragment>
               <li><Link to="/signup">Guest <i className="material-icons">account_circle</i></Link></li>
@@ -98,10 +102,10 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
             <Link to="/frankinsense">Classroom<i className="material-icons">school</i></Link>
           </li>
           <li className="no-padding">
-            <Link to="/court-finder">Court Finder <i className="material-icons">map</i></Link>
+            <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Court Finder <i className="material-icons">map</i></a>
           </li>
           <li className="no-padding">
-            <Link to="/practical-practice">Practical Practice<i className="material-icons">work</i></Link>
+            <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Practical Practice<i className="material-icons">work</i></a>
           </li>
         </ul>
         ) : (null)}

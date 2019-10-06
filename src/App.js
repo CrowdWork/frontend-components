@@ -478,9 +478,7 @@ class App extends Component {
             )}
           />
           <Route path="/case/:mongo_id"
-            render={(props) => !this.state.isLoggedIn ? (
-              <Redirect to="/login" />
-            ) : (
+            render={(props) => (
               <Fragment>
                 <div id="header-row" className="row">
                   <Header
