@@ -105,11 +105,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
             <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Court Finder <i className="material-icons">map</i></a>
           </li>
           <li className="no-padding">
-<<<<<<< HEAD
-            <Link to="/practical-practice">PracticalPractice<i className="material-icons">work</i></Link>
-=======
             <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Practical Practice<i className="material-icons">work</i></a>
->>>>>>> master
           </li>
         </ul>
       ) : (null)}
