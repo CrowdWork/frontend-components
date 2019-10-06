@@ -117,35 +117,65 @@ class CaseDetail extends Component {
       {/*END MODAL */}
 
         <div id="card-panel-wrapper" className="col s12 m5">
-          <Link to="javascript:void(0)" className="go-back" onClick={this.props.history.goBack}>Back to results</Link>
+          {/* <Link to="javascript:void(0)" className="go-back" onClick={this.props.history.goBack}>Back to results</Link> */}
           <div className="flex-space-btw">
-            <h5>{this.state.caseDetail.caseName}</h5>
+            <h6 className="grey-text text-darken-4"><b>{this.state.caseDetail.caseName}</b></h6>
             <div>
               <button data-target="modal1" className="btn tooltipped modal-trigger" data-position="left" data-tooltip="Add this case to a list"><i className="large material-icons">playlist_add</i></button>
             </div>
           </div>
 
           <div className="card-panel white">
-            <h6>Citation</h6>
-            <p>{this.state.caseDetail.citation}</p>
+            <div className="row">
+              <h6 className="col s12 m6 grey-text text-darken-3"><b>Citation</b></h6>
+              <p className="col s12 m6 grey-text text-darken-3">{this.state.caseDetail.citation}</p>
+            </div>
+              
+            
             <div className="divider" />
-            <h6>Court</h6>
-            <p>{this.state.caseDetail.court}</p>
+            
+              <div className="row">
+                <h6 className="col s12 m6 grey-text text-darken-3"><b>Court</b></h6>
+                <p className="col s12 m6 grey-text text-darken-3">{this.state.caseDetail.court}</p>
+              </div>
+              
+            
             <div className="divider" />
-            <h6>Type of Document</h6>
-            <p>{this.state.caseDetail.documentType}</p>
+          
+              <div className="row">
+                <h6 className="col s12 m6 grey-text text-darken-3"><b>Type of Document</b></h6>
+                <p className="col s12 m6 grey-text text-darken-3">{this.state.caseDetail.documentType}</p>
+              </div>
+              
+            
             <div className="divider" />
-            <h6>Judge(s)</h6>
-            <p>{this.renderJudges()}</p>
+              <div className="row">
+                <h6 className="col s12 m6 grey-text text-darken-3"><b>Judge(s)</b></h6>
+                <p className="col s12 m6 grey-text text-darken-3">{this.renderJudges()}</p>
+              </div>
+            
+
             <div className="divider" />
-            <h6>Keyword(s)</h6>
-            <p>{this.renderKeywords()}</p>
+              <div className="row">
+                <h6 className="col s12 m6 grey-text text-darken-3"><b>Keyword(s)</b></h6>
+                <p className="col s12 m6 grey-text text-darken-3">{this.renderKeywords()}</p>
+              </div>
+            
+
             <div className="divider" />
-            <h6>Summary</h6>
-            <p>{this.state.caseDetail.summary}</p>
+
+              <div className="row">
+                <h6 className="col s12 m6 grey-text text-darken-3"><b>Summary</b></h6>
+                <p className="col s12 m6 grey-text text-darken-3">{this.state.caseDetail.summary}</p>
+              </div>
+            
             <div className="divider" />
-            <h6>Cases Referred To</h6>
-            <p>Coming Soon!</p>
+
+            <div className="row">
+              <h6 className="col s12 m6 grey-text text-darken-3"><b>Cases Referred To</b></h6>
+              <p className="col s12 m6 grey-text text-darken-3">Coming Soon!</p>
+            </div>
+            
           </div>
         </div>
       </div>
