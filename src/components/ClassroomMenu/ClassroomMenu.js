@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Button, Icon, Modal } from 'react-materialize'
 import M from 'materialize-css'
 import Notes from '../Note/Note'
-export default class ClassroomMenu extends Component {
 
+
+export default class ClassroomMenu extends Component {
 
 
     componentDidMount() {
@@ -29,7 +30,7 @@ export default class ClassroomMenu extends Component {
                 <div id="modal1" className="modal">
                     <div className="modal-content">
                         <h4 className="container center-align">Notes</h4>
-                        <Notes />
+                        <Notes subject={this.props.subjectSelected} topic={this.props.topic} />
                     </div>
                 </div>
             </div>

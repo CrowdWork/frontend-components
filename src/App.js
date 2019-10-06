@@ -608,7 +608,7 @@ class App extends Component {
                       <main>
                         <Subject
                           topicSelected={this.topicSelection}
-
+                          {...this.state}
                         />
                       </main>
                     </div>
@@ -644,11 +644,14 @@ class App extends Component {
                     </aside>
                     <div id="main-col" className="col s12 l9 xl10">
                       <main>
-                        <TopicInfo />
+                        <TopicInfo
+                          {...this.state}
+                        />
                       </main>
                     </div>
                   </div>
                 </Fragment>
+
               )} />
         </Switch>
 

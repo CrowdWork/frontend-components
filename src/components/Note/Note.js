@@ -71,11 +71,12 @@ class Note extends Component {
   }
 
   render() {
+
     return (
       <div>
         <form onSubmit={this.onUpdateNote}>
           <div className="input-field container">
-            <input className="container" id="title" placeholder="Title..." value={this.state.title || ''} type="text" onChange={(e) => this.setState({ title: e.target.value })} />
+            <input className="container" id="title" placeholder="Title..." value={`${this.props.subject} - ${this.props.topic}` || ''} type="text" onChange={(e) => this.setState({ title: e.target.value })} />
           </div>
           <div className="input-field container">
             <textarea id="body" className="materialize-textarea body" value={this.state.body} onChange={(e) => this.setState({ body: e.target.value })}></textarea>
