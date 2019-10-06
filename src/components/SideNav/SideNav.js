@@ -17,19 +17,19 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
   
   return (
     <Fragment>
-    
+
       <ul id="mobile" className="sidenav">
-          <li>
-            <div className="user-view">
+        <li>
+          <div className="user-view">
             <div className="background">
-              <img src="https://i.imgur.com/5ui8Nqnm.jpg" alt='abstract background img'/>
+              <img src="https://i.imgur.com/5ui8Nqnm.jpg" alt='abstract background img' />
             </div>
             {isLoggedIn && (
               <Fragment>
                 <span className="white-text name">{firstName} {lastName}</span>
                 <span className="white-text email">{email}</span>
               </Fragment>
-              )
+            )
             }
             </div>
           </li>
@@ -65,26 +65,26 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
           <ul id='desktop' className="sidenav hide-on-med-and-down z-depth-0">
           <li>
             <div className="user-view">
-            <div className="background">
-              <img src="https://i.imgur.com/5ui8Nqnm.jpg" alt='abstract background img'/>
-            </div>
-            {isLoggedIn && (
-              <Fragment>
-                <span className="white-text name">{firstName} {lastName}</span>
-                <span className="white-text email">{email}</span>
-              </Fragment>
-            )}
+              <div className="background">
+                <img src="https://i.imgur.com/5ui8Nqnm.jpg" alt='abstract background img' />
+              </div>
+              {isLoggedIn && (
+                <Fragment>
+                  <span className="white-text name">{firstName} {lastName}</span>
+                  <span className="white-text email">{email}</span>
+                </Fragment>
+              )}
             </div>
           </li>
           <li><div className="subheader">Account</div></li>
           {isLoggedIn ? (
             <li><NavLink to="/">Account <i className="material-icons" activeclassname="selectedLink">account_circle</i></NavLink></li>
           ) : (
-            <Fragment>
-              <li><Link to="/signup">Guest <i className="material-icons">account_circle</i></Link></li>
-            </Fragment>
-          )}
-          
+              <Fragment>
+                <li><Link to="/signup">Guest <i className="material-icons">account_circle</i></Link></li>
+              </Fragment>
+            )}
+
           {isLoggedIn && (
             <li>
               <Link to="/login" onClick={onLogout}>
@@ -108,10 +108,10 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
             <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Practical Practice<i className="material-icons">work</i></a>
           </li>
         </ul>
-        ) : (null)}
-        
+      ) : (null)}
+
     </Fragment>
-    
+
   )
 }
 
