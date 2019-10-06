@@ -1,23 +1,40 @@
 #CaseDetail-container {
-  width: 100%;
+  width: 90%;
   max-width: 900px;
-  height: 100%;
+  /* height: 100%; */
 }
 #card-panel-wrapper {
   width: 100%;
+  margin-top: 16px;
+}
+#card-panel-wrapper>.card-panel{
+  padding: 0;
 }
 .flex-space-btw {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
+.card-panel > h6{
+  width: 50%;
+  padding: 0;
+  
+}
+.card-panel .row{
+  padding: 16px;
+  margin: 0;
+}
+.card-panel p, .card-panel h6{
+  margin: 0;
+  padding: 0;
+}
+.columns-wrapper > h6{
+  border-right: 1px solid black;
+}
 i {
   margin-bottom: 13.224px;
 }
-/* h5 {
-  display: flex;
-  align-items: flex-end;
-} */
+
 h5 i {
   margin-bottom: 0;
   padding-right: 8px;
@@ -25,6 +42,9 @@ h5 i {
 a {
   color: #000;
   cursor: pointer;
+}
+.material-icons{
+  margin: 0;
 }
 a.btn {
   width: auto;
@@ -43,9 +63,12 @@ a.btn {
 .breadcrumb, .breadcrumb:before {
   color: black;
 }
+.go-back {
+  margin-top: 20px;
+}
 .go-back:hover {
   text-decoration: underline;
 }
 #modal1 {
-  height: 50%;
+  height: 160px;
 }

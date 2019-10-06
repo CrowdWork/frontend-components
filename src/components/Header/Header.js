@@ -23,10 +23,11 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
             <Link to="/" id="brand-logo" className="brand-logo black-text">{title}</Link>
             {isLoggedIn ? (
             <Fragment>
-              <ul className="hide-on-med-and-down right height-full">
-                <li className="height-full">
-                  <a href="#!" className="dropdown-trigger btn black height-full display-flex z-depth-0 margin-0" data-target="user-dropdown">{`${firstName[0]}${lastName[0]}`}
-                    <i className="material-icons margin-0">arrow_drop_down</i>
+              <ul className="hide-on-med-and-down right height-full valign-wrapper">
+                <li className="height-full ">
+                  <a href="#!" className="dropdown-trigger btn waves-light white black-text height-full display-flex z-depth-0 margin-0 valign-wrapper" data-target="user-dropdown">
+                    {`${firstName[0]}${lastName[0]}`}
+                    <span className="valign-wrapper"><i className="material-icons margin-0">arrow_drop_down</i></span>
                   </a>
                 </li>
               </ul>

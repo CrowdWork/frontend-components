@@ -13,15 +13,25 @@
   text-align: left;
 }
 
-h6.header {
-  padding: 0 10.875px;
-}
 .list-utils {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 10.875px;
 }
 .court-year {
   text-align: right;
 }
 li.card-wrapper {
   padding: 0;
+}
+.query-input {
+  display: flex;
+  flex-direction: column;
+}
+.filters-wrapper {
+  display: flex;
+}
+.filters-wrapper div {
+  margin-right: 16px;
 }

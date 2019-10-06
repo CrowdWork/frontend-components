@@ -56,6 +56,7 @@ class App extends Component {
     searchBody: null,
     searchAttempted: false,
     signupError: null,
+    sizeLimit: null,
     start: 0,
     subscribed: true,
     userID: null,
@@ -199,12 +200,20 @@ class App extends Component {
     this.props.history.push('/')
   }
 
+  onLimitChange = (sizeLimit) => {
+    this.setState({ sizeLimit })
+  }
+
   onSearchSubmit = async (searchBody) => {
+    console.log(searchBody)
+
     this.setState({
       batchedSearchResults: [],
       esSearchResults: [],
-      start: 0
+      start: 0,
+      sizeLimit: null
     })
+
     const { count } = this.state
 
     for (let searchTerm in searchBody) {
@@ -212,16 +221,19 @@ class App extends Component {
         searchBody[searchTerm] = ''
       }
     }
+
     this.setState({ searchBody })
 
     try {
       const searchResult = await axios.get(`${url}/cases/search?count=${count}&start=${this.state.start}&query=${JSON.stringify(searchBody)}`, authHeader)
       console.log(searchResult.data)
+
       this.setState({
         searchAttempted: true,
         esSearchResults: searchResult.data,
         batchedSearchResults: this.state.batchedSearchResults.concat(searchResult.data.slice(0, count))
       })
+
     } catch (err) {
       this.setState({ errorMessage: err.message })
     }
@@ -233,10 +245,13 @@ class App extends Component {
       this.setState({
         start: this.state.start + this.state.count
       })
+
       this.setState({
         batchedSearchResults: this.state.batchedSearchResults.concat(this.state.esSearchResults.slice(this.state.start, (this.state.start + this.state.count)))
       })
+
       console.log(this.state.start)
+
     } catch (err) {
       console.log(`ERROR: ${err}`)
       this.setState({ errorMessage: err.message })
@@ -249,10 +264,13 @@ class App extends Component {
         title: listBody.listTitle,
         public: listBody.listPublic
       }, authHeader)
+
       const lists = await axios.get(`${url}/lists`, authHeader)
+
       this.setState({
         lists: lists.data
       })
+
     } catch (err) {
       console.log(err)
     }
@@ -371,7 +389,6 @@ class App extends Component {
                       />
                     </main>
                   </div>
-
                 </div>
               </Fragment>
             ) : (
@@ -397,6 +414,7 @@ class App extends Component {
                 </Fragment>
               )}
           />
+
           <Route path="/signup"
             render={(props) => !this.state.isLoggedIn ? (
               <Fragment>
@@ -453,6 +471,7 @@ class App extends Component {
                 <Redirect to="/" />
               )}
           />
+
           <Route path="/legal-index"
             render={(props) => !this.state.isLoggedIn ? (
               <Redirect to="/login" />
@@ -500,82 +519,163 @@ class App extends Component {
                 </Fragment>
               )}
           />
-          <Route path="/admin"
-            render={(props) => !this.state.isLoggedIn ? (
-              <Redirect to="/admin" />
-            ) : (
-                <Fragment>
-                  <div id="header-row" className="row">
-                    <Header
-                      title="ADMIN CONSOLE"
+
+          <Route path="/case/:mongo_id"
+            render={(props) => (
+              <Fragment>
+                <div id="header-row" className="row">
+                  <Header
+                    title="CASE DETAIL"
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </div>
+                <div id="content-row" className="row">
+                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                    <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
                       email={this.state.email}
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </div>
-                  <div id="content-row" className="row">
-                    <aside id="sideNav-col" className="col s0 l3 xl2">
-                      <SideNav
-                        firstName={this.state.firstName}
-                        lastName={this.state.lastName}
-                        email={this.state.email}
-                        isLoggedIn={this.state.isLoggedIn}
-                        onLogout={this.onLogout}
-                        onAddNote={this.onAddNote}
-                      />
-                    </aside>
-                    <div id="main-col" className="col s12 l9 xl10">
-                      <main>
-                        <Admin
-                          {...props}
-                          {...this.state}
-                        />
-                      </main>
-                    </div>
-                  </div>
-                </Fragment>
-
-              )}
+                  </aside>
+                </div>
+                <div id="main-col" className="col s12 l9 xl10">
+                  <main>
+                  <CaseDetail
+                    {...props}
+                    userID={this.state.userID}
+                    lists={this.state.lists}
+                    onAddNote={this.onAddNote}
+                  />
+                  </main>
+                </div>
+              </Fragment>
+            )}
           />
+
+          <Route path="/admin"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/" />
+            ) : (
+              <Fragment>
+                <div id="header-row" className="row">
+                  <Header
+                    title="ADMIN"
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </div>
+                <div id="content-row" className="row">
+                  <aside id="sideNav-col" className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
+                    />
+                  </aside>
+                  <div id="main-col" className="col s12 l9 xl10">
+                    <main>
+                      <Admin
+                        {...props}
+                        {...this.state}
+                      />
+                    </main>
+                  </div>
+                </div>
+              </Fragment>
+            )}
+          />
+
+          <Route path="/list/:list_id"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+              <Fragment>
+                <div id="header-row" className="row">
+                  <Header
+                    title="LIST DETAIL"
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </div>
+                <div id="content-row" className="row">
+                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                    />
+                  </aside>
+                  <div id="main-col" className="col s12 l9 xl10">
+                    <main>
+                    <List
+                      {...props}
+                      userID={this.state.userID}
+                      onAddNote={this.onAddNote}
+                      onFetchCase={this.onFetchCase}
+                      deleteList={this.deleteList}
+                    />
+                    </main>
+                  </div>
+                </div>
+              </Fragment>
+            )}
+          />
+                  
           <Route path="/frankinsense"
             render={(props) => !this.state.isLoggedIn ? (
               <Redirect to="/login" />
             ) : (
-                <Fragment>
-                  <div id="header-row" className="row">
-                    <Header
-                      title="FRANKINSENSE CLASSROOM"
+              <Fragment>
+                <div id="header-row" className="row">
+                  <Header
+                    title="FRANKINSENSE CLASSROOM"
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </div>
+                <div id="content-row" className="row">
+                  <aside id="sideNav-col" className="col s0 l3 xl2">
+                    <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
                       email={this.state.email}
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
                     />
-                  </div>
-                  <div id="content-row" className="row">
-                    <aside id="sideNav-col" className="col s0 l3 xl2">
-                      <SideNav
-                        firstName={this.state.firstName}
-                        lastName={this.state.lastName}
-                        email={this.state.email}
-                        isLoggedIn={this.state.isLoggedIn}
-                        onLogout={this.onLogout}
-                        onAddNote={this.onAddNote}
+                  </aside>
+                  <div id="main-col" className="col s12 l9 xl10">
+                    <main>
+                      <Classroom
+                        subjectCache={this.state.subjectLoaded}
+                        subjectSelected={this.subjectSelection}
                       />
-                    </aside>
-                    <div id="main-col" className="col s12 l9 xl10">
-                      <main>
-                        <Classroom
-                          subjectCache={this.state.subjectLoaded}
-                          subjectSelected={this.subjectSelection}
-                        />
-                      </main>
-                    </div>
+                    </main>
                   </div>
-                </Fragment>
-              )} />
+                </div>
+              </Fragment>
+            )} 
+          />
 
           <Route path="/classroom/:subject"
             render={(props) => !this.state.isLoggedIn ? (
@@ -651,64 +751,34 @@ class App extends Component {
                     </div>
                   </div>
                 </Fragment>
-
               )} />
         </Switch>
 
         {/* <div id="content-row" className="row">
-          
-                <Route exact path="/admin" 
-                  render={(props) => this.state.isLoggedIn ? (
-                    <Admin
-                      {...props}
-                      {...this.state}
-                    />
-                  ) : (
-                    <Redirect to="/login" />
-                  )}
-                />
-                <Route exact path="/signup"
-                  render={(props) => (
-                    <Signup
-                      {...props}
-                      onSubmit={this.onSignupSumbit}
-                    />
-                  )}
-                />
-              
-                <Route exact path="/legal-index"
-                  render={(props) => this.state.isLoggedIn ? (
-                    <LegalIndex
-                      {...props}
-                      esSearchResults={this.state.esSearchResults}
-                      batchedSearchResults={this.state.batchedSearchResults}
-                      onSubmit={this.onSearchSubmit}
-                      loadMoreResults={this.loadMoreResults}
-                      searchAttempted={this.state.searchAttempted}
-                      onFetchCase={this.onFetchCase}
-                      onAddNote={this.onAddNote}
-                    />
-                  ) : (
-                    <Redirect to="/login" />
-                  )}
-                />
-                <Route path="/list/:list_id"
-                  render={(props) => (
-                    <List
-                      {...props}
-                      userID={this.state.userID}
-                      onAddNote={this.onAddNote}
-                      onFetchCase={this.onFetchCase}
-                      deleteList={this.deleteList}
-                    />
-                  )}
-                />
-                <Route path="/case/:mongo_id"
-                  render={(props) => (
-                    <CaseDetail
-                      {...props}
-                      userID={this.state.userID}
-                      lists={this.state.lists}
+                
+          <Route path="/notes/:_id"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+              <Fragment>
+                <div id="header-row" className="row">
+                  <Header
+                    title="NOTE DETAIL"
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </div>
+                <div id="content-row" className="row">
+                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
                       onAddNote={this.onAddNote}
                     />
                   )} />
@@ -727,6 +797,28 @@ class App extends Component {
                       onSubmit={this.onSubscribe}
                     />
                   ) : (
+                  </aside>
+                  <div id="main-col" className="col s12 l9 xl10">
+                    <main>
+                      <Note
+                        {...props}
+                        deleteNote={this.deleteNote}
+                      />
+                    </main>
+                  </div>
+                </div>
+              </Fragment>
+            )}
+          />
+          
+        {/* <div id="content-row" className="row">
+                  <Route path="/subscribe"
+                    render={(props) => this.state.isLoggedIn ? (
+                      <Order
+                        {...props}
+                        onSubmit={this.onSubscribe}
+                      />
+                    ) : (
                       <Redirect to="/" />
                     )}
                 />
@@ -735,8 +827,7 @@ class App extends Component {
                     window.location.href = `https://sandbox.expresspaygh.com/api/checkout.php?token=${this.state.orderToken}`
                   }}
                 />
-                <Route path="/frankinsense"
-                  render={(props) => <Classroom {...this.state} {...props} />} />
+                
               </Switch>
             </main>
             </div>

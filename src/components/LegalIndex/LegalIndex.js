@@ -81,7 +81,7 @@ class LegalIndex extends Component {
   }
 
   renderContent = () => {
-    const { errorMessage, esSearchResults, searchAttempted, batchedSearchResults, loadMoreResults, onFetchCase } = this.props
+    const { errorMessage, esSearchResults, searchAttempted, batchedSearchResults, sizeLimit, loadMoreResults, onFetchCase, onLimitChange } = this.props
     if (esSearchResults.length === 0 && !searchAttempted) {
       return errorMessage ?
         (<div>Error: {errorMessage}</div>) :
@@ -94,8 +94,10 @@ class LegalIndex extends Component {
         (<EsCaseList
           esSearchResults={esSearchResults}
           batchedSearchResults={batchedSearchResults}
+          sizeLimit={sizeLimit}
           loadMoreResults={loadMoreResults}
           onFetchCase={onFetchCase}
+          onLimitChange={onLimitChange}
         />)
     }
     if (errorMessage) {
@@ -117,7 +119,7 @@ class LegalIndex extends Component {
         <div id="tab-search" className="col s12">
           <div className="row">
             <div className="col s12">
-              <Search onSubmit={this.props.onSubmit} />
+              <Search onSearchSubmit={this.props.onSearchSubmit} />
             </div>
           </div>
           <div className="row">
