@@ -211,7 +211,6 @@ class LegalIndex extends Component {
               {this.renderNotes()}
             </div>
           </div>
-        
       </div>
     )
   }

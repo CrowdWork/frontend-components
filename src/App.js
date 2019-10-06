@@ -505,7 +505,7 @@ class App extends Component {
                           esSearchResults={this.state.esSearchResults}
                           batchedSearchResults={this.state.batchedSearchResults}
                           fetchPubLists={this.fetchPubLists}
-                          onSubmit={this.onSearchSubmit}
+                          onSearchSubmit={this.onSearchSubmit}
                           lists={this.state.lists}
                           loadMoreResults={this.loadMoreResults}
                           searchAttempted={this.state.searchAttempted}
