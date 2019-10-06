@@ -545,16 +545,16 @@ class App extends Component {
                       onLogout={this.onLogout}
                     />
                   </aside>
-                </div>
-                <div id="main-col" className="col s12 l9 xl10">
-                  <main>
-                  <CaseDetail
-                    {...props}
-                    userID={this.state.userID}
-                    lists={this.state.lists}
-                    onAddNote={this.onAddNote}
-                  />
-                  </main>
+                  <div id="main-col" className="col s12 l9 xl10">
+                    <main>
+                      <CaseDetail
+                        {...props}
+                        userID={this.state.userID}
+                        lists={this.state.lists}
+                        onAddNote={this.onAddNote}
+                      />
+                    </main>
+                  </div>
                 </div>
               </Fragment>
             )}
