@@ -503,6 +503,7 @@ class App extends Component {
                         <LegalIndex
                           {...props}
                           esSearchResults={this.state.esSearchResults}
+                          sizeLimit={this.state.sizeLimit}
                           batchedSearchResults={this.state.batchedSearchResults}
                           fetchPubLists={this.fetchPubLists}
                           onSearchSubmit={this.onSearchSubmit}
@@ -511,11 +512,12 @@ class App extends Component {
                           searchAttempted={this.state.searchAttempted}
                           onFetchCase={this.onFetchCase}
                           onAddNote={this.onAddNote}
+                          onLimitChange={this.onLimitChange}
                           returnMyLists={this.returnMyLists}
                         />
                       </main>
                     </div>
-                  </div>
+                  </div>,
                 </Fragment>
               )}
           />

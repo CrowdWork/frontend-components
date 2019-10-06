@@ -119,7 +119,9 @@ class LegalIndex extends Component {
         <div id="tab-search" className="col s12">
           <div className="row">
             <div className="col s12">
-              <Search onSearchSubmit={this.props.onSearchSubmit} />
+              <Search 
+                onSearchSubmit={this.props.onSearchSubmit}
+              />
             </div>
           </div>
           <div className="row">
