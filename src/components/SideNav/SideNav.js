@@ -48,7 +48,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
           {isLoggedIn ? (
             <li><Link to="/" onClick={onLogout}>Logout<i className="material-icons">power_settings_new</i></Link></li>
           ) : (
-            <li><Link to="#" className="black-text br">Sign In</Link></li>
+            <li><Link to="/login" className="black-text br">Sign In</Link></li>
           )}
 
           {isLoggedIn ? (
