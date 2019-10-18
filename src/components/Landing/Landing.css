@@ -1,3 +1,7 @@
+body, html {
+  overflow-x: hidden;
+}
+
 .parallax-container .section {
   width: 100%;
 }
@@ -53,4 +57,65 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.icon {
+  width: 6em;
+  height: 6em;
+  z-index: 999;
+  position: absolute;
+  top: 37%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center-inner {
+  display: flex;
+  justify-content: center;
+
+}
+
+section {
+  width: 101vw;
+  height: 20em;
+
+  background: linear-gradient(to right, #1D7305, #38ef7d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  margin-bottom: 2em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.container > p {
+  text-align: center;
+}
+
+section .pup {
+  border: 1px solid black;
+} 
+
+section > a {
+  display: inline-block;
+  place-self: center center;
+  transform: translate(0, -90%);
+
+}
+
+.section-title {
+  flex: 1;
+  place-self: center center;
+  font-size: 26px;
+  transform: translate(0, 30%);
+  color: white;
+}
+.service-tagline {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  width: 90%;
+  transform: translate(-50%, -50%);
+  text-align: center
+
 }
