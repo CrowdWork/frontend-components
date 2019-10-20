@@ -18,7 +18,7 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
   
     return (
         <nav>
-          <div className="nav-wrapper white z-depth-1">
+          <div className="nav-wrapper white">
             <a href="#!" data-target="mobile" className="sidenav-trigger hide-on-large black-text"><i className="material-icons">menu</i></a>
             <Link to="/" id="brand-logo" className="brand-logo black-text">{title}</Link>
             {isLoggedIn ? (
@@ -45,6 +45,10 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
           </div>
         </nav>
     )
+}
+
+Header.defaultProps = {
+  title: 'BARNOR LAW ENGINE'
 }
 
 export default Header

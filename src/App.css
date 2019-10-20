@@ -1,7 +1,15 @@
 html, body {
-  height: 100%;
-  width: 100%;
-  outline: 1px dashed fuchsia;
+  box-sizing: border-box;
+  line-height: 1.5;
+  color: rgba(0,0,0,0.87);
+  font-weight: normal;
+}
+body{
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background-color: #e8e8e8;
 }
 #root {
   height: 100%;
@@ -11,36 +19,42 @@ html, body {
 }
 #header-row {
   margin: 0;
+  position: fixed;
+  width: 100%;
   height: 64px;
   z-index: 100;
 }
 #content-row {
   margin: 0;
-  height: calc(100% - 64px);
+  height: 100%;
+  padding-top: 64px;
 }
 #sideNav-col {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
   padding: 0;
-  max-width: 300px;
+  width: 300px;
   height: 100%;
-  /* position: -webkit-sticky;
-  position: sticky; */
-  /* top: 64px; */
   z-index: 999;
+  border-right: 1px solid #e8e8e8;
 }
 #desktop {
   width: 100%;
   height: 100%;
 }
-#main-col {
+/* #main-col {
   padding: 0;
   height: 100%;
   border-left: 1px solid #e8e8e8;
   overflow: auto;
   /* flex-grow: 1; */
-  background: #f9f8f8;
-}
+  /* background: #f9f8f8; 
+  } 
+  */
+
 main {
-  width: 100%;
   height: 100%;
 }
 a {
@@ -48,13 +62,19 @@ a {
   text-decoration: none;
 }
 
-h1, h2, .brand-logo {
+h1, .brand-logo {
   font-family: Cinzel;
 }
 h1 {
   font-weight: 500;
   text-transform: uppercase;
 }
-h2 {
-  padding: 0 1.5rem;
+
+@media only screen and (min-width: 993px) {
+  .has-fixed-sidenav {
+    padding-left: 300px;
+  }
+  #sideNav-col{
+    display: block;
+  }
 }

@@ -26,15 +26,15 @@ class Account extends Component {
     console.log(this.props.userID)
     console.log(this.props.profession)
     return (
-      <div className="account-overview-wrapper">
-          <div className="col s12">
+      <div className="account-overview-wrapper col s12">
+          <div>
             <div className="row">
               <div className="col s12">
-                <h5>Account</h5>
+                <h4 className="header">Account</h4>
                 <p>Manage your account settings</p>
               </div>
               <div className="col s12">
-              <ul className="no-padding collapsible col s12 l8">
+              <ul className="no-padding collapsible col s12">
                 <li>
                   <div className="collapsible-header"><i className="material-icons">perm_identity</i>Personal Details</div>
                   <div className="collapsible-body">

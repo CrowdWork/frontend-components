@@ -1,5 +1,4 @@
 import './App.css'
-import M from 'materialize-css'
 import React, { Component, Fragment } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import decode from 'jwt-decode'
@@ -65,35 +64,38 @@ class App extends Component {
     topic: '',
   }
 
-
   async componentDidMount() {
     this.pickSubjectData()
     console.log('APP MOUNTED')
     console.log(`Logged in: ${this.state.isLoggedIn}`)
     if (localStorage.token) {
-      this.setState({
-        isLoggedIn: true,
-        userID: decode(localStorage.token)
+      this.setState(() => {
+        return {
+          isLoggedIn: true,
+          userID: decode(localStorage.token)
+        }
       })
       try {
         const user = await axios.get(`${url}/users/me`, authHeader)
         this.returnMyLists()
         const notes = await axios.get(`${url}/notes`, authHeader)
         console.log(notes)
-        this.setState({
-          firstName: user.data.firstName,
-          lastName: user.data.lastName,
-          email: user.data.email,
-          phoneNumber: user.data.phoneNumber,
-          notes: notes.data
-        })
+        this.setState(() => ({
+            firstName: user.data.firstName,
+            lastName: user.data.lastName,
+            email: user.data.email,
+            phoneNumber: user.data.phoneNumber,
+            notes: notes.data
+        }))
       } catch (err) {
         console.log('ERROR:', err)
       }
     } else {
-      this.setState({
-        isLoggedIn: false,
-        userID: null
+      this.setState(() => {
+        return {
+          isLoggedIn: false,
+          userID: null
+        }
       })
     }
   }
@@ -103,7 +105,11 @@ class App extends Component {
 
   pickSubjectData = () => {
     try {
-      this.setState({ subjectLoaded: subjects })
+      this.setState(() => {
+        return {
+          subjectLoaded: subjects
+        }
+      })
     } catch (error) {
       console.log('ERROR', error)
     }
@@ -111,7 +117,11 @@ class App extends Component {
   // adding a function that picks a specific subject
   subjectSelection = (value) => {
     try {
-      this.setState({ subjectSelected: value })
+      this.setState(() => { 
+        return {
+          subjectSelected: value
+        }
+      })
 
     } catch (error) {
       console.log('ERROR', error)
@@ -120,7 +130,11 @@ class App extends Component {
 
   topicSelection = (value) => {
     try {
-      this.setState({ topic: value })
+      this.setState(() => { 
+        return {
+          topic: value
+        }
+      })
     } catch (error) {
       console.log("error", error)
     }
@@ -128,10 +142,14 @@ class App extends Component {
 
   returnMyLists = async () => {
     const lists = await axios.get(`${url}/lists`, authHeader)
-    this.setState({ lists: lists.data })
+    this.setState(() => { 
+      return {
+        lists: lists.data
+      }
+    })
   }
 
-  onSignupSumbit = async (userInfo) => {
+  handleSignup = async (userInfo) => {
     try {
       const newUser = await axios.post(`${url}/users`, {
         firstName: userInfo.firstName,
@@ -142,25 +160,23 @@ class App extends Component {
       })
       localStorage.token = newUser.data.token
 
-      this.setState({
+      this.setState(() => ({
         firstName: newUser.data.user.firstName,
         lastName: newUser.data.user.lastName,
         email: newUser.data.user.email,
         profession: newUser.data.user.profession,
         isLoggedIn: true,
         userID: decode(localStorage.token)
-      })
+      }))
 
       this.props.history.push('/')
     } catch (err) {
       console.log(err)
-      this.setState({
-        signupError: err
-      })
+      this.setState(() => ({ signupError: err }))
     }
   }
 
-  onLoginSubmit = async (credentials) => {
+  handleLogin = async (credentials) => {
     try {
       const loginUser = await axios.post(`${url}/users/login`, {
         email: credentials.email,
@@ -168,25 +184,23 @@ class App extends Component {
       })
       localStorage.token = loginUser.data.token
 
-      this.setState({
+      this.setState(() => ({
         firstName: loginUser.data.user.firstName,
         lastName: loginUser.data.user.lastName,
         email: loginUser.data.user.email,
         phoneNumber: loginUser.data.user.phoneNumber,
         profession: loginUser.data.user.profession,
         isLoggedIn: true
-      })
+      }))
 
       this.props.history.push('/')
     } catch (err) {
-      this.setState({
-        loginError: err
-      })
+      this.setState(() => ({ loginError: err }))
     }
   }
 
   onLogout = () => {
-    this.setState({
+    this.setState(() => ({
       email: '',
       password: '',
       phoneNumber: '',
@@ -194,67 +208,56 @@ class App extends Component {
       profession: '',
       isLoggedIn: false,
       userID: null
-    })
+    }))
 
     localStorage.clear()
     this.props.history.push('/')
   }
 
   onLimitChange = (sizeLimit) => {
-    this.setState({ sizeLimit })
+    this.setState(() => ({ sizeLimit }))
   }
 
   onSearchSubmit = async (searchBody) => {
     console.log(searchBody)
 
-    this.setState({
+    this.setState(() => ({
       batchedSearchResults: [],
       esSearchResults: [],
       start: 0,
       sizeLimit: null
-    })
-
+    }))
     const { count } = this.state
-
     for (let searchTerm in searchBody) {
-      if (!searchBody[searchTerm]) {
-        searchBody[searchTerm] = ''
-      }
+      if (!searchBody[searchTerm]) searchBody[searchTerm] = ''
     }
-
-    this.setState({ searchBody })
-
+    this.setState(() => ({ searchBody }))
     try {
       const searchResult = await axios.get(`${url}/cases/search?count=${count}&start=${this.state.start}&query=${JSON.stringify(searchBody)}`, authHeader)
       console.log(searchResult.data)
-
-      this.setState({
-        searchAttempted: true,
-        esSearchResults: searchResult.data,
-        batchedSearchResults: this.state.batchedSearchResults.concat(searchResult.data.slice(0, count))
-      })
+      this.setState((prevState) => ({
+          searchAttempted: true,
+          esSearchResults: searchResult.data,
+          batchedSearchResults: prevState.batchedSearchResults.concat(searchResult.data.slice(0, count))
+      }))
 
     } catch (err) {
-      this.setState({ errorMessage: err.message })
+      this.setState(() => ({ errorMessage: err.message }))
     }
   }
 
   loadMoreResults = () => {
     console.log('Loading more results...')
     try {
-      this.setState({
-        start: this.state.start + this.state.count
-      })
-
-      this.setState({
-        batchedSearchResults: this.state.batchedSearchResults.concat(this.state.esSearchResults.slice(this.state.start, (this.state.start + this.state.count)))
-      })
-
+      this.setState((prevState) => ({ start: prevState.start + this.state.count }))
+      this.setState((prevState) => ({
+        batchedSearchResults: prevState.batchedSearchResults.concat(this.state.esSearchResults.slice(this.state.start, (this.state.start + this.state.count)))
+      }))
       console.log(this.state.start)
 
     } catch (err) {
       console.log(`ERROR: ${err}`)
-      this.setState({ errorMessage: err.message })
+      this.setState(() => ({ errorMessage: err.message }))
     }
   }
 
@@ -266,10 +269,7 @@ class App extends Component {
       }, authHeader)
 
       const lists = await axios.get(`${url}/lists`, authHeader)
-
-      this.setState({
-        lists: lists.data
-      })
+      this.setState(() => ({ lists: lists.data }))
 
     } catch (err) {
       console.log(err)
@@ -281,9 +281,8 @@ class App extends Component {
     try {
       await axios.delete(`${url}/lists/delete/${list_id}`, authHeader)
       const lists = await axios.get(`${url}/lists`, authHeader)
-      this.setState({
-        lists: lists.data
-      })
+      this.setState(() => ({ lists: lists.data }))
+
     } catch (err) {
       console.log(err)
     }
@@ -292,7 +291,7 @@ class App extends Component {
   fetchPubLists = async () => {
     const pubLists = await axios.get(`${url}/lists/pub`)
     console.log(pubLists.data)
-    this.setState({ lists: pubLists.data })
+    this.setState(() => ({ lists: pubLists.data }))
   }
 
   onAddNote = async (note) => {
@@ -304,9 +303,8 @@ class App extends Component {
       }, authHeader)
       const notes = await axios.get(`${url}/notes`, authHeader)
       console.log(notes)
-      this.setState({
-        notes: notes.data
-      })
+      this.setState(() => ({ notes: notes.data }))
+
     } catch (err) {
       console.log(err)
     }
@@ -317,9 +315,7 @@ class App extends Component {
     try {
       await axios.delete(`${url}/notes/delete/${note_id}`, authHeader)
       const notes = await axios.get(`${url}/notes`, authHeader)
-      this.setState({
-        notes: notes.data
-      })
+      this.setState(() => ({ notes: notes.data }))
     } catch (err) {
       console.log(err)
     }
@@ -329,9 +325,7 @@ class App extends Component {
     try {
       const orderSubmit = await axios.get(`${url}/orders`, authHeader)
       console.log(orderSubmit.data)
-      this.setState({
-        orderToken: orderSubmit.data.token
-      })
+      this.setState(() => ({ orderToken: orderSubmit.data.token }))
       this.props.history.push("/checkout")
     } catch (err) {
       console.log(err)
@@ -345,18 +339,17 @@ class App extends Component {
           <Route exact path="/"
             render={(props) => this.state.isLoggedIn ? (
               <Fragment>
-                <div id="header-row" className="row">
+                <header id="header-row">
                   <Header
-                    title="ACCOUNT"
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
                     email={this.state.email}
                     isLoggedIn={this.state.isLoggedIn}
                     onLogout={this.onLogout}
                   />
-                </div>
-                <div id="content-row" className="row">
-                  <aside id="sideNav-col" className="col s0 l3 xl2">
+                </header>
+                <div id="content-row">
+                  <aside id="sideNav-col">
                     <SideNav
                       {...props}
                       firstName={this.state.firstName}
@@ -367,8 +360,8 @@ class App extends Component {
                       onAddNote={this.onAddNote}
                     />
                   </aside>
-                  <div id="main-col" className="col s12 l9 xl10">
-                    <main>
+                  {/* <div id="main-col" className="col s12 l9 xl10"> */}
+                    <main className="container has-fixed-sidenav">
                       <Account
                         {...props}
                         userID={this.state.userID}
@@ -388,7 +381,7 @@ class App extends Component {
                         onAddNote={this.onAddNote}
                       />
                     </main>
-                  </div>
+                  {/* </div> */}
                 </div>
               </Fragment>
             ) : (
@@ -403,14 +396,14 @@ class App extends Component {
                     />
                   </div>
                   <div id="content-row" className="row">
-                    <div id="main-col" className="col s12">
+                    {/* <div id="main-col" className="col s12"> */}
                       <main>
                         <Landing
                           {...props}
                         />
                       </main>
                     </div>
-                  </div>
+                  {/* </div> */}
                 </Fragment>
               )}
           />
@@ -420,7 +413,6 @@ class App extends Component {
               <Fragment>
                 <div id="header-row" className="row">
                   <Header
-                    title="BARNOR LAW ENGINE"
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
                     email={this.state.email}
@@ -429,14 +421,14 @@ class App extends Component {
                   />
                 </div>
                 <div id="content-row" className="row">
-                  <div id="main-col" className="col s12">
-                    <main >
+                  
+                    <main>
                       <Signup
                         {...props}
-                        onSubmit={this.onSignupSumbit}
+                        handleSignup={this.handleSignup}
                       />
                     </main>
-                  </div>
+                  
                 </div>
               </Fragment>
             ) : (
@@ -448,7 +440,6 @@ class App extends Component {
               <Fragment>
                 <div id="header-row" className="row">
                   <Header
-                    title="WELCOME BACK"
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
                     email={this.state.email}
@@ -457,14 +448,14 @@ class App extends Component {
                   />
                 </div>
                 <div id="content-row" className="row">
-                  <div id="main-col" className="col s12">
+                  
                     <main>
                       <Login
                         {...props}
-                        onSubmit={this.onLoginSubmit}
+                        handleLogin={this.handleLogin}
                       />
                     </main>
-                  </div>
+                  
                 </div>
               </Fragment>
             ) : (
@@ -479,7 +470,6 @@ class App extends Component {
                 <Fragment>
                   <div id="header-row" className="row">
                     <Header
-                      title="LEGAL INDEX"
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
                       email={this.state.email}
@@ -498,8 +488,8 @@ class App extends Component {
                         onAddNote={this.onAddNote}
                       />
                     </aside>
-                    <div id="main-col" className="col s12 l9 xl10">
-                      <main>
+                    
+                      <main className="has-fixed-sidenav">
                         <LegalIndex
                           {...props}
                           esSearchResults={this.state.esSearchResults}
@@ -516,8 +506,8 @@ class App extends Component {
                           returnMyLists={this.returnMyLists}
                         />
                       </main>
-                    </div>
-                  </div>,
+                    
+                  </div>
                 </Fragment>
               )}
           />
@@ -527,7 +517,6 @@ class App extends Component {
               <Fragment>
                 <div id="header-row" className="row">
                   <Header
-                    title="CASE DETAIL"
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
                     email={this.state.email}
@@ -606,7 +595,6 @@ class App extends Component {
               <Fragment>
                 <div id="header-row" className="row">
                   <Header
-                    title="LIST DETAIL"
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
                     email={this.state.email}
@@ -647,7 +635,6 @@ class App extends Component {
               <Fragment>
                 <div id="header-row" className="row">
                   <Header
-                    title="FRANKINSENSE CLASSROOM"
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
                     email={this.state.email}
