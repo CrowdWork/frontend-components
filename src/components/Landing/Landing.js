@@ -48,7 +48,7 @@ const Landing = (props) => {
             link="/legal-index"
           > 
             <img src="/img/index-icon.png" class="icon"/> 
-            <div className="service-tagline">An case index of all Ghanaian Law Reports in one place!</div>
+            <div className="service-tagline"> An case index of all Ghanaian Law Reports in one place!</div>
           </Card>
         </div>
         <div className="col s12 m6">
@@ -70,7 +70,7 @@ Featuring</div>
           <Card
             title="Practical Practice"
             
-            link="/practical-practice"
+            link="https://barnorlawengine.wordpress.com/"
           >
             <img src="/img/blogging-icon.png" class="icon"/>
             <div className="service-tagline">Visit our Blog and gain access to articles on legal
@@ -84,6 +84,7 @@ practice and procedure and discussions of recent cases.</div>
             title="Court Finder"
             
             link="/court-finder"
+
           >
             <img src="/img/court-icon.png" class="icon"/>
             <div className="service-tagline">Coming Soon!</div>
