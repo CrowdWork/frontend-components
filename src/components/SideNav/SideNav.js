@@ -14,10 +14,11 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
     for (let i = 0; i < tooltips.length; i++){
       M.Tooltip.init(tooltips[i])
     }
-  
+
+  // Desktop sidebar only visible if logged in?
+
   return (
     <Fragment>
-
       <ul id="mobile" className="sidenav">
         <li>
           <div className="user-view">
@@ -33,36 +34,51 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
             }
             </div>
           </li>
-          <li><div className="subheader">Account</div></li>
+
+          {/* <li><div className="subheader">Account</div></li> */}
+
           {isLoggedIn ? (
             <li><Link to="/">Account <i className="material-icons">account_circle</i></Link></li>
           ) : (
             <Fragment>
-              <li><Link to="/signup">Guest <i className="material-icons">account_circle</i></Link></li>
+              <li><Link to="/signup">Signup Now! <i className="material-icons">account_circle</i></Link></li>
             </Fragment>
           )}
           
-          {isLoggedIn && (
+          {isLoggedIn ? (
             <li><Link to="/" onClick={onLogout}>Logout<i className="material-icons">power_settings_new</i></Link></li>
+          ) : (
+            <li><Link to="/login" className="black-text br">Sign In</Link></li>
           )}
-          <li><div className="divider"></div></li>
-          <li><div className="subheader">Services</div></li>
-          <li className="no-padding">
+
+          {isLoggedIn ? (
+            <>
+            <li><div className="divider"></div></li>
+            <li><div className="subheader">Services</div></li>
+            <li className="no-padding">
             <Link to="/legal-index">Legal Index<i className="material-icons">search</i></Link>
           </li>
-          <li className="no-padding">
+            <li className="no-padding">
             <Link to="/frankinsense">Frankensense Classroom<i className="material-icons">school</i></Link>
           </li>
-          <li className="no-padding">
+            <li className="no-padding">
             <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Court Finder <i className="material-icons">map</i></a>
           </li>
-          <li className="no-padding">
+            <li className="no-padding">
             <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Practical Practice <i className="material-icons">work</i></a>
-          </li>
+            </li>
+          </>
+          ) : (
+            <>
+            <li><Link to="#" className="black-text">Why Us?</Link></li>
+            <li><Link to="#" className="black-text">Services</Link></li>
+            </>
+          )
+        }
         </ul>
         
         {isLoggedIn ? (
-          <ul id='desktop' className="sidenav hide-on-med-and-down z-depth-0">
+          <ul id='desktop' className="sidenav hide z-depth-0">
           <li>
             <div className="user-view">
               <div className="background">

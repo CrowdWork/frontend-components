@@ -2,6 +2,7 @@ import './Header.css'
 import M from 'materialize-css'
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import SideNav from "../SideNav/SideNav"
 
 const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
   
@@ -17,39 +18,45 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
   }
   
     return (
-        <nav>
-          <div className="nav-wrapper white">
-            <a href="#!" data-target="mobile" className="sidenav-trigger hide-on-large black-text"><i className="material-icons">menu</i></a>
-            <Link to="/" id="brand-logo" className="brand-logo black-text">{title}</Link>
-            {isLoggedIn ? (
-            <Fragment>
-              <ul className="hide-on-med-and-down right height-full valign-wrapper">
-                <li className="height-full ">
-                  <a href="#!" className="dropdown-trigger btn waves-light white black-text height-full display-flex z-depth-0 margin-0 valign-wrapper" data-target="user-dropdown">
-                    {`${firstName[0]}${lastName[0]}`}
-                    <span className="valign-wrapper"><i className="material-icons margin-0">arrow_drop_down</i></span>
-                  </a>
-                </li>
-              </ul>
-              <ul id='user-dropdown' className='dropdown-content left'>
-                <li><Link to="/">My Profile <i className="material-icons">account_circle</i></Link></li>
-                <li className="divider" tabIndex="-1"></li>
-                <li><Link to="/login" onClick={onLogout}>Logout<i className="material-icons">power_settings_new</i></Link></li>
-              </ul>
-            </Fragment>
-              ) : (
-            <ul className="hide-on-med-and-down right">
-              <li><Link to="/signup" className="black-text">Signup</Link></li>
-            </ul>)
-            }
-          </div>
-        </nav>
+        <>
+          <nav>
+            <div className="nav-wrapper white z-depth-1">
+              <a href="#!" data-target="mobile" className="sidenav-trigger hide-on-large black-text"><i className="material-icons">menu</i></a>
+              <Link to="/" id="brand-logo" className="brand-logo black-text">{title}</Link>
+              {isLoggedIn ? (
+              <Fragment>
+                <ul className="hide-on-med-and-down right height-full valign-wrapper">
+                  <li className="height-full ">
+                    <a href="#!" className="dropdown-trigger btn waves-light white black-text height-full display-flex z-depth-0 margin-0 valign-wrapper" data-target="user-dropdown">
+                      {`${firstName[0]}${lastName[0]}`}
+                      <span className="valign-wrapper"><i className="material-icons margin-0">arrow_drop_down</i></span>
+                    </a>
+                  </li>
+                </ul>
+                <ul id='user-dropdown' className='dropdown-content left'>
+                  <li><Link to="/">My Profile <i className="material-icons">account_circle</i></Link></li>
+                  <li className="divider" tabIndex="-1"></li>
+                  <li><Link to="/login" onClick={onLogout}>Logout<i className="material-icons">power_settings_new</i></Link></li>
+                </ul>
+              </Fragment>
+                ) : (
+                <ul className="hide-on-med-and-down right">
+                  <li><Link to="#" className="black-text">Why Us?</Link></li>
+                  <li><Link to="#" className="black-text">Services</Link></li>
+                  <li><Link to="#" className="black-text br">Sign In</Link></li>
+                  <li><Link to="/signup" className="black-text">Signup Now!</Link></li>
+                </ul>
+                )
+              }
+            </div>
+          </nav>
+          <SideNav firstName={firstName} lastName={lastName} isLoggedIn onLogout={() => onLogout()} title={title} />
+        </>
+
     )
 }
 
-Header.defaultProps = {
-  title: 'BARNOR LAW ENGINE'
-}
+// <ul> tag of type "sidebar"
 
 export default Header
 

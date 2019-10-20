@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 const Landing = (props) => {
   return (
     <Fragment>
-        <div className="section banner">
+      <div className="section banner">
           <div className="container height-100vh display-flex flex-column flex-just-start"> 
             <h1 className="header center black-text">Barnor Law Engine</h1>
             <div className="row center">
@@ -20,48 +20,13 @@ const Landing = (props) => {
                 <h5 className="header light black-text">Accessible Content. Clear Information. Honest Service.</h5>
               </div>
             </div>
-            <div className="row center">
-              <Link to="/login" id="login-btn" className="btn-large btn-flat waves-effect z-depth-0 col s3 offset-s3">Login</Link>
-              <Link to="/signup" className="btn-large waves-effect waves-light lighten-1 z-depth-0 col s3">Signup</Link>
+            <div className="row center center-inner">
+              <Link to="/login" id="login-btn" className="btn-large btn-flat waves-effect z-depth-0">Login</Link>
+              <Link to="/signup" className="btn-large waves-effect waves-light lighten-1 z-depth-0">Signup</Link>
             </div>          
           </div>
         </div>
-      <div className="section">
-        <div className="container">
-        <div className="row">
-        <div className="col s12 m6">
-          <Card
-            title="Legal Index"
-            src="/img/janko-ferlic-specialdaddy-sfL_QOnmy00-unsplash.jpg"
-            link="/legal-index"
-          />
-        </div>
-        <div className="col s12 m6">
-          <Card
-            title="Frankinsense Classroom"
-            src="/img/janko-ferlic-specialdaddy-sfL_QOnmy00-unsplash.jpg"
-            link="/frankinsense"
-          />
-        </div>
-        <div className="col s12 m6">
-          <Card
-            title="Practical Practice"
-            src="/img/janko-ferlic-specialdaddy-sfL_QOnmy00-unsplash.jpg"
-            link="/practical-practice"
-          />
-        </div>
-        <div className="col s12 m6">
-          <Card
-            title="Court Finder"
-            src="/img/janko-ferlic-specialdaddy-sfL_QOnmy00-unsplash.jpg"
-            link="/court-finder"
-          />
-        </div>
-      </div>
-        </div>
-      </div>
-      
-      <div className="row section">
+        <div className="row section">
         <div className="container">
           <h4 className="center">About Barnor Law Engine</h4>
           <p>
@@ -71,6 +36,77 @@ const Landing = (props) => {
           </p>
         </div>
       </div>
+      <div className="section">
+        <div className="container">
+        <div className="row services">
+        <div className="col s12 m6 row-inner">
+          
+
+          <Card
+            title="Legal Index"
+            
+            link="/legal-index"
+          > 
+            <img src="/img/index-icon.png" class="icon"/> 
+            <div className="service-tagline">An case index of all Ghanaian Law Reports in one place!</div>
+          </Card>
+        </div>
+        <div className="col s12 m6">
+          
+
+          <Card
+            title="Frankinsense Classroom"
+           
+            link="/frankinsense"
+          >
+            <img src="/img/man-reading-icon.png" class="icon"/>
+            <div className="service-tagline">A learning hub for the Professional Bar Course
+Featuring</div>
+          </Card>
+        </div>
+        <div className="col s12 m6">
+
+    
+          <Card
+            title="Practical Practice"
+            
+            link="/practical-practice"
+          >
+            <img src="/img/blogging-icon.png" class="icon"/>
+            <div className="service-tagline">Visit our Blog and gain access to articles on legal
+practice and procedure and discussions of recent cases.</div>
+          </Card>
+
+        </div>
+        <div className="col s12 m6">
+
+          <Card
+            title="Court Finder"
+            
+            link="/court-finder"
+          >
+            <img src="/img/court-icon.png" class="icon"/>
+            <div className="service-tagline">Coming Soon!</div>
+          </Card>
+        </div>
+      </div>
+        </div>
+      </div>
+      
+      <section className="qualify">
+        <div className="section-title">QUALIFYING AS A LAWYER IN GHANA</div>
+        <a class="waves-effect waves-light btn red">Learn More</a>
+
+      </section>
+
+      <section className="pup">
+      <div className="section-title">Pulpillage</div>
+        <a class="waves-effect waves-light btn red">Learn More</a>
+      </section>
+
+
+
+      
       <div className="row section">
         <div className="container">
           <h4 className="center">Consultant</h4>
