@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import Card from '../Card/Card'
+import FormGroup from "../FormGroup/FormGroup"
 import M from 'materialize-css'
 import './Landing.css'
 
@@ -123,7 +124,8 @@ practice and procedure and discussions of recent cases.</div>
         <div className="container">
         <h4 className="center">Contact Us</h4>
         <div className="divider"/>
-
+          <FormGroup />
+        <div className="divider"/>
         <div className="col s12 m4 center">
           <h5>Office Location</h5>
           <p>House No F543/1<br/>

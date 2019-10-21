@@ -1,0 +1,13 @@
+.form-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    place-content: center center;
+    place-items: center center;
+    grid-gap: 1em;
+
+    margin-bottom: 1em;
+
+}
+.cell {
+    justify-self: center;
+}
