@@ -51,6 +51,10 @@ body, html {
   background-attachment: fixed;
   position: relative;
   padding-top: 0;
+  border: 1px solid black;
+  display: flex;
+  place-items: center center;
+  place-content: center center;
 }
 .overlay {
   position: absolute;
