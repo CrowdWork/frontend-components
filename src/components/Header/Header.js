@@ -20,9 +20,9 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
     return (
         <>
           <nav>
-            <div className="nav-wrapper white z-depth-1">
-              <a href="#!" data-target="mobile" className="sidenav-trigger hide-on-large black-text"><i className="material-icons">menu</i></a>
-              <Link to="/" id="brand-logo" className="brand-logo black-text">{title}</Link>
+            <div className="nav-wrapper black z-depth-1">
+              <a href="#!" data-target="mobile" className="sidenav-trigger hide-on-large"><i className="material-icons">menu</i></a>
+              <Link to="/" id="brand-logo" className="brand-logo">{title}</Link>
               {isLoggedIn ? (
               <Fragment>
                 <ul className="hide-on-med-and-down right height-full valign-wrapper">
@@ -40,11 +40,11 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
                 </ul>
               </Fragment>
                 ) : (
-                <ul className="hide-on-med-and-down right">
-                  <li><Link to="#" className="black-text">Why Us?</Link></li>
-                  <li><Link to="#" className="black-text">Services</Link></li>
-                  <li><Link to="#" className="black-text br">Sign In</Link></li>
-                  <li><Link to="/signup" className="black-text">Signup Now!</Link></li>
+                <ul className="hide-on-med-and-down right nav-list">
+                  <li><Link to="#">About</Link></li>
+                  <li><Link to="#" >Services</Link></li>
+                  <li><Link to="#" className="br">Qualifying in Ghana</Link></li>
+                  <li><Link to="/signup">Signup Now!</Link></li>
                 </ul>
                 )
               }

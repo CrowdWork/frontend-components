@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom'
 import M from 'materialize-css'
 
 
-const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
+const SideNav = ({ firstName, lastName, email, isLoggedIn=true, onLogout }) => {
   const sidenav = document.querySelectorAll('.sidenav')
   M.Sidenav.init(sidenav, {
     draggable: true,

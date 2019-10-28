@@ -661,7 +661,7 @@ class App extends Component {
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
                       email={this.state.email}
-                      isLoggedIn={this.state.isLoggedIn}
+                      isLoggedIn={true}
                       onLogout={this.onLogout}
                       onAddNote={this.onAddNote}
                     />

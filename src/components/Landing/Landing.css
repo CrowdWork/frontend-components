@@ -44,17 +44,17 @@ body, html {
   margin-top: 16px;
 }
 .banner {
-  /* background-image: url('/img/ren-ran-bBiuSdck8tU-unsplash.jpg'); */
+  background-image: url('https://images.unsplash.com/photo-1518674660708-0e2c0473e68e?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80'); 
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   position: relative;
   padding-top: 0;
-  border: 1px solid black;
   display: flex;
   place-items: center center;
   place-content: center center;
+
 }
 .overlay {
   position: absolute;
@@ -83,12 +83,15 @@ section {
   width: 101vw;
   height: 20em;
 
-  background: linear-gradient(to right, #1D7305, #38ef7d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   margin-bottom: 2em;
+  /*background: url('/img/janko-ferlic-specialdaddy-sfL_QOnmy00-unsplash.jpg') no-repeat center center fixed;
+  background-size: cover;*/
 
   display: flex;
   flex-direction: column;
   justify-content: center;
+
 
 }
 
@@ -96,9 +99,16 @@ section {
   text-align: center;
 }
 
-section .pup {
-  border: 1px solid black;
+section.pup {
+  background: black;
+  color: green;
+
 } 
+
+section.qualify {
+  background: green;
+  color: black;
+}
 
 section > a {
   display: inline-block;
@@ -109,10 +119,9 @@ section > a {
 
 .section-title {
   flex: 1;
-  place-self: center center;
+  place-self: center start;
   font-size: 26px;
   transform: translate(0, 30%);
-  color: white;
 }
 .service-tagline {
   position: absolute;
@@ -121,5 +130,36 @@ section > a {
   width: 90%;
   transform: translate(-50%, -50%);
   text-align: center
+
+}
+
+.splash {
+  place-items: center center;
+  place-content: center center;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-2em);
+}
+
+.splash > .row {
+  display: flex;
+  place-content: space-around center;
+  place-items: center center;
+  width: 90%;
+}
+
+.main-tagline {
+  flex: 1;
+  letter-spacing: 1px;
+  line-height: 50px;
+  text-align: left;
+}
+
+.main-title {
+  flex: .5;
+}
+
+.main-buttons {
+
 
 }

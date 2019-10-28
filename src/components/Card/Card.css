@@ -24,4 +24,9 @@
   position: absolute;
   bottom: 0;
   right: 0;
+  cursor: not-allowed;
+}
+
+.card-image > a:hover {
+  cursor: not-allowed;
 }
