@@ -1,11 +1,8 @@
-.form {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  padding-bottom: 30px;
+form button {
+  margin-top: 24px;
 }
-.signupBtn {
-  align-self: flex-end;
+form div.input-field {
+  padding: 16px;
 }
 .sign-up {
   padding: 4em !important;

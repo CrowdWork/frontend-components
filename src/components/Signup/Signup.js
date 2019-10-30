@@ -82,7 +82,6 @@ export default ({history, onSubmit }) => {
       <div className="container ">
         <h1>Register</h1>
         <form className="col s12 sign-up" onSubmit={onFormSubmit}>
-
           <div className="row">
             <div className="input-field col s6">
               <input id="firstName" type="text" className="validate" value={data.firstName} onChange={(e) => setData({...data, firstName: e.target.value})} />

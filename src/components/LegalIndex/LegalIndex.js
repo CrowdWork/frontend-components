@@ -90,7 +90,7 @@ class LegalIndex extends Component {
     if (searchAttempted && !errorMessage) {
       console.log(batchedSearchResults)
       return esSearchResults.length === 0 ?
-        (<div>Search did not return a match. Please try again.</div>) :
+        (<div className="center">Search did not return a match. Please try again.</div>) :
         (<EsCaseList
           esSearchResults={esSearchResults}
           batchedSearchResults={batchedSearchResults}
