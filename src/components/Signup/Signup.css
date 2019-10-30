@@ -4,3 +4,22 @@ form button {
 form div.input-field {
   padding: 16px;
 }
+.sign-up {
+  padding: 4em !important;
+}
+.error {
+  color: red;
+}
+.select {
+  z-index: 999;
+}
+
+.submit {
+  z-index: 20;
+}
+
+.required::after {
+  content: '*';
+  position: absolute;
+  color: red;
+}

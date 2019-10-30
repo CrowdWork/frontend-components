@@ -1,6 +1,6 @@
 .form-group {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 2fr));
     place-content: center center;
     place-items: center center;
     grid-gap: 1em;

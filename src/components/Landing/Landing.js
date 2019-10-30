@@ -14,17 +14,19 @@ const Landing = (props) => {
   return (
     <Fragment>
       <div className="section banner">
-          <div className="container height-100vh display-flex flex-column flex-just-start"> 
-            <h1 className="header center black-text">Barnor Law Engine</h1>
+          <div className="container height-100vh splash" > 
             <div className="row center">
-              <div className="col s12">
-                <h5 className="header light black-text">Accessible Content. Clear Information. Honest Service.</h5>
+              <div className="col s6">
+                <h5 className="header light main-tagline">Accessible Content.</h5>
+                <h5 className="main-tagline"> Clear Information.</h5>
+                <h5 className="main-tagline">Honest Service.</h5>
+              </div>
+              <div className="col s6">
+                <Link to="/login" id="login-btn" className="btn-large btn-flat waves-effect z-depth-0 white" >Login</Link>
+                <Link to="/signup" className="btn-large waves-effect waves-light lighten-1 z-depth-0">Signup</Link>
               </div>
             </div>
-            <div className="row center center-inner">
-              <Link to="/login" id="login-btn" className="btn-large btn-flat waves-effect z-depth-0">Login</Link>
-              <Link to="/signup" className="btn-large waves-effect waves-light lighten-1 z-depth-0">Signup</Link>
-            </div>          
+    
           </div>
         </div>
         <div className="row section">
@@ -97,13 +99,13 @@ practice and procedure and discussions of recent cases.</div>
       
       <section className="qualify">
         <div className="section-title">QUALIFYING AS A LAWYER IN GHANA</div>
-        <a class="waves-effect waves-light btn red">Learn More</a>
+        <a class="waves-effect waves-light btn red disabled">Learn More</a>
 
       </section>
 
       <section className="pup">
       <div className="section-title">Pulpillage</div>
-        <a class="waves-effect waves-light btn red">Learn More</a>
+        <a class="waves-effect waves-light btn red disabled">Learn More</a>
       </section>
 
 
