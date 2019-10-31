@@ -23,7 +23,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn=true, onLogout }) => {
         <li>
           <div className="user-view">
             <div className="background">
-              <img src="https://i.imgur.com/5ui8Nqnm.jpg" alt='abstract background img' />
+              {/* <img src="https://i.imgur.com/5ui8Nqnm.jpg" alt='abstract background img' /> */}
             </div>
             {isLoggedIn && (
               <Fragment>
@@ -78,11 +78,11 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn=true, onLogout }) => {
         </ul>
         
         {isLoggedIn ? (
-          <ul id='desktop' className="sidenav hide z-depth-0">
+          <ul id='desktop' className="sidenav sidenav-fixed z-depth-0">
           <li>
             <div className="user-view">
               <div className="background">
-                <img src="https://i.imgur.com/5ui8Nqnm.jpg" alt='abstract background img' />
+                {/* <img src="https://i.imgur.com/5ui8Nqnm.jpg" alt='abstract background img' /> */}
               </div>
               {isLoggedIn && (
                 <Fragment>

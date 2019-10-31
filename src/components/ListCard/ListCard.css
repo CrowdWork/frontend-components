@@ -10,3 +10,9 @@
 .list-card {
   height: 100%;
 }
+div.color-favorites {
+  background: #333;
+}
+h5.color-favorites {
+  color: white;
+}

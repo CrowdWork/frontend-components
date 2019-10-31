@@ -117,6 +117,7 @@ class LegalIndex extends Component {
         </ul>
 
         <div id="tab-search" className="col s12">
+          <div className="container">
           <div className="row">
             <div className="col s12">
               <Search 
@@ -127,9 +128,41 @@ class LegalIndex extends Component {
           <div className="row">
             {this.renderContent()}
           </div>
+          </div>
+          
         </div>
 
         <div id="tab-lists" className="col s12">
+          <div className="container">
+            <div className="row valign-wrapper">
+                <div className="col s12">
+                  <h5>Lists</h5>
+                  <p>View and manage your lists.</p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="buttons-flex">
+                  <form>
+                    <p className="margin-right-16">
+                      <label>
+                        <input name="group1" value="my-lists" type="radio" checked={this.state.selectedOption === "my-lists"} onChange={this.onMyListSelected} />
+                          <span>My Lists</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label>
+                        <input name="group1" value='public-lists' checked={this.state.selectedOption === "public-lists"} onChange={this.onPubListSelected} type="radio" />
+                        <span>Public</span>
+                      </label>
+                    </p>
+                  </form>
+                  <div className="buttons-flex">
+                    <a href="javascript:void(0)" data-target="modal1" className="btn-floating tooltipped btn modal-trigger Lists--buttons" data-position="left" data-tooltip="Create a new list."><i className="margin-0 large material-icons">playlist_add</i>New</a>
+                  </div>
+                </div>
+                {this.renderLists()}
+              </div>
+            </div>
             {/*LIST MODAL STRUCTURE */}
             <div id="modal1" className="modal">
               <div className="modal-content">
@@ -150,38 +183,24 @@ class LegalIndex extends Component {
               </div>
             </div>
             {/*END LIST MODAL */}
-            <div className="row valign-wrapper">
-              <div className="col s12 margin-left-10875">
-                <h5>Lists</h5>
-                <p>View and manage your lists.</p>
-              </div>
-              
-            </div>
-            <div className="row">
-              <div className="buttons-flex margin-left-10875">
-                <form>
-                  <p className="margin-right-16">
-                    <label>
-                      <input name="group1" value="my-lists" type="radio" checked={this.state.selectedOption === "my-lists"} onChange={this.onMyListSelected} />
-                        <span>My Lists</span>
-                    </label>
-                  </p>
-                  <p>
-                    <label>
-                      <input name="group1" value='public-lists' checked={this.state.selectedOption === "public-lists"} onChange={this.onPubListSelected} type="radio" />
-                      <span>Public</span>
-                    </label>
-                  </p>
-                </form>
-                <div className="buttons-flex">
-                  <a href="javascript:void(0)" data-target="modal1" className="btn-floating tooltipped btn-large modal-trigger margin-right-10875 Lists--buttons" data-position="right" data-tooltip="Create a new list."><i className="margin-0 large material-icons">playlist_add</i>Add New List</a>
-                </div>
-              </div>
-              {this.renderLists()}
-            </div>
+            
           </div>
 
           <div id="tab-notes" className="col s12">
+            <div className="container">
+              <div className="row valign-wrapper">
+                <div id="note-section-title"className="col s10">
+                  <h5>Notes</h5>
+                  <p>Manage your notes.</p>
+                </div>
+                <div className="col s2">
+                  <a href="javascript:void(0)" data-target="modalNote" className="btn-flat modal-trigger tooltipped" data-position="left" data-tooltip="Add new note."><i id="button-addnote" className="large material-icons">note_add</i></a>
+                </div>
+              </div>
+              <div className="row">
+                {this.renderNotes()}
+              </div>
+            </div>
             {/*NOTES MODAL STRUCTURE */}
             <div id="modalNote" className="modal">
               <div className="modal-content">
@@ -200,18 +219,7 @@ class LegalIndex extends Component {
               </div>
             </div>
             {/*END NOTES MODAL */}
-            <div className="row valign-wrapper">
-              <div id="note-section-title"className="col s10">
-                <h5>Notes</h5>
-                <p>Manage your notes.</p>
-              </div>
-              <div className="col s2">
-                <a href="javascript:void(0)" data-target="modalNote" className="btn-flat modal-trigger tooltipped" data-position="left" data-tooltip="Add new note."><i id="button-addnote" className="large material-icons">note_add</i></a>
-              </div>
-            </div>
-            <div className="row">
-              {this.renderNotes()}
-            </div>
+            
           </div>
       </div>
     )

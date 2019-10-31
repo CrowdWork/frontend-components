@@ -26,11 +26,11 @@ class Account extends Component {
     console.log(this.props.userID)
     console.log(this.props.profession)
     return (
-      <div className="account-overview-wrapper col s12">
+      <div className="container">
           <div>
             <div className="row">
               <div className="col s12">
-                <h4 className="header">Account</h4>
+                <h4>Account</h4>
                 <p>Manage your account settings</p>
               </div>
               <div className="col s12">

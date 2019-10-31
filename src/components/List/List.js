@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-const url = "http://localhost:4000"
-// const url = "https://ble-backend.herokuapp.com"
+// const url = "http://localhost:4000"
+const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
@@ -25,7 +25,7 @@ class List extends Component {
     console.log('FETCH LIST BY ID')
     try {
       const list = await axios.get(`${url}/lists/${this.props.match.params.list_id}`, authHeader)
-      this.setState({ list: list.data })
+      this.setState(() => ({ list: list.data }))
       console.log(list.data)
     } catch (err) {
       console.log(err)

@@ -12,17 +12,15 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
       coverTrigger: false,
       closeOnClick: false,
       alignment: 'left',
-      hover: true,
+      hover: false,
       constrainWidth: false
     })
   }
   
     return (
-        <>
-          <nav>
-            <div className="nav-wrapper black z-depth-1">
-              <a href="#!" data-target="mobile" className="sidenav-trigger hide-on-large"><i className="material-icons">menu</i></a>
-              <Link to="/" id="brand-logo" className="brand-logo">{title}</Link>
+          <nav className="nav-wrapper black z-depth-0 height-full">
+              <a href="#!" data-target="mobile" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+              <Link to="/" id="brand-logo" className="brand-logo"></Link>
               {isLoggedIn ? (
               <Fragment>
                 <ul className="hide-on-med-and-down right height-full valign-wrapper">
@@ -48,11 +46,7 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
                 </ul>
                 )
               }
-            </div>
           </nav>
-          <SideNav firstName={firstName} lastName={lastName} isLoggedIn onLogout={() => onLogout()} title={title} />
-        </>
-
     )
 }
 

@@ -339,7 +339,7 @@ class App extends Component {
           <Route exact path="/"
             render={(props) => this.state.isLoggedIn ? (
               <Fragment>
-                <header id="header-row">
+                <header className="header">
                   <Header
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
@@ -348,7 +348,7 @@ class App extends Component {
                     onLogout={this.onLogout}
                   />
                 </header>
-                <div id="content-row">
+                <div className="content">
                   <aside id="sideNav-col">
                     <SideNav
                       {...props}
@@ -361,7 +361,7 @@ class App extends Component {
                     />
                   </aside>
                   {/* <div id="main-col" className="col s12 l9 xl10"> */}
-                    <main className="container has-fixed-sidenav">
+                    <main>
                       <Account
                         {...props}
                         userID={this.state.userID}
@@ -395,7 +395,7 @@ class App extends Component {
                       onLogout={this.onLogout}
                     />
                   </div>
-                  <div id="content-row" className="row">
+                  <div>
                     {/* <div id="main-col" className="col s12"> */}
                       <main>
                         <Landing
@@ -420,7 +420,7 @@ class App extends Component {
                     onLogout={this.onLogout}
                   />
                 </div>
-                <div id="content-row" className="row">
+                <div className="content">
                   
                     <main>
                       <Signup
@@ -447,15 +447,13 @@ class App extends Component {
                     onLogout={this.onLogout}
                   />
                 </div>
-                <div id="content-row" className="row">
-                  
+                <div>
                     <main>
                       <Login
                         {...props}
                         handleLogin={this.handleLogin}
                       />
                     </main>
-                  
                 </div>
               </Fragment>
             ) : (
@@ -477,7 +475,7 @@ class App extends Component {
                       onLogout={this.onLogout}
                     />
                   </div>
-                  <div id="content-row" className="row">
+                  <div className="content">
                     <aside id="sideNav-col" className="col s0 l3 xl2">
                       <SideNav
                         firstName={this.state.firstName}
@@ -489,7 +487,7 @@ class App extends Component {
                       />
                     </aside>
                     
-                      <main className="has-fixed-sidenav">
+                      <main>
                         <LegalIndex
                           {...props}
                           esSearchResults={this.state.esSearchResults}
@@ -524,7 +522,7 @@ class App extends Component {
                     onLogout={this.onLogout}
                   />
                 </div>
-                <div id="content-row" className="row">
+                <div className="content">
                   <aside id="sideNav-col"className="col s0 l3 xl2">
                     <SideNav
                       firstName={this.state.firstName}
@@ -564,7 +562,7 @@ class App extends Component {
                     onLogout={this.onLogout}
                   />
                 </div>
-                <div id="content-row" className="row">
+                <div className="content">
                   <aside id="sideNav-col" className="col s0 l3 xl2">
                     <SideNav
                       firstName={this.state.firstName}
@@ -602,7 +600,7 @@ class App extends Component {
                     onLogout={this.onLogout}
                   />
                 </div>
-                <div id="content-row" className="row">
+                <div className="content">
                   <aside id="sideNav-col"className="col s0 l3 xl2">
                     <SideNav
                       firstName={this.state.firstName}
@@ -642,7 +640,7 @@ class App extends Component {
                     onLogout={this.onLogout}
                   />
                 </div>
-                <div id="content-row" className="row">
+                <div className="content">
                   <aside id="sideNav-col" className="col s0 l3 xl2">
                     <SideNav
                       firstName={this.state.firstName}
@@ -681,7 +679,7 @@ class App extends Component {
                       onLogout={this.onLogout}
                     />
                   </div>
-                  <div id="content-row" className="row">
+                  <div className="content">
                     <aside id="sideNav-col" className="col s0 l3 xl2">
                       <SideNav
                         subject={this.state.subjectSelected}
@@ -743,7 +741,7 @@ class App extends Component {
               )} />
         </Switch>
 
-        {/* <div id="content-row" className="row">
+        {/* <div className="content">
                 
           <Route path="/notes/:_id"
             render={(props) => !this.state.isLoggedIn ? (

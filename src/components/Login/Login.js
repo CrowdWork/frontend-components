@@ -19,25 +19,27 @@ class Login extends Component {
     console.log(this.props)
     return (
       <div className="container">
-        <h2 className="header offset-s3 col s6">Login</h2>
-        <div className="row">
-          <form className="col s12 m6 offset-m3" onSubmit={this.onFormSubmit}>
-            <div className="row">
+        
+        <div className="container">
+          <div className="row">
+            <h2 className="header col s12">Login</h2>
+            <form onSubmit={this.onFormSubmit}>
               <div className="input-field col s12">
                 <input id="email" type="email" name="email" className="validate" required />
                 <label htmlFor="email">Email</label>
               </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <input id="password" type="password" name="password" className="validate" required />
-                <label htmlFor="password">Password</label>
+              
+                <div className="input-field col s12">
+                  <input id="password" type="password" name="password" className="validate" required />
+                  <label htmlFor="password">Password</label>
+                </div>
+            
+              <div className="col s12">
+                <button className="waves-effect waves-light btn left" type="submit" name="action">Login</button>
               </div>
-            </div>
-            <div className="col s5">
-              <button className="waves-effect waves-light btn left" type="submit" name="action">Login</button>
-            </div>
-          </form>
+            </form>
+          </div>
+          
         </div>
         <p className="center">Not registered yet? <Link to="/signup" style={{textDecoration: 'underline'}}>Register now.</Link></p>
       </div>
