@@ -43,7 +43,7 @@ class Search extends Component {
       const queryString = `${fieldToSearch}: ${rowInput}`
       this.props.onSearchSubmit(queryString)
     } else {
-      const queryString = rowInput
+      const queryString = `cases.\*: ${rowInput}`
       this.props.onSearchSubmit(queryString)
     }    
   }
