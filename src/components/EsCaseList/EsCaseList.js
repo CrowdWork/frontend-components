@@ -13,7 +13,7 @@ const EsCaseList = ({ batchedSearchResults, sizeLimit, esSearchResults, loadMore
             <div className="card-stacked">
               <div className="card-content">
                 <div>
-                  <h6 className="header"><strong>{thisCase._source.caseName.length > 40 ? (thisCase._source.caseName.substring(0, 40) + '...') : (thisCase._source.caseName)}</strong></h6>
+                  <h6><strong>{thisCase._source.caseName.length > 40 ? (thisCase._source.caseName.substring(0, 40) + '...') : (thisCase._source.caseName)}</strong></h6>
                   <span>{thisCase._source.citation}</span>
                 </div>
                 <div className="court-year">
@@ -22,7 +22,7 @@ const EsCaseList = ({ batchedSearchResults, sizeLimit, esSearchResults, loadMore
                 </div>
               </div>
               <div className="card-action">
-                <Link to={`/case/${thisCase._source.mongo_id}`} target="_blank" className="right">Detail</Link>
+                <Link to={`/case/${thisCase._source.mongo_id}`} target="_blank">Detail</Link>
               </div>
             </div>
           </div>

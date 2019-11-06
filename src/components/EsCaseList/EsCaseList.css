@@ -8,9 +8,19 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-start;
 }
-.card-content:nth-child(1) {
+.card-content h6 {
+  margin: 0;
+}
+.card-content>div {
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.card-content:nth-child(2) {
+  align-items: flex-end;
 }
 
 .list-utils {
@@ -21,6 +31,7 @@
 }
 .court-year {
   text-align: right;
+  align-items: flex-end;
 }
 li.card-wrapper {
   padding: 0;

@@ -39,11 +39,14 @@ class Search extends Component {
     e.preventDefault()
     const rowInput = e.target.elements.input.value
     const fieldToSearch = e.target.elements.fieldToSearch.value
-    if (!fieldToSearch === 'all') {
-      const queryString = `${fieldToSearch}: ${rowInput}`
-      this.props.onSearchSubmit(queryString)
-    } else {
+    console.log(fieldToSearch)
+    if (fieldToSearch === 'all') {
       const queryString = rowInput
+      this.props.onSearchSubmit(queryString)
+      
+    } else {
+      console.log('ALL SELECTED' + (fieldToSearch === 'all'))
+      const queryString = `${fieldToSearch}: ${rowInput}`
       this.props.onSearchSubmit(queryString)
     }    
   }
@@ -144,7 +147,7 @@ class Search extends Component {
   render() {
     console.log(`queryStringAggregator: ${this.state.queryStringAggregator}`)
     return (
-      <div className="dispaly-flex flex-column">
+      <div className="display-flex flex-column">
         <h1 className="center h1-search">Legal Index</h1>
         <div className="display-flex flex-column flex-justify-center flex-align-center">
           

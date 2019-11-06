@@ -532,7 +532,6 @@ class App extends Component {
                       onLogout={this.onLogout}
                     />
                   </aside>
-                  <div id="main-col" className="col s12 l9 xl10">
                     <main>
                       <CaseDetail
                         {...props}
@@ -541,7 +540,6 @@ class App extends Component {
                         onAddNote={this.onAddNote}
                       />
                     </main>
-                  </div>
                 </div>
               </Fragment>
             )}
@@ -573,14 +571,12 @@ class App extends Component {
                       onAddNote={this.onAddNote}
                     />
                   </aside>
-                  <div id="main-col" className="col s12 l9 xl10">
                     <main>
                       <Admin
                         {...props}
                         {...this.state}
                       />
                     </main>
-                  </div>
                 </div>
               </Fragment>
             )}
@@ -610,7 +606,7 @@ class App extends Component {
                       onLogout={this.onLogout}
                     />
                   </aside>
-                  <div id="main-col" className="col s12 l9 xl10">
+                  
                     <main>
                     <List
                       {...props}
@@ -620,7 +616,7 @@ class App extends Component {
                       deleteList={this.deleteList}
                     />
                     </main>
-                  </div>
+                  
                 </div>
               </Fragment>
             )}
@@ -739,6 +735,22 @@ class App extends Component {
                   </div>
                 </Fragment>
               )} />
+              <Route path="/subscribe"
+                render={(props) => !this.state.isLoggedIn ? (
+                  <Redirect to="/login" />
+                ) : (
+                  <Order
+                    {...props}
+                    onSubmit={this.onSubscribe}
+                  />
+                )}
+              />
+              <Route path="/checkout"
+                component={() => {
+                  window.location.href = `https://sandbox.expresspaygh.com/api/checkout.php?token=${this.state.orderToken}`
+                }}
+              />
+
         </Switch>
 
         {/* <div className="content">
