@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom'
 import M from 'materialize-css'
 
 
-const SideNav = ({ firstName, lastName, email, isLoggedIn=true, onLogout }) => {
+const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
   const sidenav = document.querySelectorAll('.sidenav')
   M.Sidenav.init(sidenav, {
     draggable: true,
@@ -14,14 +14,15 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn=true, onLogout }) => {
     for (let i = 0; i < tooltips.length; i++){
       M.Tooltip.init(tooltips[i])
     }
+    console.log(isLoggedIn)
 
   // Desktop sidebar only visible if logged in?
 
   return (
     <Fragment>
-      <ul id="mobile" className="sidenav">
+      <ul id="slide-out" className="sidenav">
         <li>
-          <div className="user-view">
+          <div className="user-view" style={{zIndex: '999'}}>
             <div className="background">
               {/* <img src="https://i.imgur.com/5ui8Nqnm.jpg" alt='abstract background img' /> */}
             </div>
@@ -70,8 +71,9 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn=true, onLogout }) => {
           </>
           ) : (
             <>
-            <li><Link to="#" className="black-text">Why Us?</Link></li>
+            <li><Link to="#" className="black-text">About</Link></li>
             <li><Link to="#" className="black-text">Services</Link></li>
+            <li><Link to="#" className="black-text">Qualifying in Ghana</Link></li>
             </>
           )
         }

@@ -1,11 +1,12 @@
 import './Header.css'
 import M from 'materialize-css'
-import React, { Fragment } from 'react'
+import React, { Fragment, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import SideNav from "../SideNav/SideNav"
 
+
 const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
-  
+
   const dropdowns = document.querySelectorAll('.dropdown-trigger')
   for (let i = 0; i < dropdowns.length; i++){
     M.Dropdown.init(dropdowns[i], {
@@ -17,10 +18,12 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
     })
   }
   
+  
     return (
           <nav className="nav-wrapper black z-depth-0 height-full">
-              <a href="#!" data-target="mobile" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+              <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>
               <Link to="/" id="brand-logo" className="brand-logo"></Link>
+              <SideNav />
               {isLoggedIn ? (
               <Fragment>
                 <ul className="hide-on-med-and-down right height-full valign-wrapper">
@@ -39,9 +42,9 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
               </Fragment>
                 ) : (
                 <ul className="hide-on-med-and-down right nav-list">
-                  <li><Link to="#">About</Link></li>
-                  <li><Link to="#" >Services</Link></li>
-                  <li><Link to="#" className="br">Qualifying in Ghana</Link></li>
+                  <li><Link to="/" onClick={() => document.getElementById('about-me').scrollIntoView({behavior: 'smooth'})}>About</Link></li>
+                  <li><Link to="/" onClick={() => document.getElementById('services').scrollIntoView({behavior: 'smooth'})} >Services</Link></li>
+                  <li><Link to="/" onClick={() => document.getElementById('qualify').scrollIntoView({behavior: 'smooth'})}className="br">Qualifying in Ghana</Link></li>
                   <li><Link to="/signup">Signup Now!</Link></li>
                 </ul>
                 )

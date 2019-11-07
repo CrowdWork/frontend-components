@@ -74,7 +74,8 @@ body, html {
 .landing--about-me {
   padding-top: 50px;
   background: #4de100;
-  height: 75vh;
+  height: auto;
+  overflow-y: scroll;
 }
 .landing--about-me h3 {
   font-family: Cinzel;
@@ -98,6 +99,7 @@ body, html {
 }
 .services {
   padding: 50px 0;
+  height: auto;
 }
 
 section {
@@ -188,6 +190,13 @@ section > a {
 }
 .about-text {
   line-height: 2.8rem;
+  
+
+}
+
+.section-about {
+  overflow-y: scroll;
+
 }
 
 @media screen and (max-width: 767px) {
