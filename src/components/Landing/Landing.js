@@ -1,23 +1,27 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Card from '../Card/Card'
 import FormGroup from "../FormGroup/FormGroup"
 import M from 'materialize-css'
 import './Landing.css'
+import theme from "../../theme"
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.parallax');
   M.Parallax.init(elems)
 })
 
+
 const Landing = (props) => {
+  
+
   return (
     <Fragment>
       <div className="section banner">
         <div className="banner-overlay"></div>
           <div className="container height-100vh splash"> 
             <div className="row center">
-              <div className="col s6">
+              <div className="col s6"> 
                 <h3 className="main-tagline">Accessible Content,</h3>
                 <h3 className="main-tagline">Honest Service,</h3>
                 <h3 className="main-tagline"> Clear Information</h3>
@@ -30,11 +34,11 @@ const Landing = (props) => {
     
           </div>
         </div>
-        <div className="landing--about-me">
+        <div id="about-me" className="landing--about-me" style={{background: theme.mainColor}}>
           <div className="container">
-            <div className="row section">
+            <div className="row section section-about">
               <h3 >About Barnor Law Engine</h3>
-              <p className="about-text flow-text">
+              <p className="about-text flow-text" >
                 Barnor Law Engine was started in 2017 to provide clear and easily accessible information for lawyers looking to qualify in the Ghanaian jurisdiction. It aims to provide information on the academic and apprenticeship stages of becoming a qualified Barrister at Law and Solicitor of the Supreme Court of Ghana.
                 Here you can find out about the entry requirements for the Post Call course offered by Ghana Law School, information on the structure of the Ghanaian Legal system, a handy online case index, and exclusive notes and exercises to help you pass the Post Call course.
                 Barnor Law Engine is uniquely positioned to give real advice about what you really need to know to successfully pass the course, secure pupillage and keep abreast of legal news. Your journey is made easier with us by your side.
@@ -43,7 +47,7 @@ const Landing = (props) => {
           </div>
         </div>
         
-      <div className="section services">
+      <div id="services" className="section services">
         <div className="container">
         <div className="row">
         <div className="col s12 m6 row-inner">
@@ -101,7 +105,7 @@ practice and procedure and discussions of recent cases.</div>
         </div>
       </div>
       
-      <section className="qualify">
+      <section id="qualify" className="qualify" style={{background: theme.mainColor}}>
         <div className="section-title">QUALIFYING AS A LAWYER IN GHANA</div>
         <a class="waves-effect waves-light btn red disabled">Learn More</a>
 
@@ -111,9 +115,6 @@ practice and procedure and discussions of recent cases.</div>
       <div className="section-title">Pulpillage</div>
         <a class="waves-effect waves-light btn red disabled">Learn More</a>
       </section>
-
-
-
       
       <div className="row section">
         <div className="container">

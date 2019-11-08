@@ -206,7 +206,7 @@ class App extends Component {
       phoneNumber: '',
       phoneNumber: '',
       profession: '',
-      isLoggedIn: false,
+      isLoggedIn: true,
       userID: null
     }))
 
