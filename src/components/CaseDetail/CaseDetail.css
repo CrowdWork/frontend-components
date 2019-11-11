@@ -1,11 +1,10 @@
 #CaseDetail-container {
-  width: 90%;
-  max-width: 900px;
-  /* height: 100%; */
+  width: 100%;
+  max-width: 1024px;
 }
 #card-panel-wrapper {
   width: 100%;
-  margin-top: 16px;
+  margin-top: 0;
 }
 #card-panel-wrapper>.card-panel{
   padding: 0;
@@ -13,7 +12,7 @@
 .flex-space-btw {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  
 }
 .card-panel > h6{
   width: 50%;
@@ -27,6 +26,10 @@
 .card-panel p, .card-panel h6{
   margin: 0;
   padding: 0;
+}
+.casedetail-panel {
+  background: transparent;
+  box-shadow: none;
 }
 .columns-wrapper > h6{
   border-right: 1px solid black;
@@ -69,6 +72,45 @@ a.btn {
 .go-back:hover {
   text-decoration: underline;
 }
-#modal1 {
-  height: 160px;
+.casedetail-add-btn {
+  box-shadow: none;
+  border-radius: 0;
+  height: 100%;
+}
+.casedetail-add-btn:hover {
+  box-shadow: none;
+  border-radius: 0;
+}
+.casedetail--casename-container {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  background: #fff;
+}
+.casedetail--casename-container>* {
+  margin: 0;
+  padding: 0 0 0 26.875px;
+}
+.casedetail-casename-header {
+  height: 100%;
+}
+.casedetail-star-btn {
+  padding: 0;
+  border: none;
+  background: inherit;
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+  margin: 0 8px;
+  box-shadow: none;
+}
+.casedetail-star-btn>i {
+  cursor: pointer;
+  color: gold;
+  font-size: 24px;
+  height: 100%;
+  justify-self: center;
+}
+.casedetail-star-btn:focus {
+  background: none;
 }

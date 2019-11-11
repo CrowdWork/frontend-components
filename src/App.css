@@ -51,9 +51,10 @@ body{
   background: #f9f8f8; 
 }
 
-/* main {
-  height: 100%;
+ main {
+  min-height: 100vh;
 }
+/*
 a {
   color: #fff;
   text-decoration: none;

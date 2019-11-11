@@ -27,7 +27,7 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
               {isLoggedIn ? (
               <Fragment>
                 <ul className="hide-on-med-and-down right height-full valign-wrapper">
-                  <li className="height-full ">
+                  <li className="height-full">
                     <a href="#!" className="dropdown-trigger btn waves-light white black-text height-full display-flex z-depth-0 margin-0 valign-wrapper" data-target="user-dropdown">
                       {`${firstName[0]}${lastName[0]}`}
                       <span className="valign-wrapper"><i className="material-icons margin-0">arrow_drop_down</i></span>
