@@ -16,7 +16,8 @@ class CaseDetail extends Component {
 
   state = {
     caseDetail: '',
-    listId: ''
+    listId: '',
+    isFavorite: false
   }
 
   componentDidMount() {
@@ -48,9 +49,10 @@ class CaseDetail extends Component {
           fetchedCase[prop] = fetchedCase[prop].join().split(',')
         }
       }
-      this.setState({
-        caseDetail: fetchedCase
-      })
+      this.setState(() => ({ caseDetail: fetchedCase }))
+      if (this.props.lists[0].cases.includes(this.state.caseDetail._id)) {
+        this.setState(() => ({ isFavorite: true }))
+      }
       
     } catch (err) {
       console.log(err)
@@ -80,7 +82,28 @@ class CaseDetail extends Component {
         })
       }
   }
+ toggleFavorite = async () => {
+  console.log('Adding to Favorites')
+  this.setState(() => ({ listId: this.props.lists[0]._id }))
+  const { caseDetail, listId } = this.state
+  if (this.props.lists[0].cases.includes(caseDetail._id)) {
+    try {
+      const result = await axios.get(`${url}/cases/add/${caseDetail.mongo_id}/${listId}`, authHeader)
+      console.log(result.data)
+    } catch (err) {
+      console.log(err)
+    }
+  } else {
+    try {
+      await axios.get(`${url}/cases/remove/${caseDetail.mongo_id}/${listId}`, authHeader)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
+    
+    
+ }
   addToList = async (e) => {
     console.log('Modal Form Submitted')
     e.preventDefault()
@@ -93,6 +116,7 @@ class CaseDetail extends Component {
   }
 
   render() {
+    if (this.props.lists.length > 0 ) console.log(this.props.lists.length > 0 && this.props.lists[0].cases.includes(this.state.caseDetail._id))
     console.log('RENDER CASE DETAIL')
     console.log(this.state)
     return (
@@ -118,62 +142,75 @@ class CaseDetail extends Component {
 
         <div id="card-panel-wrapper" className="col s12 m5">
           {/* <Link to="javascript:void(0)" className="go-back" onClick={this.props.history.goBack}>Back to results</Link> */}
-          <div className="flex-space-btw">
-            <h6 className="grey-text text-darken-4"><b>{this.state.caseDetail.caseName}</b></h6>
+          <div className="flex-space-btw white">
+
+            <div className="casedetail--casename-container">
+              <h5 className="grey-text text-darken-4 casedetail-header">{this.state.caseDetail.caseName}</h5>
+              <button className="casedetail-star-btn" onClick={this.toggleFavorite}>
+                {this.state.isFavorite ? (
+                  <i class="fas fa-star"></i>
+                  ) : (
+                  <i class="far fa-star"></i>
+                  )
+                }
+              </button>
+            </div>
+            
             <div>
-              <button data-target="modal1" className="btn tooltipped modal-trigger" data-position="left" data-tooltip="Add this case to a list"><i className="large material-icons">playlist_add</i></button>
+              <button data-target="modal1" className="btn tooltipped modal-trigger casedetail-add-btn" data-position="left" data-tooltip="Add this case to a list"><i className="large material-icons">playlist_add</i></button>
             </div>
           </div>
+          
 
-          <div className="card-panel white">
+          <div className="card-panel casedetail-panel">
             <div className="row">
-              <h6 className="col s12 m6 grey-text text-darken-3"><b>Citation</b></h6>
-              <p className="col s12 m6 grey-text text-darken-3">{this.state.caseDetail.citation}</p>
+              <h6 className="col s12 m4 grey-text text-darken-3"><b>Citation</b></h6>
+              <p className="col s12 m8 grey-text text-darken-3 left-align">{this.state.caseDetail.citation}</p>
             </div>
               
             
-            <div className="divider" />
+            <div className="divider grey lighten-1" />
             
               <div className="row">
-                <h6 className="col s12 m6 grey-text text-darken-3"><b>Court</b></h6>
-                <p className="col s12 m6 grey-text text-darken-3">{this.state.caseDetail.court}</p>
+                <h6 className="col s12 m4 grey-text text-darken-3"><b>Court</b></h6>
+                <p className="col s12 m8 grey-text text-darken-3">{this.state.caseDetail.court}</p>
               </div>
               
             
-            <div className="divider" />
+            <div className="divider grey lighten-1" />
           
               <div className="row">
-                <h6 className="col s12 m6 grey-text text-darken-3"><b>Type of Document</b></h6>
-                <p className="col s12 m6 grey-text text-darken-3">{this.state.caseDetail.documentType}</p>
+                <h6 className="col s12 m4 grey-text text-darken-3"><b>Type of Document</b></h6>
+                <p className="col s12 m8 grey-text text-darken-3">{this.state.caseDetail.documentType}</p>
               </div>
               
             
-            <div className="divider" />
+            <div className="divider grey lighten-1" />
               <div className="row">
-                <h6 className="col s12 m6 grey-text text-darken-3"><b>Judge(s)</b></h6>
-                <p className="col s12 m6 grey-text text-darken-3">{this.renderJudges()}</p>
+                <h6 className="col s12 m4 grey-text text-darken-3"><b>Judge(s)</b></h6>
+                <p className="col s12 m8 grey-text text-darken-3">{this.renderJudges()}</p>
               </div>
             
 
-            <div className="divider" />
+            <div className="divider grey lighten-1" />
               <div className="row">
-                <h6 className="col s12 m6 grey-text text-darken-3"><b>Keyword(s)</b></h6>
-                <p className="col s12 m6 grey-text text-darken-3">{this.renderKeywords()}</p>
+                <h6 className="col s12 m4 grey-text text-darken-3"><b>Keyword(s)</b></h6>
+                <p className="col s12 m8 grey-text text-darken-3">{this.renderKeywords()}</p>
               </div>
             
 
-            <div className="divider" />
+            <div className="divider grey lighten-1" />
 
               <div className="row">
-                <h6 className="col s12 m6 grey-text text-darken-3"><b>Summary</b></h6>
-                <p className="col s12 m6 grey-text text-darken-3">{this.state.caseDetail.summary}</p>
+                <h6 className="col s12 m4 grey-text text-darken-3"><b>Summary</b></h6>
+                <p className="col s12 m8 grey-text text-darken-3">{this.state.caseDetail.summary}</p>
               </div>
             
-            <div className="divider" />
+            <div className="divider grey lighten-1" />
 
             <div className="row">
-              <h6 className="col s12 m6 grey-text text-darken-3"><b>Cases Referred To</b></h6>
-              <p className="col s12 m6 grey-text text-darken-3">Coming Soon!</p>
+              <h6 className="col s12 m4 grey-text text-darken-3"><b>Cases Referred To</b></h6>
+              <p className="col s12 m8 grey-text text-darken-3">Coming Soon!</p>
             </div>
             
           </div>
