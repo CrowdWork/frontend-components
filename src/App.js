@@ -61,7 +61,7 @@ class App extends Component {
     userID: null,
     subjectLoaded: '',
     subjectSelected: '',
-    topic: '',
+    topic: 'Introduction',
   }
 
   async componentDidMount() {
@@ -128,7 +128,7 @@ class App extends Component {
     }
   }
 
-  topicSelection = (value) => {
+  selectTopic = (value) => {
     try {
       this.setState(() => { 
         return {
@@ -361,7 +361,9 @@ class App extends Component {
                         profession={this.state.profession}
                         caseDetail={this.state.caseDetail}
                         lists={this.state.lists}
+
                         notes={this.state.notes}
+                        
                         isLoggedIn={this.state.isLoggedIn}
                         handleLogout={this.handleLogout}
                         returnMyLists={this.returnMyLists}
@@ -658,7 +660,7 @@ class App extends Component {
                     <div id="main-col" className="col s12 l9 xl10">
                       <main>
                         <Subject
-                          topicSelected={this.topicSelection}
+                          selectTopic={this.selectTopic}
                           {...this.state}
                         />
                       </main>
@@ -686,6 +688,7 @@ class App extends Component {
                     <div id="main-col" className="col s12 l9 xl10">
                       <main>
                         <TopicInfo
+                          selectTopic={this.selectTopic}
                           {...this.state}
                         />
                       </main>
@@ -795,3 +798,5 @@ class App extends Component {
 }
 
 export default withRouter(App)
+    
+  

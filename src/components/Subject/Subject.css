@@ -1,0 +1,12 @@
+.pick-subjects {
+    height: 100vh;
+    width: 25vw;
+
+    border: 1px solid black;
+    overflow-y: scroll; /* Add scrollbar fix for windows users */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100%, 2fr));
+    grid-gap: 1em;
+    align-self: top;
+    justify-self: left;
+}

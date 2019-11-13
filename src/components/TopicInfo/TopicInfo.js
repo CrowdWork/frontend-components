@@ -1,11 +1,12 @@
 
 import Markdown from 'react-markdown'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
 import Subject from "../Subject/Subject"
+import axios from "axios"
 
 import ClassroomMenu from '../ClassroomMenu/ClassroomMenu'
 import CourtStructure from './CourtStructure.md'
-import Civil from './CivilProcedure.md'
+import Intro from './CivilProcedure.md'
 import Jurisdiction from './Jurusdiction.md'
 import ci47 from './ci47.md'
 import cca from './cca.md'
@@ -43,44 +44,43 @@ import DaIoD from "./DaIoD.md"
 // import JudicialReview from './JudicialReview.md'
 // import ElectionPetitions from './ElectionPetitions.md'
 
-const subjects = ['Introduction', 'Court Structure', 'Jurisdiction', 'C.I. 47', 'Commencing a Civil Action',
+const topicLabels = ['Introduction', 'Court Structure', 'Jurisdiction', 'C.I. 47', 'Commencing a Civil Action',
     'Service', 'Venue of Proceedings', 'Change of Parties', 'Action by and Against Partners', 'Appearence', 'Pleadings',
     'Summary Judgment', 'Joinder', 'Amendments', 'Dicontinuance/Withdraw', 'Admissions', 'Affidavits', 'Applications', 'Discovery and Inspection of Documents',
     'Interrogatories', 'Application for Directions', 'Trials', 'Locus In Quo/Inpections', 'Address by Counsel', 'Proceeding after delay', 'Evidence at Trial', 'Enforcement of Judgment',
     'Committal', 'Enforcement of Judgment against the State', 'Enforement of Foreign Judgments', 'Foreign Maintenance Orders',
     'Interpleader', 'Appeal', 'Probate and Administration', 'Review', 'Third Party Proceedings', 'Judicial Review', 'Election Petitions']
 
-const topics = [Civil, CourtStructure, Jurisdiction, ci47, cca, Service, VoP, CoP, AbaAp, Appearence, Pleadings,
+const topics = [Intro, CourtStructure, Jurisdiction, ci47, cca, Service, VoP, CoP, AbaAp, Appearence, Pleadings,
     Summary, Joinder, Amendments, Dw, Admissions, Affidavits, Applications, DaIoD,]
 
 // Interrogatories, AppofDirections, Trials, Locus, AddressbyCounsel, ProceedingAfterDelay, EvidenceAtTrial, EnforcementOfJudgment, Committal, EnforcementOfJudgmentAgainstState, EnforcementOfForeignJudgments,
 // ForeignMaintenanceOrders, Interpleader, Appeal, Probate, Review, ThirdParty, JudicialReview, ElectionPetitions
 
 
-export default (props) => {
+export default ({topic, selectTopic, ...props}) => {
+    // Initialize local state
+    const [markdownData, setMarkdownData] = useState(null)
 
-    const [topic, setTopic] = useState('')
-    const [procedure, setProcedure] = useState(null)
-
-    const changeTopic = () => {
-        let top = subjects.indexOf(props.topic)
-        fetch(topics[top]).then((response) => response.text()).then((text) => {
-            setProcedure(text)
-        })
-    }
+    // props.topic does not change if selectTopic() is ran
+    //fetch => res -> res.text() -> set(res) (in state) 
     useEffect(() => {
-        changeTopic()
-    }, [procedure])
+        let topicIdx = topicLabels.indexOf(topic)
 
+         axios.get(topics[topicIdx])
+            .then(raw => {
+                setMarkdownData(raw.data)
+            })
+    }, [topic])
     return (
-        <div id='container'>
+        <div id='container topic-info'>
             <div className="col s10 m10 offset-l1">
                 <div className='card-panel card z-depth-4'>
-                    <Markdown source={procedure} />
+                    <Markdown source={markdownData} />
                 </div>
             </div>
             
-                <Subject/>
+            <Subject selectTopic={ selectTopic }/>
         
             <ClassroomMenu {...props} />
          </div>
