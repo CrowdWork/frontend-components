@@ -20,7 +20,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
 
   return (
     <Fragment>
-      <ul id="slide-out" className="sidenav">
+      <ul id="slide-out mobile" className="sidenav">
         <li>
           <div className="user-view" style={{zIndex: '999'}}>
             <div className="background">

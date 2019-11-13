@@ -5,8 +5,7 @@ import './Classroom.css'
 
 
 const Classroom = ({ subjectCache, subjectSelected }) => {
-    const { subs } = subjectCache
-    const subjectList = subs.subjects
+    const subjectList = ['Civil Procedure', 'Ghana Legal Systems', 'Law of Interpretation', 'Crimnial Law', "Family Law", 'Constitutional Law', 'Evidence']
     return (
         < div className="row" id='container' >
             {subjectList.map((subject =>

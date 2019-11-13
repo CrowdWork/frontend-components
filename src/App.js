@@ -43,7 +43,7 @@ class App extends Component {
     esSearchResults: [],
     errorMessage: '',
     firstName: '',
-    isLoggedIn: false,
+    isLoggedIn: true,
     lastName: '',
     lists: [],
     loginError: null,
@@ -93,7 +93,7 @@ class App extends Component {
     } else {
       this.setState(() => {
         return {
-          isLoggedIn: false,
+          isLoggedIn: true, // Should be false, change to true for testing
           userID: null
         }
       })
@@ -349,17 +349,6 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col">
-                    <SideNav
-                      {...props}
-                      firstName={this.state.firstName}
-                      lastName={this.state.lastName}
-                      email={this.state.email}
-                      isLoggedIn={this.state.isLoggedIn}
-                      onLogout={this.onLogout}
-                      onAddNote={this.onAddNote}
-                    />
-                  </aside>
                   {/* <div id="main-col" className="col s12 l9 xl10"> */}
                     <main>
                       <Account
@@ -637,16 +626,6 @@ class App extends Component {
                   />
                 </div>
                 <div className="content">
-                  <aside id="sideNav-col" className="col s0 l3 xl2">
-                    <SideNav
-                      firstName={this.state.firstName}
-                      lastName={this.state.lastName}
-                      email={this.state.email}
-                      isLoggedIn={true}
-                      onLogout={this.onLogout}
-                      onAddNote={this.onAddNote}
-                    />
-                  </aside>
                   <div id="main-col" className="col s12 l9 xl10">
                     <main>
                       <Classroom
@@ -676,17 +655,6 @@ class App extends Component {
                     />
                   </div>
                   <div className="content">
-                    <aside id="sideNav-col" className="col s0 l3 xl2">
-                      <SideNav
-                        subject={this.state.subjectSelected}
-                        firstName={this.state.firstName}
-                        lastName={this.state.lastName}
-                        email={this.state.email}
-                        isLoggedIn={this.state.isLoggedIn}
-                        onLogout={this.onLogout}
-                        onAddNote={this.onAddNote}
-                      />
-                    </aside>
                     <div id="main-col" className="col s12 l9 xl10">
                       <main>
                         <Subject
@@ -715,16 +683,6 @@ class App extends Component {
                     />
                   </div>
                   <div id="content-row" className="row">
-                    <aside id="sideNav-col" className="col s0 l3 xl2">
-                      <SideNav
-                        firstName={this.state.firstName}
-                        lastName={this.state.lastName}
-                        email={this.state.email}
-                        isLoggedIn={this.state.isLoggedIn}
-                        onLogout={this.onLogout}
-                        onAddNote={this.onAddNote}
-                      />
-                    </aside>
                     <div id="main-col" className="col s12 l9 xl10">
                       <main>
                         <TopicInfo

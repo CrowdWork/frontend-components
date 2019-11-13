@@ -1,7 +1,10 @@
+
+import Markdown from 'react-markdown'
+import React, { useEffect, useState } from 'react'
+import Subject from "../Subject/Subject"
+
 import ClassroomMenu from '../ClassroomMenu/ClassroomMenu'
 import CourtStructure from './CourtStructure.md'
-import Markdown from 'react-markdown'
-import React, { Component } from 'react'
 import Civil from './CivilProcedure.md'
 import Jurisdiction from './Jurusdiction.md'
 import ci47 from './ci47.md'
@@ -54,39 +57,33 @@ const topics = [Civil, CourtStructure, Jurisdiction, ci47, cca, Service, VoP, Co
 // ForeignMaintenanceOrders, Interpleader, Appeal, Probate, Review, ThirdParty, JudicialReview, ElectionPetitions
 
 
-export default class TopicInfo extends Component {
+export default (props) => {
 
-    state = {
-        civilProcedure: null,
-        topicChosen: ''
-    }
-    changeTopic = () => {
-        const top = subjects.indexOf(this.props.topic)
+    const [topic, setTopic] = useState('')
+    const [procedure, setProcedure] = useState(null)
 
+    const changeTopic = () => {
+        let top = subjects.indexOf(props.topic)
         fetch(topics[top]).then((response) => response.text()).then((text) => {
-            this.setState({ civilProcedure: text })
+            setProcedure(text)
         })
-
-
     }
-    componentDidMount() {
-        this.changeTopic()
+    useEffect(() => {
+        changeTopic()
+    }, [procedure])
 
-    }
-    render() {
-        return (
-
-            <div id='container'>
-                <div className="col s12 m10 offset-l1">
-                    <div className='card-panel card z-depth-4'>
-                        <Markdown
-                            source={this.state.civilProcedure}
-                        />
-
-                    </div>
+    return (
+        <div id='container'>
+            <div className="col s10 m10 offset-l1">
+                <div className='card-panel card z-depth-4'>
+                    <Markdown source={procedure} />
                 </div>
-                <ClassroomMenu {...this.props} />
             </div>
-        )
-    }
+            
+                <Subject/>
+        
+            <ClassroomMenu {...props} />
+         </div>
+    )
 }
+
