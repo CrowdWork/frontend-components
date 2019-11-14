@@ -14,13 +14,12 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
     for (let i = 0; i < tooltips.length; i++){
       M.Tooltip.init(tooltips[i])
     }
-    console.log(isLoggedIn)
 
   // Desktop sidebar only visible if logged in?
 
   return (
     <Fragment>
-      <ul id="slide-out" className="sidenav">
+      <ul id="slide-out mobile" className="sidenav">
         <li>
           <div className="user-view" style={{zIndex: '999'}}>
             <div className="background">

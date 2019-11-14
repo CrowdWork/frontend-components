@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 * {
   box-sizing: border-box;
 }
@@ -5,6 +6,7 @@ html, body {
   line-height: 1.5;
   color: rgba(0,0,0,0.87);
   font-weight: normal;
+  font-family: "Open Sans";
 }
 body{
   font-size: 14px;
@@ -13,6 +15,12 @@ body{
   margin: 0;
   background-color: #e8e8e8;
 }
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
 .header, .content, .footer {
   padding-left: 300px;
 }
@@ -75,4 +83,8 @@ h1 {
   #desktop {
     display: none;
   }
+}
+
+.nav-wrapper {
+  z-index: 999;
 }

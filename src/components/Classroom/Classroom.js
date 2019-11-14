@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './Classroom.css'
+import ClassMenu from "../ClassroomMenu/ClassroomMenu"
 
 
 
 const Classroom = ({ subjectCache, subjectSelected }) => {
-    const { subs } = subjectCache
-    const subjectList = subs.subjects
+    const subjectList = ['Civil Procedure', 'Ghana Legal Systems', 'Law of Interpretation', 'Crimnial Law', "Family Law", 'Constitutional Law', 'Evidence']
     return (
         < div className="row" id='container' >
             {subjectList.map((subject =>

@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import ClassroomMenu from '../ClassroomMenu/ClassroomMenu'
+import "./Subject.css"
+// will eventually be dynamic by subject instead of static to Civil Procedure
 
 
 const topics = ['Introduction', 'Court Structure', 'Jurisdiction', 'C.I. 47', 'Commencing a Civil Action',
@@ -11,18 +13,22 @@ const topics = ['Introduction', 'Court Structure', 'Jurisdiction', 'C.I. 47', 'C
     'Interpleader', 'Appeal', 'Probate and Administration', 'Review', 'Third Party Proceedings', 'Judicial Review', 'Election Petitions']
 
 
-const Subject = ({ topicSelected }) => {
+const Subject = ({ selectTopic }) => {
     return (
-        <div id='container'>
+        <div className="pick-subjects">
             {topics.map((topic =>
-                <div className="col s12 m4 offset-l1">
-                    <div className="card z-depth-4">
-                        <Link onClick={() => topicSelected(topic)} to={`/subject/${topic}`}>
-                            <div className="card-content">
-                                <span className="card-title truncate">{topic}</span>
-                            </div>
-                        </Link>
-                    </div>
+                <div className="topic-cell">
+
+                    <Link   onClick={() => {
+                                selectTopic(topic)
+                            }} 
+                            to={`/subject/${topic}`}
+                            className="subject-link"
+                    >
+    
+                            {topic}
+                       
+                    </Link>
 
                 </div>
             ))

@@ -1,8 +1,13 @@
+
+import Markdown from 'react-markdown'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
+import "./TopicInfo.css"
+import Subject from "../Subject/Subject"
+import axios from "axios"
+
 import ClassroomMenu from '../ClassroomMenu/ClassroomMenu'
 import CourtStructure from './CourtStructure.md'
-import Markdown from 'react-markdown'
-import React, { Component } from 'react'
-import Civil from './CivilProcedure.md'
+import Intro from './CivilProcedure.md'
 import Jurisdiction from './Jurusdiction.md'
 import ci47 from './ci47.md'
 import cca from './cca.md'
@@ -40,53 +45,42 @@ import DaIoD from "./DaIoD.md"
 // import JudicialReview from './JudicialReview.md'
 // import ElectionPetitions from './ElectionPetitions.md'
 
-const subjects = ['Introduction', 'Court Structure', 'Jurisdiction', 'C.I. 47', 'Commencing a Civil Action',
+const topicLabels = ['Introduction', 'Court Structure', 'Jurisdiction', 'C.I. 47', 'Commencing a Civil Action',
     'Service', 'Venue of Proceedings', 'Change of Parties', 'Action by and Against Partners', 'Appearence', 'Pleadings',
     'Summary Judgment', 'Joinder', 'Amendments', 'Dicontinuance/Withdraw', 'Admissions', 'Affidavits', 'Applications', 'Discovery and Inspection of Documents',
     'Interrogatories', 'Application for Directions', 'Trials', 'Locus In Quo/Inpections', 'Address by Counsel', 'Proceeding after delay', 'Evidence at Trial', 'Enforcement of Judgment',
     'Committal', 'Enforcement of Judgment against the State', 'Enforement of Foreign Judgments', 'Foreign Maintenance Orders',
     'Interpleader', 'Appeal', 'Probate and Administration', 'Review', 'Third Party Proceedings', 'Judicial Review', 'Election Petitions']
 
-const topics = [Civil, CourtStructure, Jurisdiction, ci47, cca, Service, VoP, CoP, AbaAp, Appearence, Pleadings,
+const topics = [Intro, CourtStructure, Jurisdiction, ci47, cca, Service, VoP, CoP, AbaAp, Appearence, Pleadings,
     Summary, Joinder, Amendments, Dw, Admissions, Affidavits, Applications, DaIoD,]
 
 // Interrogatories, AppofDirections, Trials, Locus, AddressbyCounsel, ProceedingAfterDelay, EvidenceAtTrial, EnforcementOfJudgment, Committal, EnforcementOfJudgmentAgainstState, EnforcementOfForeignJudgments,
 // ForeignMaintenanceOrders, Interpleader, Appeal, Probate, Review, ThirdParty, JudicialReview, ElectionPetitions
 
 
-export default class TopicInfo extends Component {
+export default ({topic, selectTopic, ...props}) => {
+    // Initialize local state
+    const [markdownData, setMarkdownData] = useState(null)
 
-    state = {
-        civilProcedure: null,
-        topicChosen: ''
-    }
-    changeTopic = () => {
-        const top = subjects.indexOf(this.props.topic)
+    // props.topic does not change if selectTopic() is ran
+    //fetch => res -> res.text() -> set(res) (in state) 
+    useEffect(() => {
+        let topicIdx = topicLabels.indexOf(topic)
 
-        fetch(topics[top]).then((response) => response.text()).then((text) => {
-            this.setState({ civilProcedure: text })
-        })
-
-
-    }
-    componentDidMount() {
-        this.changeTopic()
-
-    }
-    render() {
-        return (
-
-            <div id='container'>
-                <div className="col s12 m10 offset-l1">
-                    <div className='card-panel card z-depth-4'>
-                        <Markdown
-                            source={this.state.civilProcedure}
-                        />
-
-                    </div>
-                </div>
-                <ClassroomMenu {...this.props} />
+         axios.get(topics[topicIdx])
+            .then(raw => {
+                setMarkdownData(raw.data)
+            })
+    }, [topic])
+    return (
+        <div className="topic-info">
+            <Subject selectTopic={ selectTopic }/>
+            <div className="markdown-text col s10 m10 offset-l1">
+                <Markdown source={markdownData} />   
             </div>
-        )
-    }
+            <ClassroomMenu {...props} />
+         </div>
+    )
 }
+
