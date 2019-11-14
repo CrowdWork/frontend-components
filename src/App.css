@@ -75,3 +75,7 @@ h1 {
     display: none;
   }
 }
+
+.nav-wrapper {
+  z-index: 999;
+}

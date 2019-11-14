@@ -1,6 +1,7 @@
 
 import Markdown from 'react-markdown'
 import React, { useEffect, useState, useLayoutEffect } from 'react'
+import "./TopicInfo.css"
 import Subject from "../Subject/Subject"
 import axios from "axios"
 
@@ -73,15 +74,11 @@ export default ({topic, selectTopic, ...props}) => {
             })
     }, [topic])
     return (
-        <div id='container topic-info'>
-            <div className="col s10 m10 offset-l1">
-                <div className='card-panel card z-depth-4'>
-                    <Markdown source={markdownData} />
-                </div>
-            </div>
-            
+        <div className="topic-info">
             <Subject selectTopic={ selectTopic }/>
-        
+            <div className="markdown-text col s10 m10 offset-l1">
+                <Markdown source={markdownData} />   
+            </div>
             <ClassroomMenu {...props} />
          </div>
     )

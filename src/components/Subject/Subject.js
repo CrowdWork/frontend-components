@@ -15,22 +15,20 @@ const topics = ['Introduction', 'Court Structure', 'Jurisdiction', 'C.I. 47', 'C
 
 const Subject = ({ selectTopic }) => {
     return (
-        <div id='container' className="pick-subjects">
+        <div className="pick-subjects">
             {topics.map((topic =>
                 <div className="topic-cell">
-                    <div className="card z-depth-4">
 
-                        <Link   onClick={() => {
-                                    selectTopic(topic)
-                                }} 
-                                to={`/subject/${topic}`}
-                        >
-                            <div className="card">
-                                <span className="card-title truncate">{topic}</span>
-                            </div>
-                        </Link>
-
-                    </div>
+                    <Link   onClick={() => {
+                                selectTopic(topic)
+                            }} 
+                            to={`/subject/${topic}`}
+                            className="subject-link"
+                    >
+    
+                            {topic}
+                       
+                    </Link>
 
                 </div>
             ))
