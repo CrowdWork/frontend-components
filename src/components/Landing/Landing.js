@@ -39,9 +39,10 @@ const Landing = (props) => {
             <div className="row section section-about">
               <h3 >About Barnor Law Engine</h3>
               <p className="about-text flow-text" >
-                Barnor Law Engine was started in 2017 to provide clear and easily accessible information for lawyers looking to qualify in the Ghanaian jurisdiction. It aims to provide information on the academic and apprenticeship stages of becoming a qualified Barrister at Law and Solicitor of the Supreme Court of Ghana.
-                Here you can find out about the entry requirements for the Post Call course offered by Ghana Law School, information on the structure of the Ghanaian Legal system, a handy online case index, and exclusive notes and exercises to help you pass the Post Call course.
-                Barnor Law Engine is uniquely positioned to give real advice about what you really need to know to successfully pass the course, secure pupillage and keep abreast of legal news. Your journey is made easier with us by your side.
+              BLE provides organized information to Ghanaian lawyers at the click of a button. 
+              We empower legal practitioners with all the tools 
+              they need for success by creating a platform for knowledge sharing within the legal community.
+              <br/> Know-how, Know Now!
               </p>
             </div>
           </div>
@@ -155,8 +156,6 @@ practice and procedure and discussions of recent cases.</div>
         </div>
       </div>
     </Fragment>
-    
-      
   )
 }
 export default Landing

@@ -61,7 +61,7 @@ class App extends Component {
     userID: null,
     subjectLoaded: '',
     subjectSelected: '',
-    topic: 'Introduction',
+    topic: '',
   }
 
   async componentDidMount() {
@@ -71,7 +71,7 @@ class App extends Component {
     if (localStorage.token) {
       this.setState(() => {
         return {
-          isLoggedIn: true,
+          isLoggedIn: false,
           userID: decode(localStorage.token)
         }
       })
@@ -93,7 +93,7 @@ class App extends Component {
     } else {
       this.setState(() => {
         return {
-          isLoggedIn: true, // Should be false, change to true for testing
+          isLoggedIn: false, // Should be false, change to true for testing
           userID: null
         }
       })
@@ -361,9 +361,7 @@ class App extends Component {
                         profession={this.state.profession}
                         caseDetail={this.state.caseDetail}
                         lists={this.state.lists}
-
                         notes={this.state.notes}
-                        
                         isLoggedIn={this.state.isLoggedIn}
                         handleLogout={this.handleLogout}
                         returnMyLists={this.returnMyLists}
@@ -798,5 +796,3 @@ class App extends Component {
 }
 
 export default withRouter(App)
-    
-  
