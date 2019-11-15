@@ -862,23 +862,3 @@ class App extends Component {
 }
 
 export default withRouter(App)
-
-
-
-  "question": "What is civil procedure?",
-  "answer": "Something cool",
-  "subject": "Subject A",
-  "topic": "Some topic"
-},
-{
-  "question": "What is civil procedure?",
-  "answer": "Something cool",
-  "subject": "Subject A",
-  "topic": "Some topic"
-},
-{
-  "question": "What is civil procedure?",
-  "answer": "Something cool",
-  "subject": "Subject C",
-  "topic": "Some topic"
-}]
