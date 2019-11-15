@@ -76,7 +76,7 @@ export default ({topic, selectTopic, ...props}) => {
     return (
         <div className="topic-info">
             <Subject selectTopic={ selectTopic }/>
-            <div className="markdown-text col s10 m10 offset-l1">
+            <div className="markdown-text">
                 <Markdown source={markdownData} />   
             </div>
             <ClassroomMenu {...props} />

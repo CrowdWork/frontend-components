@@ -16,8 +16,7 @@ class CaseDetail extends Component {
 
   state = {
     caseDetail: '',
-    listId: '',
-    isFavorite: false
+    listId: ''
   }
 
   componentDidMount() {
@@ -50,9 +49,6 @@ class CaseDetail extends Component {
         }
       }
       this.setState(() => ({ caseDetail: fetchedCase }))
-      if (this.props.lists[0].cases.includes(this.state.caseDetail._id)) {
-        this.setState(() => ({ isFavorite: true }))
-      }
       
     } catch (err) {
       console.log(err)
@@ -82,28 +78,7 @@ class CaseDetail extends Component {
         })
       }
   }
- toggleFavorite = async () => {
-  console.log('Adding to Favorites')
-  this.setState(() => ({ listId: this.props.lists[0]._id }))
-  const { caseDetail, listId } = this.state
-  if (this.props.lists[0].cases.includes(caseDetail._id)) {
-    try {
-      const result = await axios.get(`${url}/cases/add/${caseDetail.mongo_id}/${listId}`, authHeader)
-      console.log(result.data)
-    } catch (err) {
-      console.log(err)
-    }
-  } else {
-    try {
-      await axios.get(`${url}/cases/remove/${caseDetail.mongo_id}/${listId}`, authHeader)
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
-    
-    
- }
   addToList = async (e) => {
     console.log('Modal Form Submitted')
     e.preventDefault()
@@ -116,6 +91,7 @@ class CaseDetail extends Component {
   }
 
   render() {
+    console.log('Rendering CaseDetail')
     if (this.props.lists.length > 0 ) console.log(this.props.lists.length > 0 && this.props.lists[0].cases.includes(this.state.caseDetail._id))
     console.log('RENDER CASE DETAIL')
     console.log(this.state)
@@ -146,13 +122,13 @@ class CaseDetail extends Component {
 
             <div className="casedetail--casename-container">
               <h5 className="grey-text text-darken-4 casedetail-header">{this.state.caseDetail.caseName}</h5>
-              <button className="casedetail-star-btn" onClick={this.toggleFavorite}>
-                {this.state.isFavorite ? (
-                  <i class="fas fa-star"></i>
+              <button className="casedetail-star-btn" onClick={() => this.props.toggleFavorite(this.state.caseDetail._id)}>
+                {/* {this.props.lists[0].cases.includes(this.state.caseDetail._id) ? (
+                  <i className="fas fa-star"></i>
                   ) : (
-                  <i class="far fa-star"></i>
+                  <i className="far fa-star"></i>
                   )
-                }
+                } */}
               </button>
             </div>
             

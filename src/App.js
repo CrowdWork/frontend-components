@@ -43,7 +43,7 @@ class App extends Component {
     esSearchResults: [],
     errorMessage: '',
     firstName: '',
-    isLoggedIn: true,
+    isLoggedIn: false,
     lastName: '',
     lists: [],
     loginError: null,
@@ -71,7 +71,7 @@ class App extends Component {
     if (localStorage.token) {
       this.setState(() => {
         return {
-          isLoggedIn: false,
+          isLoggedIn: true,
           userID: decode(localStorage.token)
         }
       })
@@ -206,7 +206,7 @@ class App extends Component {
       phoneNumber: '',
       phoneNumber: '',
       profession: '',
-      isLoggedIn: true,
+      isLoggedIn: false,
       userID: null
     }))
 
@@ -332,7 +332,37 @@ class App extends Component {
     }
   }
 
+  toggleFavorite = async (caseId) => {
+  
+    if (!this.state.lists[0].cases.includes(caseId)) {
+      console.log('Adding to Favorites')
+      try {
+        const caseToAdd = await axios.get(`${url}/cases/add/${caseId}/${this.state.lists[0]._id}`, authHeader)
+        console.log(caseToAdd.data)
+        const result = caseToAdd.data
+        this.setState((prevState) => ({
+          lists: prevState.lists[0].concat(result)
+        }))
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
+      console.log('Removing from Favorites')
+      try {
+        const caseToRemove = await axios.get(`${url}/cases/remove/${caseId}/${this.state.lists[0]._id}`, authHeader)
+        console.log(caseToRemove.data)
+        const result = caseToRemove.data
+        this.setState(() => ({
+          lists: result
+        }))
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
+
   render() {
+    console.log('AM I LOGGED IN ? ' + this.state.isLoggedIn)
     return (
       <div className="App-container">
         <Switch>
@@ -349,6 +379,16 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
+                  <aside id="sideNav-col" className="col s0 l3 xl2">
+                      <SideNav
+                        firstName={this.state.firstName}
+                        lastName={this.state.lastName}
+                        email={this.state.email}
+                        isLoggedIn={this.state.isLoggedIn}
+                        onLogout={this.onLogout}
+                        onAddNote={this.onAddNote}
+                      />
+                    </aside>
                   {/* <div id="main-col" className="col s12 l9 xl10"> */}
                     <main>
                       <Account
@@ -375,7 +415,7 @@ class App extends Component {
               </Fragment>
             ) : (
                 <Fragment>
-                  <div id="header-row" className="row">
+                  <header className="header">
                     <Header
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -383,7 +423,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </div>
+                  </header>
                   <div>
                     {/* <div id="main-col" className="col s12"> */}
                       <main>
@@ -400,15 +440,15 @@ class App extends Component {
           <Route path="/signup"
             render={(props) => !this.state.isLoggedIn ? (
               <Fragment>
-                <div id="header-row" className="row">
-                  <Header
-                    firstName={this.state.firstName}
-                    lastName={this.state.lastName}
-                    email={this.state.email}
-                    isLoggedIn={this.state.isLoggedIn}
-                    onLogout={this.onLogout}
-                  />
-                </div>
+                <header className="header">
+                    <Header
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                    />
+                  </header>
                 <div className="content">
                   
                     <main>
@@ -427,7 +467,7 @@ class App extends Component {
           <Route path="/login"
             render={(props) => !this.state.isLoggedIn ? (
               <Fragment>
-                <div id="header-row" className="row">
+              <header className="header">
                   <Header
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
@@ -435,7 +475,7 @@ class App extends Component {
                     isLoggedIn={this.state.isLoggedIn}
                     onLogout={this.onLogout}
                   />
-                </div>
+                </header>
                 <div>
                     <main>
                       <Login
@@ -450,20 +490,21 @@ class App extends Component {
               )}
           />
 
-          <Route path="/legal-index"
+          <Route
+            path="/legal-index"
             render={(props) => !this.state.isLoggedIn ? (
               <Redirect to="/login" />
             ) : (
                 <Fragment>
-                  <div id="header-row" className="row">
-                    <Header
-                      firstName={this.state.firstName}
-                      lastName={this.state.lastName}
-                      email={this.state.email}
-                      isLoggedIn={this.state.isLoggedIn}
-                      onLogout={this.onLogout}
-                    />
-                  </div>
+                <header className="header">
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
                   <div className="content">
                     <aside id="sideNav-col" className="col s0 l3 xl2">
                       <SideNav
@@ -502,7 +543,7 @@ class App extends Component {
           <Route path="/case/:mongo_id"
             render={(props) => (
               <Fragment>
-                <div id="header-row" className="row">
+              <header className="header">
                   <Header
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
@@ -510,7 +551,7 @@ class App extends Component {
                     isLoggedIn={this.state.isLoggedIn}
                     onLogout={this.onLogout}
                   />
-                </div>
+                </header>
                 <div className="content">
                   <aside id="sideNav-col"className="col s0 l3 xl2">
                     <SideNav
@@ -527,6 +568,7 @@ class App extends Component {
                         userID={this.state.userID}
                         lists={this.state.lists}
                         onAddNote={this.onAddNote}
+                        toggleFavorite={this.toggleFavorite}
                       />
                     </main>
                 </div>
@@ -539,16 +581,15 @@ class App extends Component {
               <Redirect to="/" />
             ) : (
               <Fragment>
-                <div id="header-row" className="row">
+              <header className="header">
                   <Header
-                    title="ADMIN"
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
                     email={this.state.email}
                     isLoggedIn={this.state.isLoggedIn}
                     onLogout={this.onLogout}
                   />
-                </div>
+                </header>
                 <div className="content">
                   <aside id="sideNav-col" className="col s0 l3 xl2">
                     <SideNav
@@ -576,7 +617,7 @@ class App extends Component {
               <Redirect to="/login" />
             ) : (
               <Fragment>
-                <div id="header-row" className="row">
+              <header className="header">
                   <Header
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
@@ -584,7 +625,7 @@ class App extends Component {
                     isLoggedIn={this.state.isLoggedIn}
                     onLogout={this.onLogout}
                   />
-                </div>
+                </header>
                 <div className="content">
                   <aside id="sideNav-col"className="col s0 l3 xl2">
                     <SideNav
@@ -616,7 +657,7 @@ class App extends Component {
               <Redirect to="/login" />
             ) : (
               <Fragment>
-                <div id="header-row" className="row">
+              <header className="header">
                   <Header
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
@@ -624,16 +665,25 @@ class App extends Component {
                     isLoggedIn={this.state.isLoggedIn}
                     onLogout={this.onLogout}
                   />
-                </div>
+                </header>
                 <div className="content">
-                  <div id="main-col" className="col s12 l9 xl10">
+                  <aside id="sideNav-col" className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
+                    />
+                    </aside>
+                  
                     <main>
                       <Classroom
                         subjectCache={this.state.subjectLoaded}
                         subjectSelected={this.subjectSelection}
                       />
                     </main>
-                  </div>
                 </div>
               </Fragment>
             )} 
@@ -644,25 +694,32 @@ class App extends Component {
               <Redirect to="/login" />
             ) : (
                 <Fragment>
-                  <div id="header-row" className="row">
-                    <Header
-                      title={`TOPICS - ${this.state.subjectSelected.toUpperCase()}`}
+                <header className="header">
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
+                  <div className="content">
+                  <aside id="sideNav-col" className="col s0 l3 xl2">
+                    <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
                       email={this.state.email}
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
                     />
-                  </div>
-                  <div className="content">
-                    <div id="main-col" className="col s12 l9 xl10">
+                    </aside>
                       <main>
                         <Subject
                           selectTopic={this.selectTopic}
                           {...this.state}
                         />
                       </main>
-                    </div>
                   </div>
                 </Fragment>
               )} />
@@ -672,26 +729,35 @@ class App extends Component {
               <Redirect to="/login" />
             ) : (
                 <Fragment>
-                  <div id="header-row" className="row">
-                    <Header
-                      title={this.state.topic.toUpperCase()}
-                      firstName={this.state.firstName}
-                      lastName={this.state.lastName}
-                      email={this.state.email}
-                      isLoggedIn={this.state.isLoggedIn}
-                      onLogout={this.onLogout}
-                    />
-                  </div>
-                  <div id="content-row" className="row">
-                    <div id="main-col" className="col s12 l9 xl10">
-                      <main>
-                        <TopicInfo
-                          selectTopic={this.selectTopic}
-                          {...this.state}
-                        />
+                <header className="header">
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
+                  <div className="content">
+                    <aside id="sideNav-col" className="col s0 l3 xl2">
+                      <SideNav
+                        firstName={this.state.firstName}
+                        lastName={this.state.lastName}
+                        email={this.state.email}
+                        isLoggedIn={this.state.isLoggedIn}
+                        onLogout={this.onLogout}
+                        onAddNote={this.onAddNote}
+                      />
+                    </aside>
+                    <main>
+                      <TopicInfo
+                        selectTopic={this.selectTopic}
+                        {...this.state}
+                      />
                       </main>
-                    </div>
                   </div>
+                    
+                      
                 </Fragment>
               )} />
               <Route path="/subscribe"
