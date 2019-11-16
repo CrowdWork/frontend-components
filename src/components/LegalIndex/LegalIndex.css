@@ -1,3 +1,39 @@
 #tabs-swipe-demo {
   padding: 0;
 }
+a.btn {
+  padding: 0 10px;
+}
+.tabs .tab a {
+  color: rgba(0, 0, 0, .7);
+}
+.tabs .tab a:hover, .tabs .tab a.active {
+  color: #000;
+  background-color: rgba(0, 0, 0, .1)
+}
+.tabs .indicator {
+  background-color: #000;
+}
+#tabs-index h5 {
+  margin: 0;
+}
+.Lists--buttons {
+  background: #000;
+  cursor: pointer;
+  color: #fff;
+  border-radius: 2px;
+  height: 100%;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Lists--buttons:hover, .Lists--buttons:focus {
+  background: #000;
+}
+.buttons-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 24px 0 16px;
+}

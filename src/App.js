@@ -261,7 +261,8 @@ class App extends Component {
     }
   }
 
-  onAddList = async (listBody) => {
+  onAddList = async (e, listBody) => {
+    e.preventDefault()
     try {
       await axios.post(`${url}/lists`, {
         title: listBody.listTitle,
@@ -333,15 +334,16 @@ class App extends Component {
   }
 
   toggleFavorite = async (caseId) => {
-  
+    console.log(caseId)
     if (!this.state.lists[0].cases.includes(caseId)) {
       console.log('Adding to Favorites')
       try {
         const caseToAdd = await axios.get(`${url}/cases/add/${caseId}/${this.state.lists[0]._id}`, authHeader)
         console.log(caseToAdd.data)
+        let arr = []
         const result = caseToAdd.data
-        this.setState((prevState) => ({
-          lists: prevState.lists[0].concat(result)
+        this.setState(() => ({
+          lists: arr.concat(result)
         }))
       } catch (err) {
         console.log(err)
@@ -351,9 +353,10 @@ class App extends Component {
       try {
         const caseToRemove = await axios.get(`${url}/cases/remove/${caseId}/${this.state.lists[0]._id}`, authHeader)
         console.log(caseToRemove.data)
+        let arr = []
         const result = caseToRemove.data
         this.setState(() => ({
-          lists: result
+          lists: arr.concat(result)
         }))
       } catch (err) {
         console.log(err)
@@ -404,10 +407,6 @@ class App extends Component {
                         notes={this.state.notes}
                         isLoggedIn={this.state.isLoggedIn}
                         handleLogout={this.handleLogout}
-                        returnMyLists={this.returnMyLists}
-                        fetchPubLists={this.fetchPubLists}
-                        onAddList={this.onAddList}
-                        onAddNote={this.onAddNote}
                       />
                     </main>
                   {/* </div> */}
@@ -532,6 +531,8 @@ class App extends Component {
                           onAddNote={this.onAddNote}
                           onLimitChange={this.onLimitChange}
                           returnMyLists={this.returnMyLists}
+                          fetchPubLists={this.fetchPubLists}
+                          onAddList={this.onAddList}
                         />
                       </main>
                     

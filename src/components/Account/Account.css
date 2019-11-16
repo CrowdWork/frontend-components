@@ -21,22 +21,7 @@
 .h1-style {
   padding: 0 16px;
 }
-.Lists--buttons {
-  background: teal;
-  cursor: pointer;
-  color: #FFF;
-  border-radius: 2px;
-  height: 100%;
-  width: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.buttons-flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .margin-0 {
   margin: 0;
 }

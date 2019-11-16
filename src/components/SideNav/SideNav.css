@@ -19,6 +19,7 @@
 }
 #mobile {
   z-index: 9999999999999;
+  width: 250px;
 }
 .subheader {
   padding: 0 32px;
@@ -31,4 +32,7 @@
 }
 .sidenav {
   z-index: 9999;
+}
+.selected {
+  color: #4de100;
 }

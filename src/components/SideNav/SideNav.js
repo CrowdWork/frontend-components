@@ -19,7 +19,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
 
   return (
     <Fragment>
-      <ul id="slide-out mobile" className="sidenav">
+      <ul id="mobile" className="sidenav">
         <li>
           <div className="user-view" style={{zIndex: '999'}}>
             <div className="background">
@@ -53,7 +53,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
 
           {isLoggedIn ? (
             <>
-            <li><div className="divider"></div></li>
+            {/* <li><div className="divider"></div></li> */}
             <li><div className="subheader">Services</div></li>
             <li className="no-padding">
             <Link to="/legal-index">Legal Index<i className="material-icons">search</i></Link>

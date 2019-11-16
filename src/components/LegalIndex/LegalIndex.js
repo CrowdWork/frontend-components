@@ -51,11 +51,13 @@ class LegalIndex extends Component {
 
     return lists.map(list => {
       return (
-        <div className="col s12 m6 l4 xl3 list-card" key={list._id}>
+        <div className="list-card" >
           <ListCard
+            key={list._id}
             listRoute={`/list/${list._id}`}
             title={list.title}
             isPublic={list.public}
+            length={list.cases.length}
           />
         </div>
       )
@@ -134,40 +136,37 @@ class LegalIndex extends Component {
 
         <div id="tab-lists" className="col s12">
           <div className="container">
-            <div className="row valign-wrapper">
-                <div className="col s12">
-                  <h5>Lists</h5>
-                  <p>View and manage your lists.</p>
+            <div className="row">
+              <div className="buttons-flex">
+              <div className="valign-wrapper">
+              <h5>Case Collections</h5>
+            </div>
+                {/* <form>
+                  <p className="margin-right-16">
+                    <label>
+                      <input name="group1" value="my-lists" type="radio" checked={this.state.selectedOption === "my-lists"} onChange={this.onMyListSelected} />
+                        <span>My Lists</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input name="group1" value='public-lists' checked={this.state.selectedOption === "public-lists"} onChange={this.onPubListSelected} type="radio" />
+                      <span>Public</span>
+                    </label>
+                  </p>
+                </form> */}
+                <div>
+                  <a href="javascript:void(0)" data-target="modal1" className="btn-floating tooltipped btn modal-trigger Lists--buttons" data-position="left" data-tooltip="Create a new list.">New List</a>
                 </div>
               </div>
-              <div className="row">
-                <div className="buttons-flex">
-                  <form>
-                    <p className="margin-right-16">
-                      <label>
-                        <input name="group1" value="my-lists" type="radio" checked={this.state.selectedOption === "my-lists"} onChange={this.onMyListSelected} />
-                          <span>My Lists</span>
-                      </label>
-                    </p>
-                    <p>
-                      <label>
-                        <input name="group1" value='public-lists' checked={this.state.selectedOption === "public-lists"} onChange={this.onPubListSelected} type="radio" />
-                        <span>Public</span>
-                      </label>
-                    </p>
-                  </form>
-                  <div className="buttons-flex">
-                    <a href="javascript:void(0)" data-target="modal1" className="btn-floating tooltipped btn modal-trigger Lists--buttons" data-position="left" data-tooltip="Create a new list."><i className="margin-0 large material-icons">playlist_add</i>New</a>
-                  </div>
-                </div>
-                {this.renderLists()}
-              </div>
+              {this.renderLists()}
+            </div>
             </div>
             {/*LIST MODAL STRUCTURE */}
             <div id="modal1" className="modal">
               <div className="modal-content">
                 <h4>New list...</h4>
-                <form onSubmit={this.onListFormSubmit}>
+                <form onSubmit={(e) => this.props.onAddList(e, this.state)}>
                   <div className="row">
                     <div className="input-field col s12">
                       <input value={this.state.listTitle} id="listTitle" type="text" onChange={(e) => this.setState({ listTitle: e.target.value })} />
@@ -193,7 +192,7 @@ class LegalIndex extends Component {
                   <h5>Notes</h5>
                   <p>Manage your notes.</p>
                 </div>
-                <div className="col s2">
+                <div>
                   <a href="javascript:void(0)" data-target="modalNote" className="btn-flat modal-trigger tooltipped" data-position="left" data-tooltip="Add new note."><i id="button-addnote" className="large material-icons">note_add</i></a>
                 </div>
               </div>

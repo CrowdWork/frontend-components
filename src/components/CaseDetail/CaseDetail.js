@@ -84,19 +84,17 @@ class CaseDetail extends Component {
     e.preventDefault()
     const { caseDetail, listId } = this.state
     try {
-      await axios.get(`${url}/cases/add/${caseDetail.mongo_id}/${listId}`, authHeader)
+      await axios.get(`${url}/cases/add/${caseDetail._id}/${listId}`, authHeader)
     } catch (err) {
       console.log(err)
     }
   }
 
   render() {
-    console.log('Rendering CaseDetail')
-    if (this.props.lists.length > 0 ) console.log(this.props.lists.length > 0 && this.props.lists[0].cases.includes(this.state.caseDetail._id))
+    console.log(this.props.lists.length > 0 && this.props.lists[0].cases.includes(this.state.caseDetail._id))
     console.log('RENDER CASE DETAIL')
-    console.log(this.state)
     return (
-      <div id="CaseDetail-container" className="container">
+      <div id="CaseDetail-container">
 
       {/*MODAL STRUCTURE */}
   <div id="modal1" className="modal">
@@ -116,20 +114,25 @@ class CaseDetail extends Component {
   </div>
       {/*END MODAL */}
 
-        <div id="card-panel-wrapper" className="col s12 m5">
+        <div id="card-panel-wrapper">
           {/* <Link to="javascript:void(0)" className="go-back" onClick={this.props.history.goBack}>Back to results</Link> */}
           <div className="flex-space-btw white">
 
             <div className="casedetail--casename-container">
               <h5 className="grey-text text-darken-4 casedetail-header">{this.state.caseDetail.caseName}</h5>
-              <button className="casedetail-star-btn" onClick={() => this.props.toggleFavorite(this.state.caseDetail._id)}>
-                {/* {this.props.lists[0].cases.includes(this.state.caseDetail._id) ? (
+              {this.props.lists.length > 0 && (
+                <button className="casedetail-star-btn" onClick={() => this.props.toggleFavorite(this.state.caseDetail._id)}>
+                {this.props.lists[0].cases.includes(this.state.caseDetail._id) ? (
                   <i className="fas fa-star"></i>
                   ) : (
                   <i className="far fa-star"></i>
                   )
-                } */}
+                }
               </button>
+              )
+
+              }
+              
             </div>
             
             <div>
