@@ -392,7 +392,7 @@ class App extends Component {
                         onAddNote={this.onAddNote}
                       />
                     </aside>
-                  {/* <div id="main-col" className="col s12 l9 xl10"> */}
+                  
                     <main>
                       <Account
                         {...props}
@@ -409,12 +409,11 @@ class App extends Component {
                         handleLogout={this.handleLogout}
                       />
                     </main>
-                  {/* </div> */}
                 </div>
               </Fragment>
             ) : (
                 <Fragment>
-                  <header className="header">
+                  <header>
                     <Header
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -424,14 +423,12 @@ class App extends Component {
                     />
                   </header>
                   <div>
-                    {/* <div id="main-col" className="col s12"> */}
-                      <main>
-                        <Landing
-                          {...props}
-                        />
-                      </main>
+                    <main>
+                      <Landing
+                        {...props}
+                      />
+                    </main>
                     </div>
-                  {/* </div> */}
                 </Fragment>
               )}
           />
@@ -439,7 +436,7 @@ class App extends Component {
           <Route path="/signup"
             render={(props) => !this.state.isLoggedIn ? (
               <Fragment>
-                <header className="header">
+                <header>
                     <Header
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -448,15 +445,13 @@ class App extends Component {
                       onLogout={this.onLogout}
                     />
                   </header>
-                <div className="content">
-                  
-                    <main>
-                      <Signup
-                        {...props}
-                        handleSignup={this.handleSignup}
-                      />
-                    </main>
-                  
+                <div>
+                  <main>
+                    <Signup
+                      {...props}
+                      handleSignup={this.handleSignup}
+                    />
+                  </main>
                 </div>
               </Fragment>
             ) : (
@@ -466,7 +461,7 @@ class App extends Component {
           <Route path="/login"
             render={(props) => !this.state.isLoggedIn ? (
               <Fragment>
-              <header className="header">
+              <header>
                   <Header
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
