@@ -82,9 +82,9 @@ class Note extends Component {
             <textarea id="body" className="materialize-textarea body" value={this.state.body} onChange={(e) => this.setState({ body: e.target.value })}></textarea>
           </div>
           <div className="container">
-            <a href="javascript:void(0)" className="btn red left offset-s1" onClick={() => this.onDeleteNote(this.state._id)}>Delete Note</a>
+            <a href="javascript:void(0)" className="btn red left offset-s1" onClick={() => this.onDeleteNote(this.state._id)}>Delete</a>
             <p className='offset-s1'> </p>
-            <button type="submit" href="javascript:void(0)" className="btn right offset-s1" name="action">Save Changes</button>
+            <button type="submit" href="javascript:void(0)" className="btn right offset-s1 black" name="action">Save</button>
           </div>
         </form>
       </div>

@@ -81,11 +81,11 @@ class App extends Component {
         const notes = await axios.get(`${url}/notes`, authHeader)
         console.log(notes)
         this.setState(() => ({
-            firstName: user.data.firstName,
-            lastName: user.data.lastName,
-            email: user.data.email,
-            phoneNumber: user.data.phoneNumber,
-            notes: notes.data
+          firstName: user.data.firstName,
+          lastName: user.data.lastName,
+          email: user.data.email,
+          phoneNumber: user.data.phoneNumber,
+          notes: notes.data
         }))
       } catch (err) {
         console.log('ERROR:', err)
