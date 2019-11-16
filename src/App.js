@@ -100,7 +100,6 @@ class App extends Component {
     }
   }
 
-
   // adding a function that loads all subjects for the Frankisense classroom
 
   pickSubjectData = () => {
@@ -156,7 +155,10 @@ class App extends Component {
         lastName: userInfo.lastName,
         email: userInfo.email,
         phoneNumber: userInfo.phoneNumber,
-        password: userInfo.password
+        password: userInfo.password,
+        profession: userInfo.profession,
+        nameOfChambers: userInfo.nameOfChambers,
+        addressOfChambers: userInfo.addressOfChambers
       })
       localStorage.token = newUser.data.token
 
@@ -164,12 +166,15 @@ class App extends Component {
         firstName: newUser.data.user.firstName,
         lastName: newUser.data.user.lastName,
         email: newUser.data.user.email,
+        phoneNumber: newUser.data.user.phoneNumber,
         profession: newUser.data.user.profession,
+        nameOfChambers: newUser.data.user.nameOfChamber,
+        addressOfChambers: newUser.data.user.addressOfChambers,
         isLoggedIn: true,
         userID: decode(localStorage.token)
       }))
 
-      this.props.history.push('/')
+      history.push('/')
     } catch (err) {
       console.log(err)
       this.setState(() => ({ signupError: err }))

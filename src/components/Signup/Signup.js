@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react'
 import Select from "react-select"
 import './Signup.css'
 
-export default ({history, onSubmit }) => {
+export default ({history, handleSignup }) => {
 
  const [data, setData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    phone: '',
+    phoneNumber: '',
+    nameOfChambers: '',
+    addressOfChambers: '',
     otherProfession: "",
     selectedOption: "",
     error: undefined
@@ -66,7 +68,7 @@ export default ({history, onSubmit }) => {
 ////////////////
   const onFormSubmit = e => {
     e.preventDefault()
-    onSubmit(data)
+    handleSignup(data)
     history.push("/")
   }
   const handleSelect = (selectedOption) => {
@@ -136,10 +138,10 @@ export default ({history, onSubmit }) => {
             { // Private values in "Customer" interface
             data.selectedOption.value === "practicing lawyer" &&
                  <>
-                  <input id="chamber-name" type="text" className="validate" value={data.chamberName || ""} onChange={(e) => setData({...data, chamberName: e.target.value})}/>
+                  <input id="chamber-name" type="text" className="validate" value={data.chamberName || ""} onChange={(e) => setData({...data, nameOfChambers: e.target.value})}/>
                   <label htmlFor="chamber-name">Name of Chambers</label>
 
-                  <input id="chamber-address" type="text" className="validate" value={data.chamberAddress || ""} onChange={(e) => setData({...data, chamberAddress: e.target.value})}/>
+                  <input id="chamber-address" type="text" className="validate" value={data.chamberAddress || ""} onChange={(e) => setData({...data, addressOfChambers: e.target.value})}/>
                   <label htmlFor="chamber-address">Address of Chambers</label>
                    
                   <input id="card-num" type="text" className="validate" value={data.cardNum || ""} onChange={(e) => setData({...data, cardNum: e.target.value})}/>
