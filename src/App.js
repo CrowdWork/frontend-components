@@ -174,7 +174,7 @@ class App extends Component {
         userID: decode(localStorage.token)
       }))
 
-      history.push('/')
+      this.props.history.push('/')
     } catch (err) {
       console.log(err)
       this.setState(() => ({ signupError: err }))
