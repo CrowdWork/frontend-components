@@ -4,15 +4,15 @@ import ListCard from '../ListCard/ListCard'
 import Search from '../Search/Search'
 import EsCaseList from '../EsCaseList/EsCaseList'
 import M from 'materialize-css'
+import NotesModal from "../Modal/NotesModal"
 
 class LegalIndex extends Component {
 
   state = {
     listTitle: '',
     listPublic: false,
-    noteTitle: '',
-    noteBody: '',
-    selectedOption: 'my-lists'
+    selectedOption: 'my-lists',
+    noteType: "legalIndex"
   }
 
   componentDidMount() {
@@ -201,10 +201,14 @@ class LegalIndex extends Component {
               </div>
             </div>
             {/*NOTES MODAL STRUCTURE */}
+                <NotesModal noteType={this.state.noteType} 
+                            onAddNote={this.props.onAddNote}
+                />
+            {/*
             <div id="modalNote" className="modal">
               <div className="modal-content">
                 <h4>New note...</h4>
-                <form className="col s12" onSubmit={this.onNoteFormSubmit}>
+                <form className="col s12" onSubmit={(e) => this.props.onAddNote(e, this.state)}>
                   <div className="row">
                     <div className="input-field col s12">
                       <input id="title" placeholder="Title..." value={this.state.noteTitle} type="text" onChange={(e) => this.setState({ noteTitle: e.target.value })}/>
@@ -217,6 +221,7 @@ class LegalIndex extends Component {
                 </form>
               </div>
             </div>
+            */}
             {/*END NOTES MODAL */}
             
           </div>
