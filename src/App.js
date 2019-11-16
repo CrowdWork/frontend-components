@@ -93,7 +93,7 @@ class App extends Component {
     } else {
       this.setState(() => {
         return {
-          isLoggedIn: true, // Should be false, change to true for testing
+          isLoggedIn: false, // Should be false, change to true for testing
           userID: null
         }
       })
@@ -206,7 +206,7 @@ class App extends Component {
       phoneNumber: '',
       phoneNumber: '',
       profession: '',
-      isLoggedIn: true, //Change Me
+      isLoggedIn: false, //Change Me
       userID: null
     }))
 
