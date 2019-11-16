@@ -5,7 +5,7 @@ import ClassMenu from "../ClassroomMenu/ClassroomMenu"
 
 
 
-const Classroom = ({ subjectCache, subjectSelected }) => {
+const Classroom = ({ subjectCache, subjectSelected, onAddNote }) => {
     const subjectList = ['Civil Procedure', 'Ghana Legal Systems', 'Law of Interpretation', 'Crimnial Law', "Family Law", 'Constitutional Law', 'Evidence']
     return (
         < div className="row" id='container' >

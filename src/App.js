@@ -93,7 +93,7 @@ class App extends Component {
     } else {
       this.setState(() => {
         return {
-          isLoggedIn: false, // Should be false, change to true for testing
+          isLoggedIn: true, // Should be false, change to true for testing
           userID: null
         }
       })
@@ -206,7 +206,7 @@ class App extends Component {
       phoneNumber: '',
       phoneNumber: '',
       profession: '',
-      isLoggedIn: false,
+      isLoggedIn: true, //Change Me
       userID: null
     }))
 
@@ -295,10 +295,11 @@ class App extends Component {
     this.setState(() => ({ lists: pubLists.data }))
   }
 
-  onAddNote = async (note) => {
+  onAddNote = async (e, note) => {
     console.log(note)
+    e.preventDefault()
     try {
-      await axios.post(`${url}/notes`, {
+      await axios.post(`${url}/notes/${note.noteType}`, {
         title: note.noteTitle,
         body: note.noteBody
       }, authHeader)
@@ -742,13 +743,13 @@ class App extends Component {
                         email={this.state.email}
                         isLoggedIn={this.state.isLoggedIn}
                         onLogout={this.onLogout}
-                        onAddNote={this.onAddNote}
                       />
                     </aside>
                     <main>
                       <TopicInfo
                         selectTopic={this.selectTopic}
                         {...this.state}
+                        onAddNote={this.onAddNote}
                       />
                       </main>
                   </div>
