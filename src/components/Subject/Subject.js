@@ -14,27 +14,22 @@ const topics = ['Introduction', 'Court Structure', 'Jurisdiction', 'C.I. 47', 'C
 
 
 const Subject = ({ selectTopic }) => {
-    return (
-        <div className="pick-subjects">
-            {topics.map((topic =>
-                <div className="topic-cell">
-
-                    <Link   onClick={() => {
-                                selectTopic(topic)
-                            }} 
-                            to={`/subject/${topic}`}
-                            className="subject-link"
-                    >
-    
-                            {topic}
-                       
-                    </Link>
-
-                </div>
-            ))
-            }
-        </div>
-    )
+  return (
+    <div className="pick-subjects">
+        {topics.map((topic =>
+          <div className="topic-cell">
+            <Link   
+              onClick={() => { selectTopic(topic) }} 
+              to={`/subject/${topic}`}
+              className="subject-link"
+            >
+              {topic}
+            </Link>
+          </div>
+        ))
+        }
+    </div>
+  )
 }
 
 export default Subject

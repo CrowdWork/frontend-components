@@ -19,11 +19,11 @@ export default ({history, handleSignup }) => {
 
   const [error, setError] = useState(null)
 
-  const patterns = {
-    email: /^[\w.+\-]+@gmail\.com$/,
-    name: /^[a-zA-Z0-9_]{5,}[a-zA-Z]+[0-9]*$/,
-    password: /^/
-  }
+  // const patterns = {
+  //   email: /^[\w.+\-]+@gmail\.com$/,
+  //   name: /^[a-zA-Z0-9_]{5,}[a-zA-Z]+[0-9]*$/,
+  //   password: /^/
+  // }
   
   /// Will write useValidate hook
   useEffect(() => {

@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
+const url = "http://localhost:4000"
+// const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
@@ -69,14 +69,21 @@ class CaseDetail extends Component {
     }
   }
 
+  // renderLinkedCases = () => {
+  //   const { caseDetail } = this.state
+  //   if (caseDetail) {
+  //     return caseDetail.
+  //   }
+  // }
+
   renderListOptions = (lists) => {
     console.log('renderListOptions()')
     console.log(lists)
     if (lists) {
       return lists.map(list => {
-        return list.owner === this.props.userID._id ? (<option value={list._id} key={Math.floor(Math.random() * 1000000)}>{list.title}</option>) : (null) 
-        })
-      }
+        return list.owner === this.props.userID._id && <option value={list._id} key={Math.floor(Math.random() * 1000000)}>{list.title}</option> 
+      })
+    }
   }
 
   addToList = async (e) => {
@@ -96,23 +103,23 @@ class CaseDetail extends Component {
     return (
       <div id="CaseDetail-container">
 
-      {/*MODAL STRUCTURE */}
-  <div id="modal1" className="modal">
-    <div className="modal-content">
-      <h4>Adding to...</h4>
-      <form onSubmit={this.addToList}>
-        {/* <label>Select a list</label> */}
-        <select className="browser-default" value={this.state.listId} onChange={(e) => this.setState({ listId: e.target.value })}>
-          <option value="" disabled>Select a list...</option>
-          {this.renderListOptions(this.props.lists)}
-        </select>
-        
-        <button type="submit" name="action" className="modal-close btn-flat bottom right">Save</button>
-      </form>
-    </div>
-    
-  </div>
-      {/*END MODAL */}
+        {/*MODAL STRUCTURE */}
+        <div id="modal1" className="modal">
+          <div className="modal-content">
+            <h4>Adding to...</h4>
+            <form onSubmit={this.addToList}>
+              {/* <label>Select a list</label> */}
+              <select className="browser-default" value={this.state.listId} onChange={(e) => this.setState({ listId: e.target.value })}>
+                <option value="" disabled>Select a list...</option>
+                {this.renderListOptions(this.props.lists)}
+              </select>
+              
+              <button type="submit" name="action" className="modal-close btn-flat bottom right">Save</button>
+            </form>
+          </div>
+          
+        </div>
+        {/*END MODAL */}
 
         <div id="card-panel-wrapper">
           {/* <Link to="javascript:void(0)" className="go-back" onClick={this.props.history.goBack}>Back to results</Link> */}
@@ -188,7 +195,7 @@ class CaseDetail extends Component {
             <div className="divider grey lighten-1" />
 
             <div className="row">
-              <h6 className="col s12 m4 grey-text text-darken-3"><b>Cases Referred To</b></h6>
+              <h6 className="col s12 m4 grey-text text-darken-3"><b>Linked Cases Referred To</b></h6>
               <p className="col s12 m8 grey-text text-darken-3">Coming Soon!</p>
             </div>
             

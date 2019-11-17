@@ -26,8 +26,8 @@ const subjects = {
     subjects: ['Civil Procedure', 'Ghana Legal Systems', 'Law of Interpretation', 'Crimnial Law', "Family Law", 'Constitutional Law', 'Evidence']
   }
 }
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
+const url = "http://localhost:4000"
+// const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
@@ -363,7 +363,9 @@ class App extends Component {
     return (
       <div className="App-container">
         <Switch>
-          <Route exact path="/"
+          <Route 
+            exact 
+            path="/"
             render={(props) => this.state.isLoggedIn ? (
               <Fragment>
                 <header className="header">
@@ -386,23 +388,22 @@ class App extends Component {
                       onAddNote={this.onAddNote}
                     />
                   </aside>
-                  
-                    <main>
-                      <Account
-                        {...props}
-                        userID={this.state.userID}
-                        firstName={this.state.firstName}
-                        lastName={this.state.lastName}
-                        email={this.state.email}
-                        phoneNumber={this.state.phoneNumber}
-                        profession={this.state.profession}
-                        caseDetail={this.state.caseDetail}
-                        lists={this.state.lists}
-                        notes={this.state.notes}
-                        isLoggedIn={this.state.isLoggedIn}
-                        handleLogout={this.handleLogout}
-                      />
-                    </main>
+                  <main>
+                    <Account
+                      {...props}
+                      userID={this.state.userID}
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      phoneNumber={this.state.phoneNumber}
+                      profession={this.state.profession}
+                      caseDetail={this.state.caseDetail}
+                      lists={this.state.lists}
+                      notes={this.state.notes}
+                      isLoggedIn={this.state.isLoggedIn}
+                      handleLogout={this.handleLogout}
+                    />
+                  </main>
                 </div>
               </Fragment>
             ) : (
@@ -504,28 +505,26 @@ class App extends Component {
                         onAddNote={this.onAddNote}
                       />
                     </aside>
-                    
-                      <main>
-                        <LegalIndex
-                          {...props}
-                          esSearchResults={this.state.esSearchResults}
-                          sizeLimit={this.state.sizeLimit}
-                          batchedSearchResults={this.state.batchedSearchResults}
-                          fetchPubLists={this.fetchPubLists}
-                          onSearchSubmit={this.onSearchSubmit}
-                          lists={this.state.lists}
-                          notes={this.state.notes}
-                          loadMoreResults={this.loadMoreResults}
-                          searchAttempted={this.state.searchAttempted}
-                          onFetchCase={this.onFetchCase}
-                          onAddNote={this.onAddNote}
-                          onLimitChange={this.onLimitChange}
-                          returnMyLists={this.returnMyLists}
-                          fetchPubLists={this.fetchPubLists}
-                          onAddList={this.onAddList}
-                        />
-                      </main>
-                    
+                    <main>
+                      <LegalIndex
+                        {...props}
+                        esSearchResults={this.state.esSearchResults}
+                        sizeLimit={this.state.sizeLimit}
+                        batchedSearchResults={this.state.batchedSearchResults}
+                        fetchPubLists={this.fetchPubLists}
+                        onSearchSubmit={this.onSearchSubmit}
+                        lists={this.state.lists}
+                        notes={this.state.notes}
+                        loadMoreResults={this.loadMoreResults}
+                        searchAttempted={this.state.searchAttempted}
+                        onFetchCase={this.onFetchCase}
+                        onAddNote={this.onAddNote}
+                        onLimitChange={this.onLimitChange}
+                        returnMyLists={this.returnMyLists}
+                        fetchPubLists={this.fetchPubLists}
+                        onAddList={this.onAddList}
+                      />
+                    </main>
                   </div>
                 </Fragment>
               )}
@@ -553,23 +552,23 @@ class App extends Component {
                       onLogout={this.onLogout}
                     />
                   </aside>
-                    <main>
-                      <CaseDetail
-                        {...props}
-                        userID={this.state.userID}
-                        lists={this.state.lists}
-                        onAddNote={this.onAddNote}
-                        toggleFavorite={this.toggleFavorite}
-                      />
-                    </main>
+                  <main>
+                    <CaseDetail
+                      {...props}
+                      userID={this.state.userID}
+                      lists={this.state.lists}
+                      onAddNote={this.onAddNote}
+                      toggleFavorite={this.toggleFavorite}
+                    />
+                  </main>
                 </div>
               </Fragment>
             )}
           />
 
           <Route path="/admin"
-            render={(props) => !this.state.isLoggedIn ? (
-              <Redirect to="/" />
+            render={(props) => !this.state.isLoggedIn ? ( 
+              <Redirect to="/login" />
             ) : (
               <Fragment>
               <header className="header">
