@@ -166,10 +166,10 @@ class Search extends Component {
                   </Fragment>
                 </select>
               </div>
-              <div className="query-action-wrapper width-full">
+              <div className="buttons-flex">
                 
-                <button type="button" className="btn" onClick={this.handleReset}>Reset</button>
-                <button type="submit" name="action" className="waves-light btn"><i className="material-icons">search</i></button>
+                <button type="button" className="btn-floating btn-flat Lists--buttons" onClick={this.handleReset}>Reset</button>
+                <button type="submit" name="action" className="btn-floating btn Lists--buttons"><i className="material-icons">search</i></button>
               </div>
             </div>
 
@@ -236,7 +236,7 @@ class Search extends Component {
           renderFieldOptions={this.renderFieldOptions}
           renderQueryOperators={this.renderQueryOperators}
         />
-        </div>
+      </div>
     )
   }
 }

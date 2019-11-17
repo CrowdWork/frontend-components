@@ -19,7 +19,7 @@ import Landing from './components/Landing/Landing'
 import Classroom from './components/Classroom/Classroom'
 import { async } from 'q'
 import Subject from './components/Subject/Subject'
-import TopicInfo from './components/TopicInfo/TopicInfo';
+import TopicInfo from './components/TopicInfo/TopicInfo'
 
 const subjects = {
   subs: {
@@ -69,34 +69,32 @@ class App extends Component {
     console.log('APP MOUNTED')
     console.log(`Logged in: ${this.state.isLoggedIn}`)
     if (localStorage.token) {
-      this.setState(() => {
-        return {
-          isLoggedIn: true,
-          userID: decode(localStorage.token)
-        }
-      })
+      this.setState(() => ({
+        isLoggedIn: true,
+        userID: decode(localStorage.token)
+      }))
       try {
         const user = await axios.get(`${url}/users/me`, authHeader)
-        this.returnMyLists()
+        const lists = await axios.get(`${url}/lists`, authHeader)
         const notes = await axios.get(`${url}/notes`, authHeader)
-        console.log(notes)
+        console.log(notes.data)
+        console.log(lists.data)
         this.setState(() => ({
           firstName: user.data.firstName,
           lastName: user.data.lastName,
           email: user.data.email,
           phoneNumber: user.data.phoneNumber,
+          lists: lists.data,
           notes: notes.data
         }))
       } catch (err) {
         console.log('ERROR:', err)
       }
     } else {
-      this.setState(() => {
-        return {
-          isLoggedIn: false, // Should be false, change to true for testing
-          userID: null
-        }
-      })
+      this.setState(() => ({
+        isLoggedIn: false, // Should be false, change to true for testing
+        userID: null
+      }))
     }
   }
 
@@ -139,15 +137,6 @@ class App extends Component {
     }
   }
 
-  returnMyLists = async () => {
-    const lists = await axios.get(`${url}/lists`, authHeader)
-    this.setState(() => { 
-      return {
-        lists: lists.data
-      }
-    })
-  }
-
   handleSignup = async (userInfo) => {
     try {
       const newUser = await axios.post(`${url}/users`, {
@@ -188,7 +177,6 @@ class App extends Component {
         password: credentials.password
       })
       localStorage.token = loginUser.data.token
-
       this.setState(() => ({
         firstName: loginUser.data.user.firstName,
         lastName: loginUser.data.user.lastName,
@@ -197,7 +185,7 @@ class App extends Component {
         profession: loginUser.data.user.profession,
         isLoggedIn: true
       }))
-
+      
       this.props.history.push('/')
     } catch (err) {
       this.setState(() => ({ loginError: err }))
@@ -216,7 +204,7 @@ class App extends Component {
     }))
 
     localStorage.clear()
-    this.props.history.push('/')
+    // this.props.history.push('/')
   }
 
   onLimitChange = (sizeLimit) => {
@@ -389,15 +377,15 @@ class App extends Component {
                 </header>
                 <div className="content">
                   <aside id="sideNav-col" className="col s0 l3 xl2">
-                      <SideNav
-                        firstName={this.state.firstName}
-                        lastName={this.state.lastName}
-                        email={this.state.email}
-                        isLoggedIn={this.state.isLoggedIn}
-                        onLogout={this.onLogout}
-                        onAddNote={this.onAddNote}
-                      />
-                    </aside>
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
+                    />
+                  </aside>
                   
                     <main>
                       <Account
@@ -467,7 +455,7 @@ class App extends Component {
           <Route path="/login"
             render={(props) => !this.state.isLoggedIn ? (
               <Fragment>
-              <header>
+                <header>
                   <Header
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
@@ -526,6 +514,7 @@ class App extends Component {
                           fetchPubLists={this.fetchPubLists}
                           onSearchSubmit={this.onSearchSubmit}
                           lists={this.state.lists}
+                          notes={this.state.notes}
                           loadMoreResults={this.loadMoreResults}
                           searchAttempted={this.state.searchAttempted}
                           onFetchCase={this.onFetchCase}
