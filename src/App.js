@@ -642,7 +642,40 @@ class App extends Component {
               </Fragment>
             )}
           />
-                  
+          <Route path="/notes/:_id"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+              <Fragment>
+              <header className="header">
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
+                <div className="content">
+                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                    />
+                  </aside>
+                  <main>
+                    <Note
+                      {...props}
+                      deleteNote={this.deleteNote}
+                    />
+                  </main>
+                </div>
+              </Fragment>
+            )}
+          />   
           <Route path="/frankinsense"
             render={(props) => !this.state.isLoggedIn ? (
               <Redirect to="/login" />
