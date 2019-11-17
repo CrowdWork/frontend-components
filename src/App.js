@@ -204,7 +204,7 @@ class App extends Component {
     }))
 
     localStorage.clear()
-    // this.props.history.push('/')
+    this.props.history.push('/')
   }
 
   onLimitChange = (sizeLimit) => {
