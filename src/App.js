@@ -27,8 +27,8 @@ const subjects = {
     subjects: ['Civil Procedure', 'Ghana Legal Systems', 'Law of Interpretation', 'Crimnial Law', "Family Law", 'Constitutional Law', 'Evidence']
   }
 }
-const url = "http://localhost:4000"
-// const url = "https://ble-backend.herokuapp.com"
+// const url = "http://localhost:4000"
+const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
