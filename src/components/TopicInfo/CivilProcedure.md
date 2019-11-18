@@ -1,6 +1,6 @@
-# CIVIL PROCEDURE 2017 - 2018
+### CIVIL PROCEDURE 2017 - 2018
 
-### What is Civil Procedure?
+##### What is Civil Procedure?
 
 These are body of rules that are formulated to regulate the conduct of civil cases in court.
 

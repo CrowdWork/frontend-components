@@ -65,7 +65,9 @@ export default ({topic, selectTopic, ...props}) => {
     // props.topic does not change if selectTopic() is ran
     //fetch => res -> res.text() -> set(res) (in state) 
     useEffect(() => {
-        let topicIdx = topicLabels.indexOf(topic)
+        // Hard coded 'Court Structure' as Intro to fix CSS issue
+
+        let topicIdx = topic == 'Court Structure' ? 0 : topicLabels.indexOf(topic)
 
          axios.get(topics[topicIdx])
             .then(raw => {

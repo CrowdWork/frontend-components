@@ -144,7 +144,8 @@ section > a {
   flex: 1;
   place-self: center start;
   font-size: 26px;
-  transform: translate(0, 30%);
+  
+  padding: 2em
 }
 .service-tagline {
   position: absolute;
@@ -163,12 +164,11 @@ section > a {
   flex-direction: column;
   transform: translateY(-2em);
 }
-
 .splash > .row {
   display: flex;
   place-content: space-around center;
   place-items: center center;
-  width: 90%;
+  width: 100%;
 }
 
 .main-tagline {
@@ -178,6 +178,9 @@ section > a {
   text-align: left;
 
   text-transform: uppercase;
+}
+.splash-buttons {
+
 }
 
 .main-title {

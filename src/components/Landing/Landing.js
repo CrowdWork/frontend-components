@@ -5,6 +5,7 @@ import FormGroup from "../FormGroup/FormGroup"
 import M from 'materialize-css'
 import './Landing.css'
 import theme from "../../theme"
+import useMedia from "../../fx/useMedia"
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.parallax');
@@ -12,8 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 
+
 const Landing = (props) => {
-  
+  // margin bottom for login button
+  const marginBottom = useMedia(["(max-width: 550px)"], ["2em"], 0)
 
   return (
     <Fragment>
@@ -26,8 +29,10 @@ const Landing = (props) => {
                 <h3 className="main-tagline">Honest Service,</h3>
                 <h3 className="main-tagline"> Clear Information</h3>
               </div>
-              <div className="col s6">
-                <Link to="/login" id="login-btn" className="btn-large btn-flat waves-effect z-depth-0 white" >Login</Link>
+              <div className="col s6 splash-buttons">
+                <Link to="/login" id="login-btn" className="btn-large btn-flat waves-effect z-depth-0 white" style={{marginBottom}}>
+                  Login
+                </Link>
                 <Link to="/signup" className="btn-large waves-effect waves-light lighten-1 z-depth-0">Signup</Link>
               </div>
             </div>
@@ -58,6 +63,7 @@ const Landing = (props) => {
             title="Legal Index"
             
             link="/legal-index"
+
           > 
             <img src="/img/index-icon.png" class="icon"/> 
             <div className="service-tagline"> An case index of all Ghanaian Law Reports in one place!</div>
@@ -83,6 +89,7 @@ Featuring</div>
             title="Practical Practice"
             
             link="https://barnorlawengine.wordpress.com/"
+            disabled
           >
             <img src="/img/blogging-icon.png" class="icon"/>
             <div className="service-tagline">Visit our Blog and gain access to articles on legal
@@ -96,6 +103,7 @@ practice and procedure and discussions of recent cases.</div>
             title="Court Finder"
             
             link="/court-finder"
+            disabled
 
           >
             <img src="/img/court-icon.png" class="icon"/>
