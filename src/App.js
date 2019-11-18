@@ -13,6 +13,7 @@ import Admin from './components/Admin/Admin'
 import List from './components/List/List'
 import ListCard from './components/ListCard/ListCard'
 import CaseDetail from './components/CaseDetail/CaseDetail'
+import LinkedCase from './components/CaseDetail/LinkedCase'
 import Note from './components/Note/Note'
 import Order from './components/Order/Order'
 import Landing from './components/Landing/Landing'
@@ -43,6 +44,7 @@ class App extends Component {
     esSearchResults: [],
     errorMessage: '',
     firstName: '',
+    fetchedCase: '',
     isLoggedIn: false,
     lastName: '',
     lists: [],
@@ -566,9 +568,45 @@ class App extends Component {
             )}
           />
 
+          <Route path="/linkedcase/:citation"
+            render={(props) => (
+              <Fragment>
+              <header className="header">
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
+                <div className="content">
+                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                    />
+                  </aside>
+                  <main>
+                    <LinkedCase
+                      {...props}
+                      userID={this.state.userID}
+                      lists={this.state.lists}
+                      onAddNote={this.onAddNote}
+                      toggleFavorite={this.toggleFavorite}
+                    />
+                  </main>
+                </div>
+              </Fragment>
+            )}
+          />
+
           <Route path="/admin"
             render={(props) => !this.state.isLoggedIn ? ( 
-              <Redirect to="/login" />
+              <Redirect to="/admin" />
             ) : (
               <Fragment>
               <header className="header">

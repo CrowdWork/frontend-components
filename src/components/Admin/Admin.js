@@ -26,6 +26,7 @@ class Admin extends Component {
         worker: true,
         skipEmptyLines: true,
         step: row => {
+          console.log(row.data)
           axios.post(`${env}/cases`, {
             'caseName': row.data['Case Name'],
             'citation': row.data['Citation'],
@@ -33,7 +34,8 @@ class Admin extends Component {
             'judges': row.data['Judges'],
             'court': row.data['Court'],
             'keyWords': row.data['Key Words'],
-            'unlinkedCases': row.data['Unlinked Cases'],
+            'linkedCasesReferredTo': row.data['Linked Cases Referred To'],
+            'unlinkedCasesReferredTo': row.data['Unlinked Cases Referred To'],
             'documentType': row.data['Document Type'],
             'suitNumber': row.data['Suit No.'],
             'summary': row.data['Summary'],
