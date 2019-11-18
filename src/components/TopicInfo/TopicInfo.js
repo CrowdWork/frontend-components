@@ -3,7 +3,6 @@ import React, { useEffect, useState, useLayoutEffect } from 'react'
 import "./TopicInfo.css"
 import Subject from "../Subject/Subject"
 import axios from "axios"
-
 import ClassroomMenu from '../ClassroomMenu/ClassroomMenu'
 import CourtStructure from './CourtStructure.md'
 import Intro from './CivilProcedure.md'

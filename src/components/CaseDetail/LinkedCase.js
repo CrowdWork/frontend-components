@@ -12,7 +12,7 @@ const authHeader = {
   'Authorization': localStorage.token
 }}
 
-class CaseDetail extends Component {
+class LinkedCase extends Component {
 
   state = {
     caseDetail: '',
@@ -20,7 +20,7 @@ class CaseDetail extends Component {
   }
 
   componentDidMount() {
-    console.log('CASE DETAIL MOUNTED')
+    console.log('LINKED CASE MOUNTED')
     this.fetchCase()
     const modals = document.querySelectorAll('.modal')
     for (let i = 0; i < modals.length; i++){
@@ -38,10 +38,10 @@ class CaseDetail extends Component {
 
   fetchCase = async () => {
     console.log('fetchCase()')
-    console.log(this.props.match.params.mongo_id)
+    console.log(this.props.match.params.citation)
     
     try {
-      const getCase = await axios.get(`${url}/cases/detail/${this.props.match.params.mongo_id}`)
+      const getCase = await axios.get(`${url}/cases/linkedcase/${this.props.match.params.citation}`)
       const fetchedCase = getCase.data
       console.log(getCase)
       for (const prop in fetchedCase) {
@@ -71,9 +71,10 @@ class CaseDetail extends Component {
   }
 
   renderLinkedCases = () => {
+    console.log("Render Linked Cases")
     const { caseDetail } = this.state
     if (caseDetail) {
-      return caseDetail.linkedCasesReferredTo.map(citation => <Link key={Math.floor(Math.random() * 1000000)} to={`/linkedcase/${citation}`} target="_blank">{citation}</Link>)
+      return caseDetail.linkedCasesReferredTo.map(citation => <Link key={Math.floor(Math.random() * 1000000)} to={`/linkedcase/${citation}`} target="_blank" className="col s12 m8 grey-text text-darken-3">{citation}</Link>)
     }
   }
 
@@ -207,4 +208,4 @@ class CaseDetail extends Component {
   }
 }
 
-export default CaseDetail
+export default LinkedCase

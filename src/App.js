@@ -13,6 +13,7 @@ import Admin from './components/Admin/Admin'
 import List from './components/List/List'
 import ListCard from './components/ListCard/ListCard'
 import CaseDetail from './components/CaseDetail/CaseDetail'
+import LinkedCase from './components/CaseDetail/LinkedCase'
 import Note from './components/Note/Note'
 import Order from './components/Order/Order'
 import Landing from './components/Landing/Landing'
@@ -26,8 +27,8 @@ const subjects = {
     subjects: ['Civil Procedure', 'Ghana Legal Systems', 'Law of Interpretation', 'Crimnial Law', "Family Law", 'Constitutional Law', 'Evidence']
   }
 }
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
+const url = "http://localhost:4000"
+// const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
@@ -43,6 +44,7 @@ class App extends Component {
     esSearchResults: [],
     errorMessage: '',
     firstName: '',
+    fetchedCase: '',
     isLoggedIn: false,
     lastName: '',
     lists: [],
@@ -363,7 +365,9 @@ class App extends Component {
     return (
       <div className="App-container">
         <Switch>
-          <Route exact path="/"
+          <Route 
+            exact 
+            path="/"
             render={(props) => this.state.isLoggedIn ? (
               <Fragment>
                 <header className="header">
@@ -386,23 +390,22 @@ class App extends Component {
                       onAddNote={this.onAddNote}
                     />
                   </aside>
-                  
-                    <main>
-                      <Account
-                        {...props}
-                        userID={this.state.userID}
-                        firstName={this.state.firstName}
-                        lastName={this.state.lastName}
-                        email={this.state.email}
-                        phoneNumber={this.state.phoneNumber}
-                        profession={this.state.profession}
-                        caseDetail={this.state.caseDetail}
-                        lists={this.state.lists}
-                        notes={this.state.notes}
-                        isLoggedIn={this.state.isLoggedIn}
-                        handleLogout={this.handleLogout}
-                      />
-                    </main>
+                  <main>
+                    <Account
+                      {...props}
+                      userID={this.state.userID}
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      phoneNumber={this.state.phoneNumber}
+                      profession={this.state.profession}
+                      caseDetail={this.state.caseDetail}
+                      lists={this.state.lists}
+                      notes={this.state.notes}
+                      isLoggedIn={this.state.isLoggedIn}
+                      handleLogout={this.handleLogout}
+                    />
+                  </main>
                 </div>
               </Fragment>
             ) : (
@@ -504,28 +507,26 @@ class App extends Component {
                         onAddNote={this.onAddNote}
                       />
                     </aside>
-                    
-                      <main>
-                        <LegalIndex
-                          {...props}
-                          esSearchResults={this.state.esSearchResults}
-                          sizeLimit={this.state.sizeLimit}
-                          batchedSearchResults={this.state.batchedSearchResults}
-                          fetchPubLists={this.fetchPubLists}
-                          onSearchSubmit={this.onSearchSubmit}
-                          lists={this.state.lists}
-                          notes={this.state.notes}
-                          loadMoreResults={this.loadMoreResults}
-                          searchAttempted={this.state.searchAttempted}
-                          onFetchCase={this.onFetchCase}
-                          onAddNote={this.onAddNote}
-                          onLimitChange={this.onLimitChange}
-                          returnMyLists={this.returnMyLists}
-                          fetchPubLists={this.fetchPubLists}
-                          onAddList={this.onAddList}
-                        />
-                      </main>
-                    
+                    <main>
+                      <LegalIndex
+                        {...props}
+                        esSearchResults={this.state.esSearchResults}
+                        sizeLimit={this.state.sizeLimit}
+                        batchedSearchResults={this.state.batchedSearchResults}
+                        fetchPubLists={this.fetchPubLists}
+                        onSearchSubmit={this.onSearchSubmit}
+                        lists={this.state.lists}
+                        notes={this.state.notes}
+                        loadMoreResults={this.loadMoreResults}
+                        searchAttempted={this.state.searchAttempted}
+                        onFetchCase={this.onFetchCase}
+                        onAddNote={this.onAddNote}
+                        onLimitChange={this.onLimitChange}
+                        returnMyLists={this.returnMyLists}
+                        fetchPubLists={this.fetchPubLists}
+                        onAddList={this.onAddList}
+                      />
+                    </main>
                   </div>
                 </Fragment>
               )}
@@ -553,23 +554,59 @@ class App extends Component {
                       onLogout={this.onLogout}
                     />
                   </aside>
-                    <main>
-                      <CaseDetail
-                        {...props}
-                        userID={this.state.userID}
-                        lists={this.state.lists}
-                        onAddNote={this.onAddNote}
-                        toggleFavorite={this.toggleFavorite}
-                      />
-                    </main>
+                  <main>
+                    <CaseDetail
+                      {...props}
+                      userID={this.state.userID}
+                      lists={this.state.lists}
+                      onAddNote={this.onAddNote}
+                      toggleFavorite={this.toggleFavorite}
+                    />
+                  </main>
+                </div>
+              </Fragment>
+            )}
+          />
+
+          <Route path="/linkedcase/:citation"
+            render={(props) => (
+              <Fragment>
+              <header className="header">
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
+                <div className="content">
+                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                    />
+                  </aside>
+                  <main>
+                    <LinkedCase
+                      {...props}
+                      userID={this.state.userID}
+                      lists={this.state.lists}
+                      onAddNote={this.onAddNote}
+                      toggleFavorite={this.toggleFavorite}
+                    />
+                  </main>
                 </div>
               </Fragment>
             )}
           />
 
           <Route path="/admin"
-            render={(props) => !this.state.isLoggedIn ? (
-              <Redirect to="/" />
+            render={(props) => !this.state.isLoggedIn ? ( 
+              <Redirect to="/admin" />
             ) : (
               <Fragment>
               <header className="header">
