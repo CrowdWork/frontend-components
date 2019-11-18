@@ -51,7 +51,7 @@ class LegalIndex extends Component {
 
     return lists.map(list => {
       return (
-        <div className="list-card" >
+        <div className="list-card">
           <ListCard
             key={list._id}
             listRoute={`/list/${list._id}`}
@@ -70,7 +70,7 @@ class LegalIndex extends Component {
     if (notes) {
       return notes.map(note => {
         return (
-          <div className="col s12 m6 l4 xl3 list-card" key={note._id}>
+          <div className="list-card" key={note._id}>
             <ListCard
               listRoute={`/notes/${note._id}`}
               title={note.title}
@@ -138,9 +138,7 @@ class LegalIndex extends Component {
           <div className="container">
             <div className="row">
               <div className="buttons-flex">
-              <div className="valign-wrapper">
-              <h5>Case Collections</h5>
-            </div>
+                <h5>My Case Collections</h5>
                 {/* <form>
                   <p className="margin-right-16">
                     <label>
@@ -155,9 +153,7 @@ class LegalIndex extends Component {
                     </label>
                   </p>
                 </form> */}
-                <div>
-                  <a href="javascript:void(0)" data-target="modal1" className="btn-floating tooltipped btn modal-trigger Lists--buttons" data-position="left" data-tooltip="Create a new list.">New List</a>
-                </div>
+                <a href="javascript:void(0)" data-target="modal1" className="btn-floating btn modal-trigger Lists--buttons">New List</a>
               </div>
               {this.renderLists()}
             </div>
@@ -187,23 +183,19 @@ class LegalIndex extends Component {
 
           <div id="tab-notes" className="col s12">
             <div className="container">
-              <div className="row valign-wrapper">
-                <div id="note-section-title"className="col s10">
-                  <h5>Notes</h5>
-                  <p>Manage your notes.</p>
-                </div>
-                <div>
-                  <a href="javascript:void(0)" data-target="modalNote" className="btn-flat modal-trigger tooltipped" data-position="left" data-tooltip="Add new note."><i id="button-addnote" className="large material-icons">note_add</i></a>
-                </div>
-              </div>
               <div className="row">
+                <div className="buttons-flex">
+                  <h5>My Notes</h5>
+                  <a href="javascript:void(0)" data-target="modalNote" className="btn-floating btn modal-trigger Lists--buttons">New Note</a>
+                </div>
                 {this.renderNotes()}
               </div>
             </div>
             {/*NOTES MODAL STRUCTURE */}
-                <NotesModal noteType={this.state.noteType} 
-                            onAddNote={this.props.onAddNote}
-                />
+              <NotesModal 
+                noteType={this.state.noteType} 
+                onAddNote={this.props.onAddNote}
+              />
             {/*
             <div id="modalNote" className="modal">
               <div className="modal-content">
@@ -228,7 +220,6 @@ class LegalIndex extends Component {
       </div>
     )
   }
-    
 }
 
 export default LegalIndex

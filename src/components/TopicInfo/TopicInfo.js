@@ -1,4 +1,3 @@
-
 import Markdown from 'react-markdown'
 import React, { useEffect, useState, useLayoutEffect } from 'react'
 import "./TopicInfo.css"
@@ -77,7 +76,7 @@ export default ({topic, selectTopic, ...props}) => {
     }, [topic])
     return (
         <div className="topic-info">
-            <Subject selectTopic={ selectTopic }/>
+            <Subject selectTopic={ selectTopic } />
             <div className="markdown-text">
                 <Markdown source={markdownData} />   
             </div>

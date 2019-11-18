@@ -46,12 +46,12 @@ class Note extends Component {
         title: this.state.title,
         body: this.state.body
       }, authHeader)
-      this.setState({
+      this.setState(() => ({
         _id: updatedNote._id,
         title: updatedNote.title,
         body: updatedNote.body
-      })
-      this.props.history.goBack()
+      }))
+      this.props.history.push('/legal-index')
     } catch (err) {
       console.log(err)
     }
@@ -63,7 +63,7 @@ class Note extends Component {
     if (confirmDelete === 'DELETE') {
       try {
         this.props.deleteNote(this.state._id)
-        this.props.history.push('/')
+        this.props.history.goBack()
       } catch (err) {
         console.log(err)
       }
@@ -75,16 +75,16 @@ class Note extends Component {
     return (
       <div>
         <form onSubmit={this.onUpdateNote}>
-          <div className="input-field container">
-            <input className="container" id="title" placeholder="Title..." value={`${this.props.subject} - ${this.props.topic}` || ''} type="text" onChange={(e) => this.setState({ title: e.target.value })} />
+          <div className="input-field">
+            <input id="title" placeholder="Title..." value={this.state.title} type="text" onChange={(e) => this.setState({ title: e.target.value })} />
           </div>
-          <div className="input-field container">
+          <div className="input-field">
             <textarea id="body" className="materialize-textarea body" value={this.state.body} onChange={(e) => this.setState({ body: e.target.value })}></textarea>
           </div>
-          <div className="container">
-            <a href="javascript:void(0)" className="btn red left offset-s1" onClick={() => this.onDeleteNote(this.state._id)}>Delete Note</a>
+          <div>
+            <button className="btn red offset-s1" onClick={() => this.onDeleteNote(this.state._id)}>Delete</button>
             <p className='offset-s1'> </p>
-            <button type="submit" href="javascript:void(0)" className="btn right offset-s1" name="action">Save Changes</button>
+            <button type="submit" className="btn offset-s1 black" name="action">Save</button>
           </div>
         </form>
       </div>
