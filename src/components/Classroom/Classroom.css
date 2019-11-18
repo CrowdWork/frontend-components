@@ -5,3 +5,9 @@
 #container {
     padding-top: 3.5rem;
 }
+
+.menu {
+    height: 100vh;
+    position: absolute;
+  
+}

@@ -91,4 +91,6 @@ h1 {
 
 .nav-wrapper {
   z-index: 999;
+  /*position: fixed !important;*/
+  
 }

@@ -1,4 +1,4 @@
-## Change of Parties by reason of death or bankruptcy
+### Change of Parties by reason of death or bankruptcy
 
 **Order 4 Rule 6**
 

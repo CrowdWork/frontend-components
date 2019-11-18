@@ -1,6 +1,6 @@
-##Commencing a Civil Action
+### Commencing a Civil Action
 
-##Methods
+#### Methods
 
 There are various methods of commencing civil proceedings in Ghana as discussed above:
 

@@ -1,7 +1,11 @@
+html {
+    font-size: 62.5%;
+}
+
 .topic-info {
     display: flex;
-
     justify-content: space-between;
+    position: relative;
 
 }
 #main-col {
@@ -10,7 +14,7 @@
 
 .markdown-text {
     flex: 1;
-    padding: 6em;
+    padding: 3em;
     margin: 3em !important;
 
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Select from "react-select"
 import './Signup.css'
 
-export default ({history, onSubmit }) => {
+export default ({history, handleSignup }) => {
 
  const [data, setData] = useState({
     firstName: '',
@@ -66,7 +66,7 @@ export default ({history, onSubmit }) => {
 ////////////////
   const onFormSubmit = e => {
     e.preventDefault()
-    onSubmit(data)
+    handleSignup(data)
     history.push("/")
   }
   const handleSelect = (selectedOption) => {

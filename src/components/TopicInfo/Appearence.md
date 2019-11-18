@@ -1,5 +1,5 @@
 
-##Appearance
+### Appearance
 **Order 9**
 
 When a writ is served on a defendant, every defendant is entitled to enter an appearance either by himself or through a lawyer. 

@@ -1,8 +1,8 @@
-## Joinder of Causes of Action and Joinder of Parties
+### Joinder of Causes of Action and Joinder of Parties
 
 **Order 4**
 
-### Joinder of Causes of Action
+##### Joinder of Causes of Action
 
 >Example: Company A orders 1000 barrels of Grade 2 Ethanol at GH¢59,000 from Company B. Company B sends its truck to deliver the goods which it does. In reversing out of Company A the truck runs into the vehicle of the managing director of Company A. Upon checking the barrels company A realises that only 800 barrels of Grade D ethanol were delivered. Company A writes to Company B to make good on the contract and they refuse. Company A wants to take them to court
 Two causes of action: Negligence and Breach of Contract. Law allows them to join both causes of action, issuing one writ.

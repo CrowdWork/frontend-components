@@ -4,13 +4,15 @@ import './Card.css'
 
 
 
-const Card = ({ title, link, src, children }) => {
+const Card = ({ title, link, src, children, disabled }) => {
   return (
       <div className="card">
         <div className="card-image">
           <img src={src} />
           <span className="card-title">{title}</span>
-          <a href={link} target="_blank" className="btn-large waves-effect waves-light right red z-depth-0 position-btn disabled">Coming Soon</a>
+          <a href={link} target="_blank" className={`btn-large waves-effect waves-light right red z-depth-0 position-btn ${disabled ? "disabled" : null}`}>
+            {disabled ? "Coming Soon" : "Learn More"}
+            </a>
         </div>
         {/* <div className="card-content">
           <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
