@@ -45,7 +45,7 @@ class App extends Component {
     errorMessage: '',
     firstName: '',
     fetchedCase: '',
-    isLoggedIn: false,
+    isLoggedIn: true,
     lastName: '',
     lists: [],
     loginError: null,
@@ -94,7 +94,7 @@ class App extends Component {
       }
     } else {
       this.setState(() => ({
-        isLoggedIn: false, // Should be false, change to true for testing
+        isLoggedIn: true, // Should be false, change to true for testing
         userID: null
       }))
     }
