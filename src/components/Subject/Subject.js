@@ -17,7 +17,7 @@ const Subject = ({ selectTopic }) => {
   return (
     <div className="pick-subjects">
         {topics.map((topic =>
-          <div className="topic-cell">
+          
             <Link   
               onClick={() => { selectTopic(topic) }} 
               to={`/subject/${topic}`}
@@ -25,7 +25,7 @@ const Subject = ({ selectTopic }) => {
             >
               {topic}
             </Link>
-          </div>
+       
         ))
         }
     </div>
