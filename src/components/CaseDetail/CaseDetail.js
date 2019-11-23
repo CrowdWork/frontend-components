@@ -47,6 +47,7 @@ class CaseDetail extends Component {
       for (const prop in fetchedCase) {
         if (Array.isArray(fetchedCase[prop])) {
           fetchedCase[prop] = fetchedCase[prop].join().split(',')
+          console.log(fetchedCase[prop])
         }
       }
       this.setState(() => ({ caseDetail: fetchedCase }))
@@ -72,8 +73,9 @@ class CaseDetail extends Component {
 
   renderLinkedCases = () => {
     const { caseDetail } = this.state
+    console.log(caseDetail.linkedCasesReferredTo)
     if (caseDetail) {
-      return caseDetail.linkedCasesReferredTo.map(citation => <Link key={Math.floor(Math.random() * 1000000)} to={`/linkedcase/${citation}`} target="_blank">{citation}</Link>)
+      return caseDetail.linkedCasesReferredTo.map(citation => <li><Link key={Math.floor(Math.random() * 1000000)} to={`/linkedcase/${citation}`} target="_blank">{citation}</Link></li>)
     }
   }
 
@@ -197,7 +199,9 @@ class CaseDetail extends Component {
 
             <div className="row">
               <h6 className="col s12 m4 grey-text text-darken-3"><b>Linked Cases Referred To</b></h6>
-              <p className="col s12 m8 grey-text text-darken-3">{this.renderLinkedCases()}</p>
+              <ul className="col s12 m8 grey-text text-darken-3">
+                {this.renderLinkedCases()}
+              </ul>
             </div>
             
           </div>

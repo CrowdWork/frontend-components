@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom'
 import M from 'materialize-css'
 
 
-const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
+const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) => {
   const sidenav = document.querySelectorAll('.sidenav')
   M.Sidenav.init(sidenav, {
     draggable: true,
@@ -78,7 +78,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
         }
         </ul>
         
-        {isLoggedIn ? (
+        {isLoggedIn && (
           <ul id='desktop' className="sidenav sidenav-fixed z-depth-0">
           <li>
             <div className="user-view">
@@ -95,7 +95,10 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
           </li>
           <li><div className="subheader">Account</div></li>
           {isLoggedIn ? (
-            <li><NavLink to="/">Account <i className="material-icons" activeclassname="selectedLink">account_circle</i></NavLink></li>
+            <Fragment>
+              <li><NavLink to="/">Account <i className="material-icons" activeclassname="selectedLink">account_circle</i></NavLink></li>
+              <li><NavLink to="/admin">Admin <i className="material-icons" activeclassname="selectedLink">account_circle</i></NavLink></li>
+            </Fragment>
           ) : (
               <Fragment>
                 <li><Link to="/signup">Guest <i className="material-icons">account_circle</i></Link></li>
@@ -125,7 +128,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout }) => {
             <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Practical Practice<i className="material-icons">work</i></a>
           </li>
         </ul>
-      ) : (null)}
+      )}
 
     </Fragment>
 
