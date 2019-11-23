@@ -10,7 +10,7 @@ import React, { Component } from 'react'
     'Authorization': localStorage.token
   }}
 
-class Admin extends Component {
+class AdminLegalIndex extends Component {
 
   onFileUpload = async (e) => {
     e.preventDefault()
@@ -74,4 +74,4 @@ class Admin extends Component {
   }
 }
 
-export default Admin
+export default AdminLegalIndex

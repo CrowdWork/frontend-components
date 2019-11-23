@@ -9,7 +9,8 @@ import Signup from './components/Signup/Signup'
 import Login from './components/Login/Login'
 import Account from './components/Account/Account'
 import LegalIndex from './components/LegalIndex/LegalIndex'
-import Admin from './components/Admin/Admin'
+import AdminLegalIndex from './components/Admin/AdminLegalIndex'
+import AdminUsers from './components/Admin/AdminUsers'
 import List from './components/List/List'
 import ListCard from './components/ListCard/ListCard'
 import CaseDetail from './components/CaseDetail/CaseDetail'
@@ -64,6 +65,7 @@ class App extends Component {
     subjectLoaded: '',
     subjectSelected: '',
     topic: '',
+    users: []
   }
 
   async componentDidMount() {
@@ -81,13 +83,13 @@ class App extends Component {
         const notes = await axios.get(`${url}/notes`, authHeader)
         console.log(notes.data)
         console.log(lists.data)
-        this.setState(() => ({
+        this.setState((prevState) => ({
           firstName: user.data.firstName,
           lastName: user.data.lastName,
           email: user.data.email,
           phoneNumber: user.data.phoneNumber,
-          lists: lists.data,
-          notes: notes.data
+          lists: prevState.lists.concat(lists.data),
+          notes: prevState.notes.concat(notes.data)
         }))
       } catch (err) {
         console.log('ERROR:', err)
@@ -360,6 +362,15 @@ class App extends Component {
     }
   }
 
+  getUsers = async () => {
+    try {
+      const users = await axios.get(`${url}/users`, authHeader)
+      this.setState((prevState) => ({ users: prevState.users.concat(users.data) }))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   render() {
     console.log('AM I LOGGED IN ? ' + this.state.isLoggedIn)
     return (
@@ -458,7 +469,7 @@ class App extends Component {
                 </div>
               </Fragment>
             ) : (
-                <Redirect to="/" />
+                <Redirect to="/account" />
               )}
           />
           <Route path="/login"
@@ -483,11 +494,12 @@ class App extends Component {
                 </div>
               </Fragment>
             ) : (
-                <Redirect to="/" />
+                <Redirect to="/account" />
               )}
           />
 
           <Route
+            exact
             path="/legal-index"
             render={(props) => !this.state.isLoggedIn ? (
               <Redirect to="/login" />
@@ -610,7 +622,9 @@ class App extends Component {
             )}
           />
 
-          <Route path="/admin"
+          <Route
+            exact
+            path="/admin/legal-index"
             render={(props) => !this.state.isLoggedIn ? (
               <Redirect to="/login" />
             ) : (
@@ -636,9 +650,47 @@ class App extends Component {
                     />
                   </aside>
                     <main>
-                      <Admin
+                      <AdminLegalIndex
                         {...props}
                         {...this.state}
+                      />
+                    </main>
+                </div>
+              </Fragment>
+            )}
+          />
+          <Route
+            exact
+            path="/admin/users"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+              <Fragment>
+              <header className="header">
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
+                <div className="content">
+                  <aside id="sideNav-col" className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
+                    />
+                  </aside>
+                    <main>
+                      <AdminUsers
+                        {...props}
+                        {...this.state}
+                        getUsers={this.getUsers}
                       />
                     </main>
                 </div>
