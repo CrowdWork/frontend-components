@@ -165,7 +165,7 @@ class App extends Component {
         userID: decode(localStorage.token)
       }))
 
-      this.props.history.push('/')
+      this.props.history.push('/account')
     } catch (err) {
       console.log(err)
       this.setState(() => ({ signupError: err }))
@@ -188,7 +188,7 @@ class App extends Component {
         isLoggedIn: true
       }))
       
-      this.props.history.push('/')
+      this.props.history.push('/account')
     } catch (err) {
       this.setState(() => ({ loginError: err }))
     }
@@ -206,7 +206,7 @@ class App extends Component {
     }))
 
     localStorage.clear()
-    this.props.history.push('/')
+    this.props.history.push('/login')
   }
 
   onLimitChange = (sizeLimit) => {
@@ -365,9 +365,32 @@ class App extends Component {
     return (
       <div className="App-container">
         <Switch>
-          <Route 
-            exact 
+          <Route
+            exact
             path="/"
+            render={(props) => (
+              <Fragment>
+                <header>
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
+                <div>
+                  <main>
+                    <Landing
+                      {...props}
+                    />
+                  </main>
+                </div>
+              </Fragment>
+            )}
+          />
+          <Route 
+            path="/account"
             render={(props) => this.state.isLoggedIn ? (
               <Fragment>
                 <header className="header">
@@ -409,24 +432,7 @@ class App extends Component {
                 </div>
               </Fragment>
             ) : (
-                <Fragment>
-                  <header>
-                    <Header
-                      firstName={this.state.firstName}
-                      lastName={this.state.lastName}
-                      email={this.state.email}
-                      isLoggedIn={this.state.isLoggedIn}
-                      onLogout={this.onLogout}
-                    />
-                  </header>
-                  <div>
-                    <main>
-                      <Landing
-                        {...props}
-                      />
-                    </main>
-                    </div>
-                </Fragment>
+                <Redirect to="/login" />
               )}
           />
 

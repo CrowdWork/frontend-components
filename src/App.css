@@ -47,6 +47,9 @@ body{
   width: 250px;
   height: 100%;
 }
+.active {
+  background: #e8e8e8;
+}
 #mobile {
   z-index: 9999;
 }

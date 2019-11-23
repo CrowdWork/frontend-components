@@ -96,8 +96,8 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
           <li><div className="subheader">Account</div></li>
           {isLoggedIn ? (
             <Fragment>
-              <li><NavLink to="/">Account <i className="material-icons" activeclassname="selectedLink">account_circle</i></NavLink></li>
-              <li><NavLink to="/admin">Admin <i className="material-icons" activeclassname="selectedLink">account_circle</i></NavLink></li>
+              <li><NavLink to="/account">Account <i className="material-icons">account_circle</i></NavLink></li>
+              <li><NavLink to="/admin">Admin <i className="material-icons">account_circle</i></NavLink></li>
             </Fragment>
           ) : (
               <Fragment>
@@ -116,10 +116,10 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
           <li><div className="divider"></div></li>
           <li><div className="subheader">Services</div></li>
           <li className="no-padding">
-            <Link to="/legal-index">Legal Index<i className="material-icons">search</i></Link>
+            <NavLink to="/legal-index">Legal Index<i className="material-icons">search</i></NavLink>
           </li>
           <li className="no-padding">
-            <Link to="/frankinsense">Classroom<i className="material-icons">school</i></Link>
+            <NavLink to="/frankinsense">Classroom<i className="material-icons">school</i></NavLink>
           </li>
           <li className="no-padding">
             <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Court Finder <i className="material-icons">map</i></a>

@@ -35,7 +35,7 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
                   </li>
                 </ul>
                 <ul id='user-dropdown' className='dropdown-content left'>
-                  <li><Link to="/">My Profile <i className="material-icons">account_circle</i></Link></li>
+                  <li><Link to="/account">My Profile <i className="material-icons">account_circle</i></Link></li>
                   <li className="divider" tabIndex="-1"></li>
                   <li><Link to="/login" onClick={onLogout}>Logout<i className="material-icons">power_settings_new</i></Link></li>
                 </ul>
