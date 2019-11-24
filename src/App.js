@@ -45,7 +45,7 @@ class App extends Component {
     errorMessage: '',
     firstName: '',
     fetchedCase: '',
-    isLoggedIn: false,
+    isLoggedIn: false, // CODA: true for testing
     lastName: '',
     lists: [],
     loginError: null,
@@ -59,7 +59,7 @@ class App extends Component {
     signupError: null,
     sizeLimit: null,
     start: 0,
-    subscribed: true,
+    subscribed: false, // CODA: false for testing
     userID: null,
     subjectLoaded: '',
     subjectSelected: '',
@@ -94,7 +94,7 @@ class App extends Component {
       }
     } else {
       this.setState(() => ({
-        isLoggedIn: false, // Should be false, change to true for testing
+        isLoggedIn: false, // CODA: true for testing.
         userID: null
       }))
     }
@@ -379,9 +379,20 @@ class App extends Component {
                     onLogout={this.onLogout}
                   />
                 </header>
-                <div>
+                <div className="content">
+                <aside id="sideNav-col" className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
+                    />
+                  </aside>
                   <main>
                     <Landing
+                      isLoggedIn={this.state.isLoggedIn}
                       {...props}
                     />
                   </main>
@@ -720,9 +731,14 @@ class App extends Component {
             )}
           />   
           <Route path="/frankinsense"
-            render={(props) => !this.state.isLoggedIn ? (
+            render={(props) => !this.state.isLoggedIn ? 
+            (
               <Redirect to="/login" />
-            ) : (
+            ) : !this.state.subscribed ?
+            (
+              <Redirect to="/subscribe" />
+            ) :
+            (
               <Fragment>
               <header className="header">
                   <Header

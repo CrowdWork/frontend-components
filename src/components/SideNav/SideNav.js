@@ -78,7 +78,6 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
         }
         </ul>
         
-        {isLoggedIn && (
           <ul id='desktop' className="sidenav sidenav-fixed z-depth-0">
           <li>
             <div className="user-view">
@@ -93,7 +92,6 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
               )}
             </div>
           </li>
-          <li><div className="subheader">Account</div></li>
           {isLoggedIn ? (
             <Fragment>
               <li><NavLink to="/account">Account <i className="material-icons">account_circle</i></NavLink></li>
@@ -101,7 +99,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
             </Fragment>
           ) : (
               <Fragment>
-                <li><Link to="/signup">Guest <i className="material-icons">account_circle</i></Link></li>
+                <li><Link to="/signup">Signup Now <i className="material-icons">account_circle</i></Link></li>
               </Fragment>
             )}
 
@@ -128,8 +126,6 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
             <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Practical Practice<i className="material-icons">work</i></a>
           </li>
         </ul>
-      )}
-
     </Fragment>
 
   )
