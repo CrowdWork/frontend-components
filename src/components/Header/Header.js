@@ -23,7 +23,7 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
           <nav className="nav-wrapper black z-depth-0 height-full">
               <a href="#" data-target="mobile" className="sidenav-trigger"><i className="material-icons">menu</i></a>
               <Link to="/" id="brand-logo" className="brand-logo"></Link>
-              <SideNav />
+     
               {isLoggedIn ? (
               <Fragment>
                 <ul className="hide-on-med-and-down right height-full valign-wrapper">

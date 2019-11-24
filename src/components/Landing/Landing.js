@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-const Landing = (props) => {
+const Landing = ({ isLoggedIn }) => {
   // margin bottom for login button
   const marginBottom = useMedia(["(max-width: 550px)"], ["2em"], 0)
 
@@ -24,19 +24,20 @@ const Landing = (props) => {
         <div className="banner-overlay"></div>
           <div className="container height-100vh splash"> 
             <div className="row center">
-              <div className="col s6"> 
+              <div className={"col" + (!isLoggedIn ? "s6" : "" )} > 
                 <h3 className="main-tagline">Accessible Content,</h3>
                 <h3 className="main-tagline">Honest Service,</h3>
                 <h3 className="main-tagline"> Clear Information</h3>
               </div>
+            { !isLoggedIn &&
               <div className="col s6 splash-buttons">
                 <Link to="/login" id="login-btn" className="btn-large btn-flat waves-effect z-depth-0 white" style={{marginBottom}}>
                   Login
                 </Link>
                 <Link to="/signup" className="btn-large waves-effect waves-light lighten-1 z-depth-0">Signup</Link>
               </div>
+            }
             </div>
-    
           </div>
         </div>
         <div id="about-me" className="landing--about-me" style={{background: theme.mainColor}}>
