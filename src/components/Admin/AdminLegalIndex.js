@@ -2,13 +2,10 @@ import axios from 'axios'
 import Papa from 'papaparse'
 import React, { Component } from 'react'
 
-  // const env = "http://localhost:4000"
-  const env = "https://ble-backend.herokuapp.com"
-
-  const authHeader = {
-    headers: {
-    'Authorization': localStorage.token
-  }}
+const authHeader = {
+  headers: {
+  'Authorization': localStorage.token
+}}
 
 class AdminLegalIndex extends Component {
 
@@ -27,7 +24,7 @@ class AdminLegalIndex extends Component {
         skipEmptyLines: true,
         step: row => {
           console.log(row.data)
-          axios.post(`${env}/cases`, {
+          axios.post(`${this.props.url}/cases`, {
             'caseName': row.data['Case Name'],
             'citation': row.data['Citation'],
             'year': row.data['Year'],
