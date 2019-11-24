@@ -66,7 +66,7 @@ export default ({topic, selectTopic, ...props}) => {
     useEffect(() => {
         // Hard coded 'Court Structure' as Intro to fix CSS issue
 
-        let topicIdx = topic == 'Court Structure' ? 0 : topicLabels.indexOf(topic)
+        let topicIdx = topicLabels.indexOf(topic)
 
          axios.get(topics[topicIdx])
             .then(raw => {
