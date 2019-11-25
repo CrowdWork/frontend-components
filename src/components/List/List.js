@@ -4,9 +4,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
-
 const authHeader = {
   headers: {
   'Authorization': localStorage.token
@@ -24,7 +21,7 @@ class List extends Component {
   async fetchList() {
     console.log('FETCH LIST BY ID')
     try {
-      const list = await axios.get(`${url}/lists/${this.props.match.params.list_id}`, authHeader)
+      const list = await axios.get(`${this.props.url}/lists/${this.props.match.params.list_id}`, authHeader)
       this.setState(() => ({ list: list.data }))
       console.log(list.data)
     } catch (err) {
@@ -36,7 +33,7 @@ class List extends Component {
     console.log('REMOVE CASE FROM LIST')
     const { list } = this.state
     try {
-      const updatedList = await axios.get(`${url}/cases/remove/${mongo_id}/${list._id}`, authHeader)
+      const updatedList = await axios.get(`${this.props.url}/cases/remove/${mongo_id}/${list._id}`, authHeader)
       this.setState({ list: updatedList.data })
     } catch (err) {
       console.log(err)
@@ -48,7 +45,7 @@ class List extends Component {
       `Note: this action cannot be undone. \nPlease type "DELETE" below to proceed.`)
     if (confirmDelete === 'DELETE') {
       this.props.deleteList(this.state.list._id)
-      this.props.history.push('/')
+      this.props.history.push('/legal-index')
     }
   }
 
@@ -95,7 +92,7 @@ class List extends Component {
       <div className="container">
         <div className="row">
           <div className="col s12">
-            <a href="javascript:void(0)" className="go-back" onClick={this.props.history.goBack}>Back to Dashboard</a>
+            <Link href="!#" className="go-back" onClick={this.props.history.goBack}>Back to Dashboard</Link>
             <h4 id="List-title">{this.state.list.title}</h4>
             <ul>
               {this.renderList(this.state.list.cases)}

@@ -2,9 +2,6 @@ import './Note.css'
 import React, { Component } from 'react'
 import axios from 'axios'
 
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
-
 const authHeader = {
   headers: {
     'Authorization': localStorage.token
@@ -25,7 +22,7 @@ class Note extends Component {
   fetchNote = async () => {
     console.log('fetchNote()')
     try {
-      const getNote = await axios.get(`${url}/notes/${this.props.match.params._id}`, authHeader)
+      const getNote = await axios.get(`${this.props.url}/notes/${this.props.match.params._id}`, authHeader)
       const fetchedNote = getNote.data
       console.log(fetchedNote)
       this.setState({
@@ -41,7 +38,7 @@ class Note extends Component {
   onUpdateNote = async (e) => {
     e.preventDefault()
     try {
-      const updatedNote = await axios.patch(`${url}/notes`, {
+      const updatedNote = await axios.patch(`${this.props.url}/notes`, {
         _id: this.state._id,
         title: this.state.title,
         body: this.state.body

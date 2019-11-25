@@ -1,24 +1,29 @@
+// STYLES
 import './App.css'
+
+// DEPENDENCIES
 import React, { Component, Fragment } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import decode from 'jwt-decode'
 import axios from 'axios'
-import Header from './components/Header/Header'
-import SideNav from './components/SideNav/SideNav'
-import Signup from './components/Signup/Signup'
-import Login from './components/Login/Login'
+
+// COMPONENTS
 import Account from './components/Account/Account'
-import LegalIndex from './components/LegalIndex/LegalIndex'
-import Admin from './components/Admin/Admin'
-import List from './components/List/List'
-import ListCard from './components/ListCard/ListCard'
+import AdminClassroom from './components/Admin/AdminClassroom'
+import AdminLegalIndex from './components/Admin/AdminLegalIndex'
+import AdminUsers from './components/Admin/AdminUsers'
 import CaseDetail from './components/CaseDetail/CaseDetail'
+import Classroom from './components/Classroom/Classroom'
+import Header from './components/Header/Header'
+import Landing from './components/Landing/Landing'
+import LegalIndex from './components/LegalIndex/LegalIndex'
 import LinkedCase from './components/CaseDetail/LinkedCase'
+import List from './components/List/List'
+import Login from './components/Login/Login'
 import Note from './components/Note/Note'
 import Order from './components/Order/Order'
-import Landing from './components/Landing/Landing'
-import Classroom from './components/Classroom/Classroom'
-import { async } from 'q'
+import SideNav from './components/SideNav/SideNav'
+import Signup from './components/Signup/Signup'
 import Subject from './components/Subject/Subject'
 import TopicInfo from './components/TopicInfo/TopicInfo'
 
@@ -27,8 +32,6 @@ const subjects = {
     subjects: ['Civil Procedure', 'Ghana Legal Systems', 'Law of Interpretation', 'Crimnial Law', "Family Law", 'Constitutional Law', 'Evidence']
   }
 }
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
 
 const authHeader = {
   headers: {
@@ -62,8 +65,13 @@ class App extends Component {
     subscribed: false, // CODA: false for testing
     userID: null,
     subjectLoaded: '',
+    subjects: [],
     subjectSelected: '',
     topic: '',
+    // url: "http://localhost:4000",
+    url: "https://ble-backend.herokuapp.com",
+    userCount: null,
+    users: []
   }
 
   async componentDidMount() {
@@ -76,18 +84,18 @@ class App extends Component {
         userID: decode(localStorage.token)
       }))
       try {
-        const user = await axios.get(`${url}/users/me`, authHeader)
-        const lists = await axios.get(`${url}/lists`, authHeader)
-        const notes = await axios.get(`${url}/notes`, authHeader)
+        const user = await axios.get(`${this.state.url}/users/me`, authHeader)
+        const lists = await axios.get(`${this.state.url}/lists`, authHeader)
+        const notes = await axios.get(`${this.state.url}/notes`, authHeader)
         console.log(notes.data)
         console.log(lists.data)
-        this.setState(() => ({
+        this.setState((prevState) => ({
           firstName: user.data.firstName,
           lastName: user.data.lastName,
           email: user.data.email,
           phoneNumber: user.data.phoneNumber,
-          lists: lists.data,
-          notes: notes.data
+          lists: prevState.lists.concat(lists.data),
+          notes: prevState.notes.concat(notes.data)
         }))
       } catch (err) {
         console.log('ERROR:', err)
@@ -97,6 +105,44 @@ class App extends Component {
         isLoggedIn: false, // CODA: true for testing.
         userID: null
       }))
+    }
+  }
+
+  handleLoadSubjects = async () => {
+  
+    try {
+      this.setState(() => ({ subjects: [] }))
+      const subjects = await axios.get(`${this.state.url}/subjects`, authHeader)
+      if (!subjects.data.length > 0) {
+        console.log('No subjects were found')
+        return 'No subjects were found'
+      }
+      this.setState((prevState) => ({ subjects: prevState.subjects.concat(subjects.data) }))
+      
+      console.log(subjects.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  handleAddSubject = async (subjectName) => {
+    console.log(`Subject to add: ${subjectName}`)
+    if (!subjectName) {
+      return 'Enter valid value to add subject'
+    } else if (this.state.subjects.filter(subject => subjectName === subject.name).length) {
+      console.log('DUPLICATE SUBJECT DETECTED')
+      return 'This subject already exists'
+    }
+    try {
+      const newSubject = await axios.post(`${this.state.url}/subjects`, {
+        name: subjectName
+      })
+      this.setState((prevState) => ({
+        subjects: prevState.subjects.concat(newSubject.data)
+      }))
+
+    } catch (err) {
+      console.log(err)
     }
   }
 
@@ -141,7 +187,7 @@ class App extends Component {
 
   handleSignup = async (userInfo) => {
     try {
-      const newUser = await axios.post(`${url}/users`, {
+      const newUser = await axios.post(`${this.state.url}/users`, {
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         email: userInfo.email,
@@ -174,7 +220,7 @@ class App extends Component {
 
   handleLogin = async (credentials) => {
     try {
-      const loginUser = await axios.post(`${url}/users/login`, {
+      const loginUser = await axios.post(`${this.state.url}/users/login`, {
         email: credentials.email,
         password: credentials.password
       })
@@ -228,7 +274,7 @@ class App extends Component {
     }
     this.setState(() => ({ searchBody }))
     try {
-      const searchResult = await axios.get(`${url}/cases/search?count=${count}&start=${this.state.start}&query=${JSON.stringify(searchBody)}`, authHeader)
+      const searchResult = await axios.get(`${this.state.url}/cases/search?count=${count}&start=${this.state.start}&query=${JSON.stringify(searchBody)}`, authHeader)
       console.log(searchResult.data)
       this.setState((prevState) => ({
           searchAttempted: true,
@@ -259,12 +305,12 @@ class App extends Component {
   onAddList = async (e, listBody) => {
     e.preventDefault()
     try {
-      await axios.post(`${url}/lists`, {
+      await axios.post(`${this.state.url}/lists`, {
         title: listBody.listTitle,
         public: listBody.listPublic
       }, authHeader)
 
-      const lists = await axios.get(`${url}/lists`, authHeader)
+      const lists = await axios.get(`${this.state.url}/lists`, authHeader)
       this.setState(() => ({ lists: lists.data }))
 
     } catch (err) {
@@ -275,8 +321,8 @@ class App extends Component {
   deleteList = async (list_id) => {
     console.log('FIRE DELETE LIST')
     try {
-      await axios.delete(`${url}/lists/delete/${list_id}`, authHeader)
-      const lists = await axios.get(`${url}/lists`, authHeader)
+      await axios.delete(`${this.state.url}/lists/delete/${list_id}`, authHeader)
+      const lists = await axios.get(`${this.state.url}/lists`, authHeader)
       this.setState(() => ({ lists: lists.data }))
 
     } catch (err) {
@@ -285,7 +331,7 @@ class App extends Component {
   }
 
   fetchPubLists = async () => {
-    const pubLists = await axios.get(`${url}/lists/pub`)
+    const pubLists = await axios.get(`${this.state.url}/lists/pub`)
     console.log(pubLists.data)
     this.setState(() => ({ lists: pubLists.data }))
   }
@@ -294,11 +340,11 @@ class App extends Component {
     console.log(note)
     e.preventDefault()
     try {
-      await axios.post(`${url}/notes/${note.noteType}`, {
+      await axios.post(`${this.state.url}/notes/${note.noteType}`, {
         title: note.noteTitle,
         body: note.noteBody
       }, authHeader)
-      const notes = await axios.get(`${url}/notes`, authHeader)
+      const notes = await axios.get(`${this.state.url}/notes`, authHeader)
       console.log(notes)
       this.setState(() => ({ notes: notes.data }))
 
@@ -310,9 +356,23 @@ class App extends Component {
   deleteNote = async (note_id) => {
     console.log('FIRE DELETE LIST')
     try {
-      await axios.delete(`${url}/notes/delete/${note_id}`, authHeader)
-      const notes = await axios.get(`${url}/notes`, authHeader)
+      await axios.delete(`${this.state.url}/notes/delete/${note_id}`, authHeader)
+      const notes = await axios.get(`${this.state.url}/notes`, authHeader)
       this.setState(() => ({ notes: notes.data }))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  getUsers = async (skip=0, limit=10) => {
+    try {
+      this.setState(() => ({ users: [] }))
+      const users = await axios.get(`${this.state.url}/users?skip=${skip}&limit=${limit}`, authHeader)
+      console.log(users.data.users)
+      this.setState((prevState) => ({
+        users: prevState.users.concat(users.data.users),
+        userCount: users.data.userCount
+      }))
     } catch (err) {
       console.log(err)
     }
@@ -320,7 +380,7 @@ class App extends Component {
 
   onSubscribe = async () => {
     try {
-      const orderSubmit = await axios.get(`${url}/orders`, authHeader)
+      const orderSubmit = await axios.get(`${this.state.url}/orders`, authHeader)
       console.log(orderSubmit.data)
       this.setState(() => ({ orderToken: orderSubmit.data.token }))
       this.props.history.push("/checkout")
@@ -334,7 +394,7 @@ class App extends Component {
     if (!this.state.lists[0].cases.includes(caseId)) {
       console.log('Adding to Favorites')
       try {
-        const caseToAdd = await axios.get(`${url}/cases/add/${caseId}/${this.state.lists[0]._id}`, authHeader)
+        const caseToAdd = await axios.get(`${this.state.url}/cases/add/${caseId}/${this.state.lists[0]._id}`, authHeader)
         console.log(caseToAdd.data)
         let arr = []
         const result = caseToAdd.data
@@ -347,7 +407,7 @@ class App extends Component {
     } else {
       console.log('Removing from Favorites')
       try {
-        const caseToRemove = await axios.get(`${url}/cases/remove/${caseId}/${this.state.lists[0]._id}`, authHeader)
+        const caseToRemove = await axios.get(`${this.state.url}/cases/remove/${caseId}/${this.state.lists[0]._id}`, authHeader)
         console.log(caseToRemove.data)
         let arr = []
         const result = caseToRemove.data
@@ -469,7 +529,7 @@ class App extends Component {
                 </div>
               </Fragment>
             ) : (
-                <Redirect to="/" />
+                <Redirect to="/account" />
               )}
           />
           <Route path="/login"
@@ -494,11 +554,12 @@ class App extends Component {
                 </div>
               </Fragment>
             ) : (
-                <Redirect to="/" />
+                <Redirect to="/account" />
               )}
           />
 
           <Route
+            exact
             path="/legal-index"
             render={(props) => !this.state.isLoggedIn ? (
               <Redirect to="/login" />
@@ -620,8 +681,47 @@ class App extends Component {
               </Fragment>
             )}
           />
-
-          <Route path="/admin"
+          <Route
+            exact
+            path="/admin/classroom"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+              <Fragment>
+              <header className="header">
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
+                <div className="content">
+                  <aside id="sideNav-col" className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                    />
+                  </aside>
+                    <main>
+                      <AdminClassroom
+                        {...props}
+                        {...this.state}
+                        handleAddSubject={this.handleAddSubject}
+                        handleLoadSubjects={this.handleLoadSubjects}
+                      />
+                    </main>
+                </div>
+              </Fragment>
+            )}
+          />  
+          <Route
+            exact
+            path="/admin/legal-index"
             render={(props) => !this.state.isLoggedIn ? (
               <Redirect to="/login" />
             ) : (
@@ -647,9 +747,47 @@ class App extends Component {
                     />
                   </aside>
                     <main>
-                      <Admin
+                      <AdminLegalIndex
                         {...props}
                         {...this.state}
+                      />
+                    </main>
+                </div>
+              </Fragment>
+            )}
+          />
+          <Route
+            exact
+            path="/admin/users"
+            render={(props) => !this.state.isLoggedIn ? (
+              <Redirect to="/login" />
+            ) : (
+              <Fragment>
+              <header className="header">
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
+                <div className="content">
+                  <aside id="sideNav-col" className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
+                    />
+                  </aside>
+                    <main>
+                      <AdminUsers
+                        {...props}
+                        {...this.state}
+                        getUsers={this.getUsers}
                       />
                     </main>
                 </div>
@@ -681,8 +819,7 @@ class App extends Component {
                       onLogout={this.onLogout}
                     />
                   </aside>
-                  
-                    <main>
+                  <main>
                     <List
                       {...props}
                       userID={this.state.userID}
@@ -690,8 +827,7 @@ class App extends Component {
                       onFetchCase={this.onFetchCase}
                       deleteList={this.deleteList}
                     />
-                    </main>
-                  
+                  </main>
                 </div>
               </Fragment>
             )}
@@ -839,8 +975,6 @@ class App extends Component {
                       />
                       </main>
                   </div>
-                    
-                      
                 </Fragment>
               )} />
               <Route path="/subscribe"
