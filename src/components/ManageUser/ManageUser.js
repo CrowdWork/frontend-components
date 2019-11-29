@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './ManageUser.css'
+import './ManageUser.css';
 
 const authHeader = {
   headers: {
   'Authorization': localStorage.token
-}}
+}};
 
 export default class ManageUser extends Component {
 
@@ -17,7 +17,7 @@ export default class ManageUser extends Component {
     profession: '',
     isSubscriber: false,
     successAlert: ''
-  }
+  };
 
   componentDidMount() {
     this.fetchUser();
@@ -61,7 +61,7 @@ export default class ManageUser extends Component {
     return (
       <div className="ManageUser-container">
         {this.state.successAlert && (
-          <div class="successAlert">
+          <div className="successAlert">
             <p><strong>SUCCESS:</strong> {this.state.successAlert}</p>
             <button onClick={() => this.setState({ successAlert: false })}><i className="material-icons">clear</i></button>
           </div>

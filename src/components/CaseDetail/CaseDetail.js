@@ -47,8 +47,7 @@ class CaseDetail extends Component {
           console.log(fetchedCase[prop])
         }
       }
-      this.setState(() => ({ caseDetail: fetchedCase }))
-      
+      this.setState(() => ({ caseDetail: fetchedCase }));
     } catch (err) {
       console.log(err)
     }

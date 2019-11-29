@@ -4,9 +4,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-// const url = "http://localhost:4000"
-const url = "https://ble-backend.herokuapp.com"
-
 const authHeader = {
   headers: {
   'Authorization': localStorage.token
@@ -41,7 +38,7 @@ class LinkedCase extends Component {
     console.log(this.props.match.params.citation)
     
     try {
-      const getCase = await axios.get(`${url}/cases/linkedcase/${this.props.match.params.citation}`)
+      const getCase = await axios.get(`${this.props.url}/cases/linkedcase/${this.props.match.params.citation}`)
       const fetchedCase = getCase.data
       console.log(getCase)
       for (const prop in fetchedCase) {
@@ -93,7 +90,7 @@ class LinkedCase extends Component {
     e.preventDefault()
     const { caseDetail, listId } = this.state
     try {
-      await axios.get(`${url}/cases/add/${caseDetail._id}/${listId}`, authHeader)
+      await axios.get(`${this.props.url}/cases/add/${caseDetail._id}/${listId}`, authHeader)
     } catch (err) {
       console.log(err)
     }

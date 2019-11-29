@@ -24,7 +24,7 @@ const UserList = ({ users }) => {
   })
   return (
     <div className="UserList-container">
-      <table>
+      <table className="responsive-table">
         <thead>
           <tr>
             <th>First Name</th>

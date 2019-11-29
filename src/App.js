@@ -70,8 +70,8 @@ class App extends Component {
     subjects: [],
     subjectSelected: '',
     topic: '',
-    // url: "http://localhost:4000",
-    url: "https://ble-backend.herokuapp.com",
+    url: "http://localhost:4000",
+    // url: "https://ble-backend.herokuapp.com",
     userCount: null,
     users: []
   }
@@ -503,10 +503,10 @@ class App extends Component {
                       email={this.state.email}
                       phoneNumber={this.state.phoneNumber}
                       profession={this.state.profession}
-                      caseDetail={this.state.caseDetail}
                       lists={this.state.lists}
                       notes={this.state.notes}
                       isLoggedIn={this.state.isLoggedIn}
+                      url={this.state.url}
                       handleLogout={this.handleLogout}
                     />
                   </main>
@@ -647,6 +647,7 @@ class App extends Component {
                       {...props}
                       userID={this.state.userID}
                       lists={this.state.lists}
+                      url={this.state.url}
                       onAddNote={this.onAddNote}
                       toggleFavorite={this.toggleFavorite}
                     />
@@ -683,6 +684,7 @@ class App extends Component {
                       {...props}
                       userID={this.state.userID}
                       lists={this.state.lists}
+                      url={this.state.url}
                       onAddNote={this.onAddNote}
                       toggleFavorite={this.toggleFavorite}
                     />
@@ -865,6 +867,7 @@ class App extends Component {
                     <List
                       {...props}
                       userID={this.state.userID}
+                      url={this.state.url}
                       onAddNote={this.onAddNote}
                       onFetchCase={this.onFetchCase}
                       deleteList={this.deleteList}
