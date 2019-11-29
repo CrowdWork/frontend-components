@@ -62,10 +62,10 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
             <Link to="/frankinsense">Frankensense Classroom<i className="material-icons">school</i></Link>
           </li>
             <li className="no-padding">
-            <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Court Finder <i className="material-icons">map</i></a>
+            <a href="#" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Court Finder <i className="material-icons">map</i></a>
           </li>
             <li className="no-padding">
-            <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Practical Practice <i className="material-icons">work</i></a>
+            <a href="#" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Practical Practice <i className="material-icons">work</i></a>
             </li>
           </>
           ) : (
@@ -133,10 +133,10 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
             <NavLink to="/frankinsense">Classroom<i className="material-icons">school</i></NavLink>
           </li>
           <li className="no-padding">
-            <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Court Finder <i className="material-icons">map</i></a>
+            <a href="#" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Court Finder <i className="material-icons">map</i></a>
           </li>
           <li className="no-padding">
-            <a href="javascript:void(0)" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Practical Practice<i className="material-icons">work</i></a>
+            <a href="#" className="tooltipped" data-position="right" data-tooltip="Coming Soon!">Practical Practice<i className="material-icons">work</i></a>
           </li>
         </ul>
     </Fragment>

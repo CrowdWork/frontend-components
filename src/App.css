@@ -34,11 +34,7 @@ body{
 #header-row {
   margin: 0;
 }
-/*#content-row {
-  margin: 0;
-  height: 100%;
-  padding-top: 64px; 
-}*/
+
 #sideNav-col {
   position: fixed;
   top: 0;
@@ -66,9 +62,22 @@ body{
  main {
   min-height: 100vh;
 }
-h5 {
+h3,h5 {
   margin: 0;
   padding: 0;
+}
+
+.display-flex {
+  display: flex;
+}
+.flex-justify-center {
+  justify-content: center;
+}
+.flex-align-center {
+  align-items: center;
+}
+.flex-justify-sp-btw {
+  justify-content: space-between;
 }
 /*
 a {
@@ -88,7 +97,7 @@ h1 {
   .header, .content, .footer {
     padding-left: 0;
   }
-  #desktop {
+  #desktop, #mobile {
     display: none;
   }
 }

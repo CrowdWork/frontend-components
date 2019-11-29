@@ -1,0 +1,16 @@
+.ManageUser-container h3 {
+  margin: 16px 0;
+}
+.successAlert {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding: 4px 12px;
+  background-color: #ddffdd;
+  border-left: 6px solid #4CAF50;
+}
+.successAlert > button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}

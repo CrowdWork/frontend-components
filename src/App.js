@@ -20,6 +20,7 @@ import LegalIndex from './components/LegalIndex/LegalIndex'
 import LinkedCase from './components/CaseDetail/LinkedCase'
 import List from './components/List/List'
 import Login from './components/Login/Login'
+import ManageUser from './components/ManageUser/ManageUser'
 import Note from './components/Note/Note'
 import Order from './components/Order/Order'
 import SideNav from './components/SideNav/SideNav'
@@ -49,6 +50,7 @@ class App extends Component {
     firstName: '',
     fetchedCase: '',
     isLoggedIn: false, // CODA: true for testing
+    isSubscriber: false,
     lastName: '',
     lists: [],
     loginError: null,
@@ -68,8 +70,8 @@ class App extends Component {
     subjects: [],
     subjectSelected: '',
     topic: '',
-    // url: "http://localhost:4000",
-    url: "https://ble-backend.herokuapp.com",
+    url: "http://localhost:4000",
+    // url: "https://ble-backend.herokuapp.com",
     userCount: null,
     users: []
   }
@@ -94,6 +96,8 @@ class App extends Component {
           lastName: user.data.lastName,
           email: user.data.email,
           phoneNumber: user.data.phoneNumber,
+          profession: user.data.profession,
+          isSubscriber: user.data.isSubscriber,
           lists: prevState.lists.concat(lists.data),
           notes: prevState.notes.concat(notes.data)
         }))
@@ -363,7 +367,14 @@ class App extends Component {
       console.log(err)
     }
   }
-
+  // getUser = async (_id) => {
+  //   try {
+  //     const user = await axios.get(`${this.state.url}/api/admin/users/${_id}`, authHeader)
+  //     this.setState(() => ({ adminFetchedUser: user.data }))
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
   getUsers = async (skip=0, limit=10) => {
     try {
       this.setState(() => ({ users: [] }))
@@ -481,7 +492,6 @@ class App extends Component {
                       email={this.state.email}
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
-                      onAddNote={this.onAddNote}
                     />
                   </aside>
                   <main>
@@ -743,7 +753,6 @@ class App extends Component {
                       email={this.state.email}
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
-                      onAddNote={this.onAddNote}
                     />
                   </aside>
                     <main>
@@ -780,16 +789,48 @@ class App extends Component {
                       email={this.state.email}
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
-                      onAddNote={this.onAddNote}
                     />
                   </aside>
                     <main>
                       <AdminUsers
                         {...props}
-                        {...this.state}
+                        users={this.state.users}
                         getUsers={this.getUsers}
                       />
                     </main>
+                </div>
+              </Fragment>
+            )}
+          />
+          <Route 
+            path="/admin/users/:_id/edit"
+            render={(props) => (
+              <Fragment>
+              <header className="header">
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
+                <div className="content">
+                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                    />
+                  </aside>
+                  <main>
+                    <ManageUser
+                      {...props}
+                      url={this.state.url}
+                    />
+                  </main>
                 </div>
               </Fragment>
             )}
@@ -870,7 +911,7 @@ class App extends Component {
             render={(props) => !this.state.isLoggedIn ? 
             (
               <Redirect to="/login" />
-            ) : !this.state.subscribed ?
+            ) : !this.state.isSubscriber ?
             (
               <Redirect to="/subscribe" />
             ) :

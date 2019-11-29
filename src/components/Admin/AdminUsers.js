@@ -11,7 +11,7 @@ export default class AdminUsers extends Component {
 
   async componentDidMount() {
     const { skip, limit } = this.state
-    this.props.getUsers(skip, limit)
+    await this.props.getUsers(skip, limit)
   }
 
   renderPageNumbers = () => {
