@@ -6,7 +6,7 @@ export default class AdminUsers extends Component {
 
   state = {
     skip: 0,
-    limit: 1
+    limit: null
   }
 
   async componentDidMount() {
