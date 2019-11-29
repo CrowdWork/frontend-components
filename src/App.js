@@ -829,6 +829,7 @@ class App extends Component {
                     <ManageUser
                       {...props}
                       url={this.state.url}
+                      getUsers={this.getUsers}
                     />
                   </main>
                 </div>

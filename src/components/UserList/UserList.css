@@ -1,0 +1,26 @@
+.UserList-container a:hover {
+  text-decoration: underline #2196F3;
+}
+
+td {
+  height: 100%;
+}
+.isSubscriber-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.green-dot {
+  width: 10px;
+  height: 10px;
+  background: green;
+  border-radius: 50%;
+}
+.red-dot {
+  width: 10px;
+  height: 10px;
+  background: red;
+  opacity: .3;
+  border-radius: 50%;
+}

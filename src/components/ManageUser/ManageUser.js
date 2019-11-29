@@ -49,6 +49,7 @@ export default class ManageUser extends Component {
       }, authHeader)
       if (update.status === 200) {
         this.setState(() => ({ successAlert: 'User was successfully updated!' }))
+        this.props.getUsers()
       }
     } catch (err) {
       console.log(err)

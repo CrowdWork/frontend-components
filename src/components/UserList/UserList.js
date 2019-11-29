@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import './UserList.css'
 
 const UserList = ({ users }) => {
   const userList = users.map(user => {
@@ -10,15 +11,19 @@ const UserList = ({ users }) => {
         <td>{user.email}</td>
         <td>{user.phoneNumber}</td>
         <td>{user.profession}</td>
-        <td>{user.isSubscriber}</td>
+        <td className="isSubscriber-cell">{user.isSubscriber ? (
+          <div className="green-dot center"></div>
+          ) : (
+          <div className="red-dot"></div>)}
+        </td>
         <td>
-          <Link to={`/admin/users/${user._id}/edit`}><span className="blue-text">Detail</span></Link>
+          <Link to={`/admin/users/${user._id}/edit`}><span className="blue-text">Manage</span></Link>
         </td>
       </tr>
     )
   })
   return (
-    <div>
+    <div className="UserList-container">
       <table>
         <thead>
           <tr>
