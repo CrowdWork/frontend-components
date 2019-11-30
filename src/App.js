@@ -904,6 +904,7 @@ class App extends Component {
                   <main>
                     <Note
                       {...props}
+                      url={this.state.url}
                       deleteNote={this.deleteNote}
                     />
                   </main>
