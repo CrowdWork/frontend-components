@@ -7,7 +7,7 @@ const authHeader = {
   'Authorization': localStorage.token
 }}
 
-class AdminLegalIndex extends Component {
+export default class CasesFileUpload extends Component {
 
   onFileUpload = async (e) => {
     e.preventDefault()
@@ -70,5 +70,3 @@ class AdminLegalIndex extends Component {
     )
   }
 }
-
-export default AdminLegalIndex

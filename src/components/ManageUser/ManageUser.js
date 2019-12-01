@@ -24,7 +24,7 @@ export default class ManageUser extends Component {
   };
 
   fetchUser = async () => {
-    const _id = this.props.match.params._id
+    const _id = this.props.match.params._id;
     try {
       const user = await axios.get(`${this.props.url}/api/admin/users/${_id}`, authHeader)
       this.setState(() => ({ 
@@ -34,11 +34,11 @@ export default class ManageUser extends Component {
         phoneNumber: user.data.phoneNumber,
         profession: user.data.profession,
         isSubscriber: user.data.isSubscriber
-      }))
+      }));
     } catch (err) {
       console.log(err)
     }
-  }
+  };
   handleUserUpdate = async (e) => {
     const { firstName, lastName, email, phoneNumber, profession, isSubscriber } = this.state
     const _id = this.props.match.params._id
@@ -128,4 +128,4 @@ export default class ManageUser extends Component {
       
     )
   }
-}
+};

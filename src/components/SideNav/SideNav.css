@@ -6,7 +6,7 @@
   padding: 16px 32px;
   width: 100%;
   height: 64px;
-  background: #555;
+  background: #000;
 }
 #desktop {
   -webkit-transform: translateX(0%);
@@ -31,14 +31,24 @@
   pointer-events: none;
 }
 .sidenav {
-  z-index: 9999;
+  
+}
+.sidenav .collapsible-header:hover, .sidenav .collapsible-body li a:hover {
+  background-color: #fff;
+  width: 100%;
 }
 .sidenav .collapsible-header {
   padding: 0 32px;
 }
-.sidenav .collapsible-body li a {
-  padding: 0 45px;
+.collapsible-header:hover, .collapsible-header:hover:focus {
+  background: white;
 }
+
+.sidenav .collapsible-body ul li {
+  padding: 0 16px;
+  background-color: #fff;
+}
+
 .selected {
   color: #4de100;
 }

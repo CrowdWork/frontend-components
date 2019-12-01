@@ -101,7 +101,31 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
                     <a className="collapsible-header">Admin</a>
                     <div className="collapsible-body">
                       <ul>
-                        <li><NavLink to="/admin/legal-index">Legal Index</NavLink></li>
+                        <li>
+                          <ul className="collapsible collapsible-accordion">
+                            <li>
+                              <a className="collapsible-header">Legal Index</a>
+                              <div className="collapsible-body">
+                                <ul>
+                                  <li>
+                                    <ul className="collapsible collapsible-accordion">
+                                      <li>
+                                        <a className="collapsible-header">Data</a>
+                                        <div className="collapsible-body">
+                                          <ul>
+                                            <li>
+                                              <NavLink to="/admin/cases">Cases</NavLink>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                          </ul>
+                        </li>
                         <li><NavLink to="/admin/classroom">Frankinsense Classroom</NavLink></li>
                         <li><NavLink to="/admin/users">Users</NavLink></li>
                       </ul>

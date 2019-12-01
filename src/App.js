@@ -10,7 +10,7 @@ import axios from 'axios'
 // COMPONENTS
 import Account from './components/Account/Account'
 import AdminClassroom from './components/Admin/AdminClassroom'
-import AdminLegalIndex from './components/Admin/AdminLegalIndex'
+import AdminCases from './components/Admin/AdminCases'
 import AdminUsers from './components/Admin/AdminUsers'
 import CaseDetail from './components/CaseDetail/CaseDetail'
 import Classroom from './components/Classroom/Classroom'
@@ -44,6 +44,7 @@ class App extends Component {
   state = {
     batchedSearchResults: [],
     count: 20,
+    cases: [],
     email: '',
     esSearchResults: [],
     errorMessage: '',
@@ -64,56 +65,56 @@ class App extends Component {
     signupError: null,
     sizeLimit: null,
     start: 0,
-    subscribed: false, // CODA: false for testing
     userID: null,
     subjectLoaded: '',
     subjects: [],
     subjectSelected: '',
     topic: '',
-    // url: "http://localhost:4000",
-    url: "https://ble-backend.herokuapp.com",
+    url: "http://localhost:4000",
+    // url: "https://ble-backend.herokuapp.com",
     userCount: null,
-    users: []
+    users: [] 
   }
 
   async componentDidMount() {
-    this.pickSubjectData()
-    console.log('APP MOUNTED')
-    console.log(`Logged in: ${this.state.isLoggedIn}`)
-    if (localStorage.token) {
-      this.setState(() => ({
-        isLoggedIn: true,
-        userID: decode(localStorage.token)
-      }))
-      try {
-        const user = await axios.get(`${this.state.url}/users/me`, authHeader)
-        const lists = await axios.get(`${this.state.url}/lists`, authHeader)
-        const notes = await axios.get(`${this.state.url}/notes`, authHeader)
-        console.log(notes.data)
-        console.log(lists.data)
+    try {
+      
+      console.log('APP MOUNTED')
+      console.log(`Logged in: ${this.state.isLoggedIn}`)
+      if (localStorage.token) {
+        console.log("THIS RAN")
+        const [user, lists, notes] = await Promise.all([
+          await axios.get(`${this.state.url}/users/me`, authHeader),
+          await axios.get(`${this.state.url}/lists`, authHeader),
+          await axios.get(`${this.state.url}/notes`, authHeader)
+        ])
         this.setState((prevState) => ({
+          isLoggedIn: true,
+          userID: decode(localStorage.token),
           firstName: user.data.firstName,
           lastName: user.data.lastName,
           email: user.data.email,
           phoneNumber: user.data.phoneNumber,
           profession: user.data.profession,
           isSubscriber: user.data.isSubscriber,
-          lists: prevState.lists.concat(lists.data),
-          notes: prevState.notes.concat(notes.data)
+          lists: [].concat(lists.data),
+          notes: [].concat(notes.data)
         }))
-      } catch (err) {
-        console.log('ERROR:', err)
+        console.log(notes.data)
+        console.log(lists.data)
+        this.pickSubjectData()
+      } else {
+        this.setState(() => ({
+          isLoggedIn: false, // CODA: true for testing.
+          userID: null
+        }))
       }
-    } else {
-      this.setState(() => ({
-        isLoggedIn: false, // CODA: true for testing.
-        userID: null
-      }))
+    } catch (err) {
+      console.log('ERROR:', err)
     }
   }
 
   handleLoadSubjects = async () => {
-  
     try {
       this.setState(() => ({ subjects: [] }))
       const subjects = await axios.get(`${this.state.url}/subjects`, authHeader)
@@ -375,13 +376,26 @@ class App extends Component {
   //     console.log(err)
   //   }
   // }
-  getUsers = async (skip=0, limit=10) => {
+  getCases = async (skip=0, limit=200) => {
+    console.log("getCases()")
     try {
-      this.setState(() => ({ users: [] }))
+      const cases = await axios.get(`${this.state.url}/cases?skip=${skip}&limit=${limit}`, authHeader)
+      console.log(cases.data.cases)
+      this.setState(() => ({
+        cases: [].concat(cases.data.cases),
+        casesCount: cases.data.casesCount
+      }))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  getUsers = async (skip=0, limit=50) => {
+    try {
+      // this.setState(() => ({ cases: [] }))
       const users = await axios.get(`${this.state.url}/users?skip=${skip}&limit=${limit}`, authHeader)
-      console.log(users.data.users)
-      this.setState((prevState) => ({
-        users: prevState.users.concat(users.data.users),
+      console.log(users.data.userCount, users.data.users)
+      this.setState(() => ({
+        users: [].concat(users.data.users),
         userCount: users.data.userCount
       }))
     } catch (err) {
@@ -601,10 +615,10 @@ class App extends Component {
                         esSearchResults={this.state.esSearchResults}
                         sizeLimit={this.state.sizeLimit}
                         batchedSearchResults={this.state.batchedSearchResults}
-                        fetchPubLists={this.fetchPubLists}
-                        onSearchSubmit={this.onSearchSubmit}
                         lists={this.state.lists}
                         notes={this.state.notes}
+                        fetchPubLists={this.fetchPubLists}
+                        onSearchSubmit={this.onSearchSubmit}
                         loadMoreResults={this.loadMoreResults}
                         searchAttempted={this.state.searchAttempted}
                         onFetchCase={this.onFetchCase}
@@ -733,7 +747,7 @@ class App extends Component {
           />  
           <Route
             exact
-            path="/admin/legal-index"
+            path="/admin/cases"
             render={(props) => !this.state.isLoggedIn ? (
               <Redirect to="/login" />
             ) : (
@@ -758,9 +772,10 @@ class App extends Component {
                     />
                   </aside>
                     <main>
-                      <AdminLegalIndex
+                      <AdminCases
                         {...props}
-                        {...this.state}
+                        cases={this.state.cases}
+                        getCases={this.getCases}
                       />
                     </main>
                 </div>

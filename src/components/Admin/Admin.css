@@ -1,4 +1,4 @@
-.AdminUsers-container {
+.AdminUsers-container, .AdminCases-container {
   padding: 16px;
   margin: 0 auto;
   max-width: 1024px;
