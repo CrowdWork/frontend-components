@@ -21,6 +21,7 @@ import LinkedCase from './components/CaseDetail/LinkedCase'
 import List from './components/List/List'
 import Login from './components/Login/Login'
 import ManageUser from './components/ManageUser/ManageUser'
+import ManageCase from './components/ManageCase/ManageCase'
 import Note from './components/Note/Note'
 import Order from './components/Order/Order'
 import SideNav from './components/SideNav/SideNav'
@@ -70,8 +71,8 @@ class App extends Component {
     subjects: [],
     subjectSelected: '',
     topic: '',
-    // url: "http://localhost:4000",
-    url: "https://ble-backend.herokuapp.com",
+    url: "http://localhost:4000",
+    // url: "https://ble-backend.herokuapp.com",
     userCount: null,
     users: [] 
   }
@@ -853,6 +854,40 @@ class App extends Component {
               </Fragment>
             )}
           />
+          <Route 
+            path="/admin/legal-index/cases/:_id/edit"
+            render={(props) => (
+              <Fragment>
+              <header className="header">
+                  <Header
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                  />
+                </header>
+                <div className="content">
+                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                    />
+                  </aside>
+                  <main>
+                    <ManageCase
+                      {...props}
+                      url={this.state.url}
+                      getCases={this.getCases}
+                    />
+                  </main>
+                </div>
+              </Fragment>
+            )}
+          />
 
           <Route path="/list/:list_id"
             render={(props) => !this.state.isLoggedIn ? (
@@ -928,7 +963,7 @@ class App extends Component {
             )}
           />   
           <Route path="/frankinsense"
-            render={(props) => !this.state.isLoggedIn ? 
+            render={(props) => !this.state.isLoggedIn ?
             (
               <Redirect to="/login" />
             ) : !this.state.isSubscriber ?
