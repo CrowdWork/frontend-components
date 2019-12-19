@@ -54,12 +54,7 @@ const Landing = ({ isLoggedIn }) => {
           </div>
         </div>
         
-      <div id="services" className="section services">
-        <div className="container">
-        <div className="row">
-        <div className="col s12 m6 row-inner">
-          
-
+      <div id="services" className="services">
           <Card
             title="Legal Index"
             
@@ -69,10 +64,6 @@ const Landing = ({ isLoggedIn }) => {
             <img src="/img/index-icon.png" class="icon"/> 
             <div className="service-tagline"> An case index of all Ghanaian Law Reports in one place!</div>
           </Card>
-        </div>
-        <div className="col s12 m6">
-          
-
           <Card
             title="Frankinsense Classroom"
            
@@ -82,10 +73,6 @@ const Landing = ({ isLoggedIn }) => {
             <div className="service-tagline">A learning hub for the Professional Bar Course
 Featuring</div>
           </Card>
-        </div>
-        <div className="col s12 m6">
-
-    
           <Card
             title="Practical Practice"
             
@@ -96,10 +83,6 @@ Featuring</div>
             <div className="service-tagline">Visit our Blog and gain access to articles on legal
 practice and procedure and discussions of recent cases.</div>
           </Card>
-
-        </div>
-        <div className="col s12 m6">
-
           <Card
             title="Court Finder"
             
@@ -110,12 +93,9 @@ practice and procedure and discussions of recent cases.</div>
             <img src="/img/court-icon.png" class="icon"/>
             <div className="service-tagline">Coming Soon!</div>
           </Card>
-        </div>
-      </div>
-        </div>
       </div>
       
-      <section id="qualify" className="qualify" style={{background: theme.mainColor}}>
+      <section className="qualify" style={{background: theme.mainColor}}>
         <div className="section-title">QUALIFYING AS A LAWYER IN GHANA</div>
         <a class="waves-effect waves-light btn red disabled">Learn More</a>
 
@@ -165,6 +145,17 @@ practice and procedure and discussions of recent cases.</div>
         </div>
       </div>
     </Fragment>
+  )
+}
+
+// Change Section Markup below
+
+const Section = ({ children, title, className }) => {
+  return (
+      <section className={className}>
+        <div className="section-title">{title}</div>
+        <a class="waves-effect waves-light btn red disabled">Learn More</a>
+      </section>
   )
 }
 export default Landing

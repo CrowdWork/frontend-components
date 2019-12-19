@@ -41,6 +41,8 @@ export default ({history, handleSignup }) => {
      /* else if (!patterns.email.test(data.email)) {
         setError("Please enter the right data")
       } */
+      
+      
 
       else {
         return setError("")
@@ -82,6 +84,7 @@ export default ({history, handleSignup }) => {
 /////////////////////
     return (
       <div className="container ">
+
         <h1>Register</h1>
         <form className="col s12 sign-up" onSubmit={onFormSubmit}>
           <div className="row">

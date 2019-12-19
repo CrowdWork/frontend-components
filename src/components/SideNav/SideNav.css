@@ -11,14 +11,12 @@
 #desktop {
   -webkit-transform: translateX(0%);
   transform: translateX(0%);
-  position: static;
   margin-right: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
+  width: 250px;
 }
 #mobile {
-  z-index: 9999999999999;
+  z-index: 99;
   width: 250px;
 }
 .subheader {
@@ -31,7 +29,7 @@
   pointer-events: none;
 }
 .sidenav {
-  
+  z-index: 99;
 }
 .sidenav .collapsible-header:hover, .sidenav .collapsible-body li a:hover {
   background-color: #fff;
@@ -51,4 +49,10 @@
 
 .selected {
   color: #4de100;
+}
+#sideNav-col {
+  z-index: 99;
+}
+.sidenav-overlay {
+  z-index: 10;
 }
