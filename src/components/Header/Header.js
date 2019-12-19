@@ -21,7 +21,7 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
   
     return (
           <nav className="nav-wrapper black z-depth-0 height-full">
-              <a href="#" data-target="mobile" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+              <a href="#" data-target="slide-out" className="sidenav-trigger sidenav-close"><i className="material-icons">menu</i></a>
               <Link to="/" id="brand-logo" className="brand-logo"></Link>
      
               {isLoggedIn ? (

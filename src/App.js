@@ -466,7 +466,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                <aside id="sideNav-col" className="col s0 l3 xl2">
+                
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -475,7 +475,7 @@ class App extends Component {
                       onLogout={this.onLogout}
                       onAddNote={this.onAddNote}
                     />
-                  </aside>
+                
                   <main>
                     <Landing
                       isLoggedIn={this.state.isLoggedIn}
