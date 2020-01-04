@@ -1,11 +1,22 @@
 import './Header.css'
 import M from 'materialize-css'
-import React, { Fragment, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Fragment, useRef, useLayoutEffect, useState } from 'react'
+import { Link, useLocation, Redirect, useHistory } from 'react-router-dom'
 import SideNav from "../SideNav/SideNav"
 
-
+// generator/pointer for isAtLanding?
 const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
+
+  const { pathname } = useLocation()
+  const history = useHistory()
+  const [activeSectionId, setActiveSectionId] = useState(null)
+
+  useLayoutEffect(() => {
+    console.log(activeSectionId)
+    if (pathname == "/" && activeSectionId) {
+      document.getElementById(activeSectionId).scrollIntoView({behavior: 'smooth'})
+    }
+  }, [activeSectionId, pathname])
 
   const dropdowns = document.querySelectorAll('.dropdown-trigger')
   for (let i = 0; i < dropdowns.length; i++){
@@ -17,7 +28,7 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
       constrainWidth: false
     })
   }
-  
+
   
     return (
           <nav className="nav-wrapper black z-depth-0 height-full">
@@ -42,9 +53,9 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
               </Fragment>
                 ) : (
                 <ul className="hide-on-med-and-down right nav-list">
-                  <li><Link to="/" onClick={() => document.getElementById('about-me').scrollIntoView({behavior: 'smooth'})}>About</Link></li>
-                  <li><Link to="/" onClick={() => document.getElementById('services').scrollIntoView({behavior: 'smooth'})} >Services</Link></li>
-                  <li><Link to="/" onClick={() => document.getElementById('qualify').scrollIntoView({behavior: 'smooth'})}className="br">Qualifying in Ghana</Link></li>
+                  <li><Link to="/" onClick={() => setActiveSectionId('about-me')}>About</Link></li>
+                  <li><Link to="/" onClick={() => setActiveSectionId('services')} >Services</Link></li>
+                  <li><Link to="/" onClick={() => setActiveSectionId('qualify')} className="br">Qualifying in Ghana</Link></li>
                   <li><Link to="/signup">Signup Now!</Link></li>
                 </ul>
                 )

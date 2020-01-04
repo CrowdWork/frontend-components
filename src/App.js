@@ -808,7 +808,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </aside>
+             
                     <main>
                       <AdminUsers
                         {...props}
@@ -816,7 +816,7 @@ class App extends Component {
                         getUsers={this.getUsers}
                       />
                     </main>
-        
+                </div>
               </Fragment>
             )}
           />
@@ -1062,7 +1062,7 @@ class App extends Component {
                         isLoggedIn={this.state.isLoggedIn}
                         onLogout={this.onLogout}
                       />
-       
+                
                     <main>
                       <TopicInfo
                         selectTopic={this.selectTopic}
