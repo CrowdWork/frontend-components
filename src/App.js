@@ -71,8 +71,8 @@ class App extends Component {
     subjects: [],
     subjectSelected: '',
     topic: '',
-    // url: "http://localhost:4000",
-    url: "https://ble-backend.herokuapp.com",
+    url: "http://localhost:4000",
+    // url: "https://ble-backend.herokuapp.com",
     userCount: null,
     users: [] 
   }
@@ -168,7 +168,7 @@ class App extends Component {
   // adding a function that picks a specific subject
   subjectSelection = (value) => {
     try {
-      this.setState(() => { 
+      this.setState(() => {
         return {
           subjectSelected: value
         }
