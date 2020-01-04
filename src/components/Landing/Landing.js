@@ -40,7 +40,7 @@ const Landing = ({ isLoggedIn }) => {
             </div>
           </div>
         </div>
-        <div id="about-me" className="landing--about-me" style={{background: theme.mainColor}}>
+      <div id="about-me" className="landing--about-me" style={{background: theme.mainColor}}>
           <div className="container">
             <div className="row section section-about">
               <h3 >About Barnor Law Engine</h3>
@@ -95,7 +95,7 @@ practice and procedure and discussions of recent cases.</div>
           </Card>
       </div>
       
-      <section className="qualify" style={{background: theme.mainColor}}>
+      <section id="qualify" className="qualify" style={{background: theme.mainColor}}>
         <div className="section-title">QUALIFYING AS A LAWYER IN GHANA</div>
         <a class="waves-effect waves-light btn red disabled">Learn More</a>
 

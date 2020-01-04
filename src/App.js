@@ -500,7 +500,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col" className="col s0 l3 xl2">
+ 
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -508,7 +508,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </aside>
+     
                   <main>
                     <Account
                       {...props}
@@ -600,7 +600,7 @@ class App extends Component {
                   />
                 </header>
                   <div className="content">
-                    <aside id="sideNav-col" className="col s0 l3 xl2">
+ 
                       <SideNav
                         firstName={this.state.firstName}
                         lastName={this.state.lastName}
@@ -609,7 +609,7 @@ class App extends Component {
                         onLogout={this.onLogout}
                         onAddNote={this.onAddNote}
                       />
-                    </aside>
+                
                     <main>
                       <LegalIndex
                         {...props}
@@ -648,7 +648,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col"className="col s0 l3 xl2">
+
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -656,7 +656,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </aside>
+             
                   <main>
                     <CaseDetail
                       {...props}
@@ -685,7 +685,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col"className="col s0 l3 xl2">
+       
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -693,7 +693,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </aside>
+       
                   <main>
                     <LinkedCase
                       {...props}
@@ -725,7 +725,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col" className="col s0 l3 xl2">
+ 
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -733,7 +733,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </aside>
+               
                     <main>
                       <AdminClassroom
                         {...props}
@@ -763,7 +763,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col" className="col s0 l3 xl2">
+           
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -771,7 +771,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </aside>
+
                     <main>
                       <AdminCases
                         {...props}
@@ -800,7 +800,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col" className="col s0 l3 xl2">
+           
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -808,7 +808,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </aside>
+             
                     <main>
                       <AdminUsers
                         {...props}
@@ -834,7 +834,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col"className="col s0 l3 xl2">
+     
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -842,7 +842,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </aside>
+
                   <main>
                     <ManageUser
                       {...props}
@@ -868,7 +868,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -876,7 +876,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </aside>
+
                   <main>
                     <ManageCase
                       {...props}
@@ -904,7 +904,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col"className="col s0 l3 xl2">
+
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -912,7 +912,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </aside>
+            
                   <main>
                     <List
                       {...props}
@@ -942,7 +942,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col"className="col s0 l3 xl2">
+                  
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -950,7 +950,7 @@ class App extends Component {
                       isLoggedIn={this.state.isLoggedIn}
                       onLogout={this.onLogout}
                     />
-                  </aside>
+   
                   <main>
                     <Note
                       {...props}
@@ -982,7 +982,7 @@ class App extends Component {
                   />
                 </header>
                 <div className="content">
-                  <aside id="sideNav-col" className="col s0 l3 xl2">
+                 
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -991,7 +991,7 @@ class App extends Component {
                       onLogout={this.onLogout}
                       onAddNote={this.onAddNote}
                     />
-                    </aside>
+           
                   
                     <main>
                       <Classroom
@@ -1019,7 +1019,7 @@ class App extends Component {
                   />
                 </header>
                   <div className="content">
-                  <aside id="sideNav-col" className="col s0 l3 xl2">
+                 
                     <SideNav
                       firstName={this.state.firstName}
                       lastName={this.state.lastName}
@@ -1028,7 +1028,7 @@ class App extends Component {
                       onLogout={this.onLogout}
                       onAddNote={this.onAddNote}
                     />
-                    </aside>
+          
                       <main>
                         <Subject
                           selectTopic={this.selectTopic}
@@ -1054,7 +1054,7 @@ class App extends Component {
                   />
                 </header>
                   <div className="content">
-                    <aside id="sideNav-col" className="col s0 l3 xl2">
+                   
                       <SideNav
                         firstName={this.state.firstName}
                         lastName={this.state.lastName}
@@ -1062,7 +1062,7 @@ class App extends Component {
                         isLoggedIn={this.state.isLoggedIn}
                         onLogout={this.onLogout}
                       />
-                    </aside>
+                
                     <main>
                       <TopicInfo
                         selectTopic={this.selectTopic}
