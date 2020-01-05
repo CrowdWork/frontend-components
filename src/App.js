@@ -61,6 +61,7 @@ class App extends Component {
     password: '',
     phoneNumber: '',
     profession: '',
+    quizzes: [],
     searchBody: null,
     searchAttempted: false,
     signupError: null,
@@ -70,26 +71,24 @@ class App extends Component {
     subjectLoaded: '',
     subjects: [],
     subjectSelected: '',
-    topic: '',
-    // url: "http://localhost:4000",
-    url: "https://ble-backend.herokuapp.com",
+    topics: [],
+    url: "http://localhost:4000",
+    // url: "https://ble-backend.herokuapp.com",
     userCount: null,
     users: [] 
   }
 
   async componentDidMount() {
     try {
-      
       console.log('APP MOUNTED')
       console.log(`Logged in: ${this.state.isLoggedIn}`)
       if (localStorage.token) {
-        console.log("THIS RAN")
         const [user, lists, notes] = await Promise.all([
           await axios.get(`${this.state.url}/users/me`, authHeader),
           await axios.get(`${this.state.url}/lists`, authHeader),
           await axios.get(`${this.state.url}/notes`, authHeader)
         ])
-        this.setState((prevState) => ({
+        this.setState(() => ({
           isLoggedIn: true,
           userID: decode(localStorage.token),
           firstName: user.data.firstName,
@@ -124,8 +123,60 @@ class App extends Component {
         return 'No subjects were found'
       }
       this.setState((prevState) => ({ subjects: prevState.subjects.concat(subjects.data) }))
-      
       console.log(subjects.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  handleLoadQuizzes = async () => {
+    try {
+      this.setState(() => ({ quizzes: [] }))
+      const quizzes = await axios.get(`${this.state.url}/quizzes`, authHeader)
+      if (!quizzes.data.quizzes.length > 0) {
+        console.log('No quizzes were found')
+        return 'No quizzes were found'
+      }
+      this.setState((prevState) => ({ quizzes: prevState.quizzes.concat(quizzes.data.quizzes) }))
+      console.log(quizzes.data.quizzes)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  handleLoadTopics = async () => {
+    try {
+      this.setState(() => ({ topics: [] }))
+      const topics = await axios.get(`${this.state.url}/topics`, authHeader)
+      if (!topics.data.length > 0) {
+        console.log('No topics were found')
+        return 'No topics were found'
+      }
+      this.setState((prevState) => ({ topics: prevState.topics.concat(topics.data) }))
+      console.log(topics.data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  handleAddQuiz = async (quiz) => {
+    console.log(`Quiz to add: ${quiz.topic}`)
+    if (!quiz) {
+      return 'Enter a valid quiz question and answer'
+    } else if (this.state.quizzes.filter(q => quiz.question === q.question).length) {
+      console.log('DUPLICATE QUIZ QUESTION DETECTED')
+      return 'This quiz already exists'
+    }
+    try {
+      const newQuiz = await axios.post(`${this.state.url}/quizzes`, {
+        question: quiz.question,
+        answer: quiz.answer,
+        explanation: quiz.explanation,
+        topic: quiz.topic
+      }, authHeader)
+      this.setState((prevState) => ({
+        quizzes: prevState.quizzes.concat(newQuiz.data)
+      }))
     } catch (err) {
       console.log(err)
     }
@@ -142,11 +193,32 @@ class App extends Component {
     try {
       const newSubject = await axios.post(`${this.state.url}/subjects`, {
         name: subjectName
-      })
+      }, authHeader)
       this.setState((prevState) => ({
         subjects: prevState.subjects.concat(newSubject.data)
       }))
 
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  handleAddTopic = async (topicName) => {
+    console.log(`Topic to add: ${topicName}`)
+    if (!topicName) {
+      return 'Enter a valid value to add topic'
+    } else if (this.state.topics.filter(topic => topicName === topic.name).length) {
+      console.log('DUPLICATE TOPIC DETECTED')
+      return 'This topic already exists'
+    }
+    try {
+      const newTopic = await axios.post(`${this.state.url}/topics`, {
+        name: topicName
+      }, authHeader)
+      this.setState((prevState) => ({
+        topics: prevState.topics.concat(newTopic.data)
+      }))
+      
     } catch (err) {
       console.log(err)
     }
@@ -738,8 +810,12 @@ class App extends Component {
                       <AdminClassroom
                         {...props}
                         {...this.state}
+                        handleAddQuiz={this.handleAddQuiz}
                         handleAddSubject={this.handleAddSubject}
+                        handleAddTopic={this.handleAddTopic}
+                        handleLoadQuizzes={this.handleLoadQuizzes}
                         handleLoadSubjects={this.handleLoadSubjects}
+                        handleLoadTopics={this.handleLoadTopics}
                       />
                     </main>
                 </div>

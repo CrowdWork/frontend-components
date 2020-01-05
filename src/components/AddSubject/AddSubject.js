@@ -1,4 +1,5 @@
 import React from 'react'
+import '../Admin/Admin.css'
 
 export default class AddSubject extends React.Component {
     state = {
@@ -20,7 +21,7 @@ export default class AddSubject extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="AddSubject-container">
         {this.state.error && <p>{this.state.error}</p>}
         <form onSubmit={this.handleAddSubject}>
           <input type="text" name="subject" placeholder="Enter new subject"/>

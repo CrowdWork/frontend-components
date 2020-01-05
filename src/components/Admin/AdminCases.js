@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AdminCaseList from '../AdminCaseList/AdminCaseList'
 import CasesFileUpload from '../CasesFileUpload/CasesFileUpload'
+import './Admin.css'
 
 export default class AdminCases extends Component {
 
@@ -18,7 +19,7 @@ export default class AdminCases extends Component {
     console.log("RENDERING AdminCases")
     return (
       <div className="AdminCases-container">
-        <h3>Manage Cases</h3>
+        <h2>Manage Cases</h2>
         <AdminCaseList 
           cases={this.props.cases}
         />

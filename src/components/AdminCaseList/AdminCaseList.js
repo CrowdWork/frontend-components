@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../../components/UserList/UserList.css'
+import '../../components/AdminCaseList/AdminCaseList.css'
 
 const AdminCaseList = ({ cases }) => {
   const caseList = cases.map(courtCase => {

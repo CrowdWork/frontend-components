@@ -1,5 +1,9 @@
-.AdminUsers-container, .AdminCases-container {
+.AdminUsers-container, .AdminCases-container, .AdminClassroom-container {
   padding: 16px;
   margin: 0 auto;
   max-width: 1024px;
+}
+
+.SubjectList-container {
+  margin-bottom: 32px;
 }

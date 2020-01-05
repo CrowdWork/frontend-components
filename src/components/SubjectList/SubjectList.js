@@ -11,11 +11,11 @@ const SubjectList = ({ subjects }) => {
     )
   })
   return (
-    <div>
+    <div className="SubjectList-container">
       <table>
         <thead>
           <tr>
-            <th>Subject Name</th>
+            <th>Subjects</th>
           </tr>
         </thead>
         <tbody>
