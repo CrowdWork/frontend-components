@@ -99,7 +99,45 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
           {isLoggedIn ? (
             <Fragment>
               <li><NavLink to="/account">Account <i className="material-icons">account_circle</i></NavLink></li>
-              <li><NavLink to="/admin">Admin <i className="material-icons">account_circle</i></NavLink></li>
+              <li>
+                <ul className="collapsible collapsible-accordion">
+                  <li>
+                    <a className="collapsible-header">Admin</a>
+                    <div className="collapsible-body">
+                      <ul>
+                        <li>
+                          <ul className="collapsible collapsible-accordion">
+                            <li>
+                              <a className="collapsible-header">Legal Index</a>
+                              <div className="collapsible-body">
+                                <ul>
+                                  <li>
+                                    <ul className="collapsible collapsible-accordion">
+                                      <li>
+                                        <a className="collapsible-header">Data</a>
+                                        <div className="collapsible-body">
+                                          <ul>
+                                            <li>
+                                              <NavLink to="/admin/cases">Cases</NavLink>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><NavLink to="/admin/classroom">Frankinsense Classroom</NavLink></li>
+                        <li><NavLink to="/admin/users">Users</NavLink></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+
             </Fragment>
           ) : (
               <Fragment>

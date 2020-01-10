@@ -72,8 +72,8 @@ class App extends Component {
     subjects: [],
     subjectSelected: '',
     topics: [],
-    url: "http://localhost:4000",
-    // url: "https://ble-backend.herokuapp.com",
+    // url: "http://localhost:4000",
+    url: "https://ble-backend.herokuapp.com",
     userCount: null,
     users: [] 
   }
