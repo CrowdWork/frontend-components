@@ -42,11 +42,49 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
           {/* <li><div className="subheader">Account</div></li> */}
 
           {isLoggedIn ? (
-            <li><Link to="/">Account <i className="material-icons">account_circle</i></Link></li>
-          ) : (
             <Fragment>
-              <li><Link to="/signup">Signup Now! <i className="material-icons">account_circle</i></Link></li>
+              <li><NavLink to="/account">Account <i className="material-icons">account_circle</i></NavLink></li>
+              <li>
+                <ul className="collapsible collapsible-accordion">
+                  <li>
+                    <a className="collapsible-header">Admin</a>
+                    <div className="collapsible-body">
+                      <ul>
+                        <li>
+                          <ul className="collapsible collapsible-accordion">
+                            <li>
+                              <a className="collapsible-header">Legal Index</a>
+                              <div className="collapsible-body">
+                                <ul>
+                                  <li>
+                                    <ul className="collapsible collapsible-accordion">
+                                      <li>
+                                        <a className="collapsible-header">Data</a>
+                                        <div className="collapsible-body">
+                                          <ul>
+                                            <li>
+                                              <NavLink to="/admin/cases">Cases</NavLink>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><NavLink to="/admin/classroom">Frankinsense Classroom</NavLink></li>
+                        <li><NavLink to="/admin/users">Users</NavLink></li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </li>
             </Fragment>
+          ) : (
+            <li><Link to="/signup">Signup Now! <i className="material-icons">account_circle</i></Link></li>
           )}
           
           {isLoggedIn ? (
@@ -137,7 +175,6 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
                   </li>
                 </ul>
               </li>
-
             </Fragment>
           ) : (
               <Fragment>
