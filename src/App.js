@@ -28,6 +28,7 @@ import SideNav from './components/SideNav/SideNav'
 import Signup from './components/Signup/Signup'
 import Subject from './components/Subject/Subject'
 import TopicInfo from './components/TopicInfo/TopicInfo'
+import PageNotFound from './components/PageNotFound';
 
 const subjects = {
   subs: {
@@ -1164,6 +1165,7 @@ class App extends Component {
                   window.location.href = `https://sandbox.expresspaygh.com/api/checkout.php?token=${this.state.orderToken}`
                 }}
               />
+              <Route component={PageNotFound} />
 
         </Switch>
 
