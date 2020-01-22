@@ -20,7 +20,7 @@ class LegalIndex extends Component {
   componentDidMount() {
     // const elems = document.querySelectorAll('.collapsible')
     // M.Collapsible.init(elems)
-    
+    this.props.getMyLists()
     const tooltips = document.querySelectorAll('.tooltipped')
     for (let i = 0; i < tooltips.length; i++){
       M.Tooltip.init(tooltips[i])

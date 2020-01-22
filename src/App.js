@@ -83,9 +83,8 @@ class App extends Component {
       console.log('APP MOUNTED')
       console.log(`Logged in: ${this.state.isLoggedIn}`)
       if (localStorage.token) {
-        const [user, lists, notes] = await Promise.all([
+        const [user, notes] = await Promise.all([
           await axios.get(`${this.state.url}/users/me`, authHeader),
-          await axios.get(`${this.state.url}/lists`, authHeader),
           await axios.get(`${this.state.url}/notes`, authHeader)
         ])
         this.setState(() => ({
@@ -97,11 +96,9 @@ class App extends Component {
           phoneNumber: user.data.phoneNumber,
           profession: user.data.profession,
           isSubscriber: user.data.isSubscriber,
-          lists: [].concat(lists.data),
           notes: [].concat(notes.data)
         }))
         console.log(notes.data)
-        console.log(lists.data)
         this.pickSubjectData()
       } else {
         this.setState(() => ({
@@ -414,7 +411,7 @@ class App extends Component {
   }
 
   fetchPubLists = async () => {
-    const pubLists = await axios.get(`${this.state.url}/lists/pub`)
+    const pubLists = await axios.get(`${this.state.url}/lists/pub`, authHeader)
     console.log(pubLists.data)
     this.setState(() => ({ lists: pubLists.data }))
   }
