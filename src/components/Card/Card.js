@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import './Card.css'
 
 
@@ -8,7 +8,7 @@ const Card = ({ title, link, src, children, disabled }) => {
   return (
       <div className="card">
         <div className="card-image">
-          <img src={src} />
+          <img src={src} alt='' />
           <span className="card-title">{title}</span>
           <a href={link} target="_blank" className={`btn-large waves-effect waves-light right red z-depth-0 position-btn ${disabled ? "disabled" : null}`}>
             {disabled ? "Coming Soon" : "Learn More"}

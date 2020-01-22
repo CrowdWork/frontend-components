@@ -1,5 +1,6 @@
 import './LegalIndex.css'
 import React, { Component } from 'react'
+import Filter from '../Filter';
 import ListCard from '../ListCard/ListCard'
 import Search from '../Search/Search'
 import EsCaseList from '../EsCaseList/EsCaseList'
@@ -12,11 +13,11 @@ class LegalIndex extends Component {
     listTitle: '',
     listPublic: false,
     selectedOption: 'my-lists',
-    noteType: "legalIndex"
+    noteType: "legalIndex",
+    filterString: ''
   }
 
   componentDidMount() {
-    console.log('Legal-Index mounted')
     // const elems = document.querySelectorAll('.collapsible')
     // M.Collapsible.init(elems)
     
@@ -32,40 +33,56 @@ class LegalIndex extends Component {
     }
   }
 
+  handleInputChange = (e) => {
+    e.persist()
+    const filterString = e.target.value.trim().toLowerCase()
+    this.setState(() => ({ filterString }))
+  }
+
   onPubListSelected = (e) => {
-    console.log('Public selected')
-    e.preventDefault()
-    this.setState({ selectedOption: e.target.value })
-    this.props.fetchPubLists()
+    e.persist()
+    this.setState(() => ({ selectedOption: e.target.value }));
+    this.props.fetchPubLists();
   }
   onMyListSelected = (e) => {
-    console.log('Public selected')
-    this.setState({ selectedOption: e.target.value })
-    this.props.returnMyLists()
+    e.persist()
+    this.setState(() => ({ selectedOption: e.target.value }));
+    this.props.getMyLists();
+    
   }
 
   renderLists() {
-    console.log('RENDER LISTS')
+    const { filterString } = this.state
     const { lists } = this.props
     if (!lists.length) return <p className="center-align">Use the button on the right to create a new list.</p>
 
-    return lists.map(list => {
-      return (
-        <div className="list-card">
-          <ListCard
-            key={list._id}
-            listRoute={`/list/${list._id}`}
-            title={list.title}
-            isPublic={list.public}
-            length={list.cases.length}
-          />
-        </div>
-      )
-    })
+    if (filterString) {
+      return lists.filter(list => (
+        list.title.toLowerCase().includes(filterString)))
+        .map(list => (
+          <div className="list-card" key={list._id}>
+            <ListCard
+              listRoute={`/list/${list._id}`}
+              title={list.title}
+              isPublic={list.public}
+              length={list.cases.length}
+            />
+          </div>
+        ))
+    }
+    return lists.map(list => (
+      <div className="list-card" key={list._id}>
+        <ListCard
+          listRoute={`/list/${list._id}`}
+          title={list.title}
+          isPublic={list.public}
+          length={list.cases.length}
+        />
+      </div>
+    ))
   }
 
   renderNotes() {
-    console.log('RENDER NOTES')
     const { notes } = this.props
     if (notes) {
       return notes.map(note => {
@@ -120,44 +137,48 @@ class LegalIndex extends Component {
 
         <div id="tab-search" className="col s12">
           <div className="container">
-          <div className="row">
-            <div className="col s12">
-              <Search 
-                onSearchSubmit={this.props.onSearchSubmit}
-              />
+            <div className="row">
+              <div className="col s12">
+                <Search 
+                  onSearchSubmit={this.props.onSearchSubmit}
+                />
+              </div>
             </div>
-          </div>
           <div className="row">
             {this.renderContent()}
           </div>
           </div>
-          
         </div>
 
         <div id="tab-lists" className="col s12">
           <div className="container">
             <div className="row">
+
               <div className="buttons-flex">
                 <h5>My Case Collections</h5>
-                {/* <form>
+                <form>
                   <p className="margin-right-16">
                     <label>
-                      <input name="group1" value="my-lists" type="radio" checked={this.state.selectedOption === "my-lists"} onChange={this.onMyListSelected} />
+                      <input name="group1" value="my-lists" type="radio" checked={this.state.selectedOption === "my-lists"} onChange={(e) => this.onMyListSelected(e)} />
                         <span>My Lists</span>
                     </label>
                   </p>
                   <p>
                     <label>
-                      <input name="group1" value='public-lists' checked={this.state.selectedOption === "public-lists"} onChange={this.onPubListSelected} type="radio" />
-                      <span>Public</span>
+                      <input name="group1" value='public-lists' checked={this.state.selectedOption === "public-lists"} onChange={(e) => this.onPubListSelected(e)} type="radio" />
+                      <span>Public Lists</span>
                     </label>
                   </p>
-                </form> */}
-                <a href="javascript:void(0)" data-target="modal1" className="btn-floating btn modal-trigger Lists--buttons">New List</a>
+                </form>
+                <a href="#" data-target="modal1" className="btn-floating btn modal-trigger Lists--buttons">New List</a>
               </div>
+              <Filter handleInputChange={this.handleInputChange}/>
+
               {this.renderLists()}
             </div>
             </div>
+
+
             {/*LIST MODAL STRUCTURE */}
             <div id="modal1" className="modal">
               <div className="modal-content">
@@ -179,18 +200,20 @@ class LegalIndex extends Component {
             </div>
             {/*END LIST MODAL */}
             
-          </div>
 
+        </div>
           <div id="tab-notes" className="col s12">
             <div className="container">
               <div className="row">
                 <div className="buttons-flex">
                   <h5>My Notes</h5>
-                  <a href="javascript:void(0)" data-target="modalNote" className="btn-floating btn modal-trigger Lists--buttons">New Note</a>
+                  <a href="#" data-target="modalNote" className="btn-floating btn modal-trigger Lists--buttons">New Note</a>
                 </div>
                 {this.renderNotes()}
               </div>
             </div>
+
+
             {/*NOTES MODAL STRUCTURE */}
               <NotesModal 
                 noteType={this.state.noteType} 
@@ -215,6 +238,8 @@ class LegalIndex extends Component {
             </div>
             */}
             {/*END NOTES MODAL */}
+
+
             
           </div>
       </div>
@@ -222,4 +247,4 @@ class LegalIndex extends Component {
   }
 }
 
-export default LegalIndex
+export default LegalIndex;
