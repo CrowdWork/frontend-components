@@ -114,6 +114,11 @@ class App extends Component {
     }
   }
 
+  getMyLists = async () => {
+    const list = await axios.get(`${this.state.url}/lists`, authHeader);
+    this.setState(() => ({ lists: [].concat(list.data) }));
+  }
+
   handleLoadSubjects = async () => {
     try {
       this.setState(() => ({ subjects: [] }))
@@ -697,7 +702,7 @@ class App extends Component {
                         onFetchCase={this.onFetchCase}
                         onAddNote={this.onAddNote}
                         onLimitChange={this.onLimitChange}
-                        returnMyLists={this.returnMyLists}
+                        getMyLists={this.getMyLists}
                         fetchPubLists={this.fetchPubLists}
                         onAddList={this.onAddList}
                       />
