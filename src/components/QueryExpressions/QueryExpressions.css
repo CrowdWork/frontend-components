@@ -1,0 +1,8 @@
+.queryrows__ul {
+  display: flex;
+  flex-direction: column;
+  margin-top: 48px;
+}
+.queryRow__text {
+  margin: 0;
+}

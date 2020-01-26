@@ -12,14 +12,29 @@ const mappedFieldNames = {
   Keyword: 'keyWords'
 }
 
+const fieldNames = [
+  'Case Name', 'Citation', 
+  'Court', 'Document Type', 
+  'Judge', 'Keyword'
+];
+
+const queryOps = [
+  'includes the word(s)', 
+  'DOES NOT include the word(s)', 
+  'match phrase', 
+  'DOES NOT match phrase'
+]
+
 class Search extends Component {
 
   state = {
-    queryStringAggregator: [],
-    queryArr: [],
-    rowQuery: '',
-    fieldNames: ['Case Name', 'Citation', 'Court', 'Document Type', 'Judge', 'Keyword'],
-    queryOps: ['includes the word(s)', 'DOES NOT include the word(s)', 'match phrase', 'DOES NOT match phrase'],
+    fieldToSearch: 'caseName', // this is used within advanced search (basic search takes advantage of form internal state)
+    logicalOperator: '', // this is used within advanced search (basic search takes advantage of form internal state)
+    queryArr: [], // used to show user subqueries entered in advanced search
+    queryStringAggregator: [], // query sent to elasticsearch
+    rowInput: '', // this is used within advanced search (basic search takes advantage of form internal state)
+    rowQuery: '', // gets constructed and pushed into queryArr
+    searchCriterion: 'includes the word(s)', // this is used within advanced search (basic search takes advantage of form internal state)
     showAdvanced: false
   }
 
@@ -34,7 +49,7 @@ class Search extends Component {
     }
   }
 
-  handleBasicFormSubmit = async (e) => {
+  handleBasicFormSubmit = (e) => {
     console.log('handleBasicFormSubmit ran')
     e.preventDefault()
     const rowInput = e.target.elements.input.value
@@ -51,101 +66,121 @@ class Search extends Component {
     }    
   }
 
-  onFormSubmit = async (e) => {
+  handleAddQueryRow = (e) => {
     e.preventDefault();
 
-    if (this.state.queryStringAggregator.length > 0) {
-      const logicalOperator = e.target.elements.operator.value
-      const rowInput = e.target.elements.input.value
-      const fieldToSearch = e.target.elements.fieldToSearch.value
-      const searchCriterion = e.target.elements.searchCriterion.value
+    const { logicalOperator, fieldToSearch, queryStringAggregator, searchCriterion, rowInput } = this.state
+
+    if (!rowInput) return;
+
+    if (queryStringAggregator.length > 0) {
       const rowQuery = ` ${logicalOperator} (${fieldToSearch}: ${searchCriterion === 'match phrase' ? (`"${rowInput}"`) : (rowInput)})`
-      
       if (rowQuery) {
-        this.setState((prevState) => {
-          return {
-            queryStringAggregator: prevState.queryStringAggregator.concat(rowQuery)
-          }
-        })
-        this.setState((prevState) => {
-          return {
-            queryArr: prevState.queryArr.concat({ 
-              logicalOperator, fieldToSearch, rowInput, searchCriterion
-            })
-          }
-        })
+        this.setState((prevState) => ({
+          queryStringAggregator: prevState.queryStringAggregator.concat(rowQuery)
+        }));
+
+        this.setState((prevState) => ({
+          queryArr: prevState.queryArr.concat({
+            logicalOperator, fieldToSearch, rowInput, searchCriterion
+          })
+        }));
+
+        this.setState(() => ({
+          fieldToSearch: 'caseName',
+          logicalOperator: 'AND',
+          rowInput: '',
+          searchCriterion: 'includes the word(s)'
+        }));
       };
-
-      e.target.elements.input.value = ''
-      e.target.elements.operator.value = 'OR'
-      e.target.elements.fieldToSearch.value = ''
-      e.target.elements.searchCriterion.value = ''
-
     } else {
-      const rowInput = e.target.elements.input.value
-      const fieldToSearch = e.target.elements.fieldToSearch.value
-      const searchCriterion = e.target.elements.searchCriterion.value
       const rowQuery = `(${fieldToSearch}: ${searchCriterion === 'match phrase' ? (`"${rowInput}"`) : (rowInput)})`
-      
       if (rowQuery) {
-        this.setState((prevState) => {
-          return {
-            queryStringAggregator: prevState.queryStringAggregator.concat(rowQuery)
-          }
-        })
-        this.setState((prevState) => {
-          return {
-            queryArr: prevState.queryArr.concat({
-              fieldToSearch, searchCriterion, rowInput
-            })
-          }
-           
-       })
+        this.setState((prevState) => ({
+          queryStringAggregator: prevState.queryStringAggregator.concat(rowQuery)
+        }));
+
+        this.setState((prevState) => ({
+          queryArr: prevState.queryArr.concat({
+            fieldToSearch, searchCriterion, rowInput
+          })
+       }));
+
+       this.setState(() => ({
+        fieldToSearch: 'caseName',
+        logicalOperator: 'AND',
+        rowInput: '',
+        searchCriterion: 'includes the word(s)'
+      }));
       };
-      e.target.elements.input.value = ''
+    }
+  };
+
+  onAdvancedFormSubmit = (e) => {
+    e.preventDefault();
+    const { queryStringAggregator } = this.state
+
+    if (queryStringAggregator.length > 0) {
+      const queryString = queryStringAggregator
+      this.props.onSearchSubmit(queryString)
     }
   }
 
+  // TODO - IMPLEMENT THE FOLLOWING BLOCK TO DELETE SUBQUERIES IN ADVANCED SEARCH
+
+  // handleDeleteSubQuery = (e, subQuery) => {
+  //   e.preventDefault();
+  //   console.log('handleDeleteSubQuery()');
+  //   console.log(subQuery)
+    
+  //   this.setState((prevState) => ({
+  //     queryArr: [].concat(prevState.queryArr.filter((i) => {
+  //       return i !== subQuery;
+  //     })),
+  //     queryStringAggregator: [].concat(prevState.queryStringAggregator.filter((queryRow) => {
+  //       return queryRow !== subQuery
+  //     }))
+  //   }));
+  // }
+
   handleSearch = () => {
-    console.log('handleSearch')
-    let queryString = ''
-    this.state.queryStringAggregator.forEach(q => queryString += q)
-    console.log(queryString)
-    this.props.onSearchSubmit(queryString)
+    console.log('handleSearch');
+    let queryString = '';
+    this.state.queryStringAggregator.forEach(q => queryString += q);
+    console.log(queryString);
+    this.props.onSearchSubmit(queryString);
   }
 
   handleReset = () => {
     console.log('handleReset')
-    this.setState(() => {
-      return {
-        rowQuery: '',
-        queryStringAggregator: [],
-        queryArr: []
-      }
-    })
+    this.setState(() => ({
+      logicalOperator: '',
+      rowInput: '',
+      rowQuery: '',
+      queryStringAggregator: [],
+      queryArr: []
+    }))
   }
 
   renderFieldOptions = () => {
-    const { fieldNames } = this.state
-    return fieldNames.map(option => <option value={mappedFieldNames[option]} key={Math.floor(Math.random() * 1000000)}>{option}</option>)
+    return fieldNames.map(option => <option value={mappedFieldNames[option]} key={Math.floor(Math.random() * 1000000)}>{option}</option>);
   }
 
   renderQueryOperators = () => {
-    const { queryOps } = this.state
-    return queryOps.map(option => <option key={Math.floor(Math.random() * 1000000)}>{option}</option>)
+    return queryOps.map(option => <option key={Math.floor(Math.random() * 1000000)}>{option}</option>);
   }
   
   handleToggleAdvanced = () => {
-    this.setState((prevState) => {
-      return {
-        showAdvanced: !prevState.showAdvanced
-      }
-    })
+    this.handleReset();
+    
+    this.setState((prevState) => ({
+      showAdvanced: !prevState.showAdvanced,
+    }))
   }
-  
 
   render() {
-    console.log(`queryStringAggregator: ${this.state.queryStringAggregator}`)
+    console.log(`queryStringAggregator: ${this.state.queryStringAggregator}`);
+
     return (
       <div className="display-flex flex-column">
         <h1 className="center h1-search">Legal Index</h1>
@@ -167,7 +202,6 @@ class Search extends Component {
                 </select>
               </div>
               <div className="buttons-flex">
-                
                 <button type="button" className="btn-floating btn-flat Lists--buttons" onClick={this.handleReset}>Reset</button>
                 <button type="submit" name="action" className="btn-floating btn Lists--buttons"><i className="material-icons">search</i></button>
               </div>
@@ -178,18 +212,29 @@ class Search extends Component {
             {this.state.showAdvanced ? 'Basic Search' : 'Advanced Search'}
           </button>
           </Fragment>
+
           ) : (
+
+            // =================== ADVANCED SEARCH ==============================
             <Fragment>
-            <form className="advanced-form" onSubmit={this.onFormSubmit}>
+            <form className="advanced-form" onSubmit={this.onAdvancedFormSubmit}>
             <div className="select-wrapper">
               <div className="input-field width-full">
-                <input id="rowInput" placeholder="Search" required className="inputs" type="text" name="input" />
+                <input 
+                  className="inputs"
+                  id="rowInput" 
+                  onChange={(e) => this.setState({ rowInput: e.target.value })}
+                  placeholder="Search" 
+                  required={this.state.queryStringAggregator.length < 1}
+                  type="text" 
+                  value={this.state.rowInput}
+                />
               </div>
               <div className="input-field">
                 {this.state.queryStringAggregator.length > 0 && (
                 <div className="query-input">
                   
-                  <select name="operator" className="browser-default">
+                  <select value={this.state.logicalOperator} name="operator" className="browser-default" onChange={(e) => this.setState({ logicalOperator: e.target.value })}>
                     <option value="AND">AND</option>
                     <option value="OR">OR</option>
                   </select>
@@ -198,7 +243,7 @@ class Search extends Component {
               </div>
               <div className="input-field">
                 <div className="query-input">
-                  <select className="browser-default" name="fieldToSearch">
+                  <select value={this.state.fieldToSearch} className="browser-default" name="fieldToSearch" onChange={(e) => this.setState({ fieldToSearch: e.target.value })}>
                     <Fragment>
                       {this.renderFieldOptions()}
                     </Fragment>
@@ -207,7 +252,7 @@ class Search extends Component {
               </div>
               <div className="input-field">
                 <div className="query-input">
-                  <select className="browser-default" name="searchCriterion">
+                  <select value={this.state.searchCriterion} className="browser-default" name="searchCriterion" onChange={(e) => this.setState({ searchCriterion: e.target.value })}>
                     <Fragment>
                       {this.renderQueryOperators()}
                     </Fragment>
@@ -217,12 +262,13 @@ class Search extends Component {
               <div className="query-action-wrapper width-full">
                 <div>
                   <button type="button" className="btn" onClick={this.handleReset}>Reset</button>
-                  <button type="submit" className="btn">Add</button>
+                  <button type="button" className="btn" onClick={this.handleAddQueryRow}>Add</button>
                 </div>
                 <button type="submit" name="action" className="waves-light btn"><i className="material-icons">search</i></button>
               </div>
             </div>        
           </form>
+          
           <button type="button" onClick={this.handleToggleAdvanced} className="toggle-search-type">
             {this.state.showAdvanced ? 'Basic Search' : 'Advanced Search'}
           </button>
@@ -235,6 +281,7 @@ class Search extends Component {
           {...this.state}
           renderFieldOptions={this.renderFieldOptions}
           renderQueryOperators={this.renderQueryOperators}
+          handleDeleteSubQuery={this.handleDeleteSubQuery}
         />
       </div>
     )
