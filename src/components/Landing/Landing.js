@@ -24,7 +24,7 @@ const Landing = ({ isLoggedIn }) => {
         <div className="banner-overlay"></div>
           <div className="container height-100vh splash"> 
             <div className="row center">
-              <div className={"col" + (!isLoggedIn ? "s6" : "" )} > 
+              <div className={"col" + (!isLoggedIn ? " s6" : "" )} > 
                 <h3 className="main-tagline">Accessible Content,</h3>
                 <h3 className="main-tagline">Honest Service,</h3>
                 <h3 className="main-tagline"> Clear Information</h3>
@@ -77,7 +77,6 @@ Featuring</div>
             title="Practical Practice"
             
             link="https://barnorlawengine.wordpress.com/"
-            disabled
           >
             <img src="/img/blogging-icon.png" class="icon"/>
             <div className="service-tagline">Visit our Blog and gain access to articles on legal
@@ -97,7 +96,15 @@ practice and procedure and discussions of recent cases.</div>
       
       <section id="qualify" className="qualify" style={{background: theme.mainColor}}>
         <div className="section-title">QUALIFYING AS A LAWYER IN GHANA</div>
-        <a class="waves-effect waves-light btn red disabled">Learn More</a>
+        <div className="section-info"> Every applicant must have attended and graduated with a first degree in Law from a law school or schools. The applicant must have passed the bar or the solicitor’s course and be academically qualified to practice or currently practicing in their respective jurisdictions. The applicant cannot be disbarred, be under investigation or undergoing disciplinary proceedings from any legal regulatory body.
+Applicants who qualified in the UK jurisdiction and obtained the GDL before going on to complete the BPTC or LPC are qualified to apply for the Post Call Course.
+ </div> 
+        <a 
+          class="waves-effect waves-light btn red"
+          href="http://gslaw.edu.gh/programmes/post-call-law- course/"
+        >
+          Learn More
+        </a>
 
       </section>
 
@@ -110,9 +117,9 @@ practice and procedure and discussions of recent cases.</div>
         <div className="container">
           <h4 className="center">Consultant</h4>
           <div className="divider"></div>
-          <h5>Naa Amakuma Barnor</h5>
+          <h5>Jane Lee Doe</h5>
           <p>
-          After finishing her secondary education in Ghana, Naa progressed to the United Kingdom and obtained an LLB degree from Keele University and an LLM from SOAS University of London. She completed the Bar Professional Training Course (BPTC) at City University London and was called to the the UK Bar as a member of Inner Temple in 2015. In 2017 Naa was called as a barrister and solicitor of the Supreme Court of Ghana.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
           </p>
         </div>
         
@@ -125,23 +132,23 @@ practice and procedure and discussions of recent cases.</div>
         <div className="divider"/>
         <div className="col s12 m4 center">
           <h5>Office Location</h5>
-          <p>House No F543/1<br/>
-              Angola Road, Osu Kuku Hill<br/>  
-              Opposite SSNIT Specialist Hospital</p>
+          <p>House ullamco laboris<br/>
+          Ut enim ad minim veniam,<br/>
+          aliquip ex ea commodo consequat. </p>
         </div>
         <div className="col s12 m4 center">
           <h5>Email Address</h5>
-          <p>info@barnorlawengine.com</p>
+          <p>info@aliquipexea.com</p>
         </div>
         <div className="col s12 m4 center">
           <h5>Telephone</h5>
-          <p>+233 505727250</p>
+          <p>+555555555</p>
         </div>
         </div>
       </div>
       <div className="container">
         <div className="footer-copyright">
-          <div className="container center">© Barnor Law Engine 2019</div>
+          <div className="container center">© Barnor Law Engine 2020</div>
         </div>
       </div>
     </Fragment>
