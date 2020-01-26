@@ -540,16 +540,21 @@ class App extends Component {
                     onLogout={this.onLogout}
                   />
                 </header>
-                <div className="content">
+                <div 
+                style={{paddingLeft: this.state.isLoggedIn ? "250px" : "0"}} 
+                className="content"
+                >
                 
-                    <SideNav
-                      firstName={this.state.firstName}
-                      lastName={this.state.lastName}
-                      email={this.state.email}
-                      isLoggedIn={this.state.isLoggedIn}
-                      onLogout={this.onLogout}
-                      onAddNote={this.onAddNote}
-                    />
+                    {this.state.isLoggedIn && 
+                      <SideNav
+                        firstName={this.state.firstName}
+                        lastName={this.state.lastName}
+                        email={this.state.email}
+                        isLoggedIn={this.state.isLoggedIn}
+                        onLogout={this.onLogout}
+                        onAddNote={this.onAddNote}
+                      />
+                    }
                 
                   <main>
                     <Landing

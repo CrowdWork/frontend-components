@@ -22,7 +22,7 @@ body{
 }
 
 .header, .content, .footer {
-  padding-left: 250px;
+ /* padding-left: 250px;*/
 }
 #root {
   height: 100%;
