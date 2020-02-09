@@ -2,7 +2,6 @@ import './Header.css'
 import M from 'materialize-css'
 import React, { Fragment, useRef, useLayoutEffect, useState } from 'react'
 import { Link, useLocation, Redirect, useHistory } from 'react-router-dom'
-import SideNav from "../SideNav/SideNav"
 
 // generator/pointer for isAtLanding?
 const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
@@ -12,7 +11,6 @@ const Header = ({ firstName, lastName, isLoggedIn, onLogout, title }) => {
   const [activeSectionId, setActiveSectionId] = useState(null)
 
   useLayoutEffect(() => {
-    console.log(activeSectionId)
     if (pathname == "/" && activeSectionId) {
       document.getElementById(activeSectionId).scrollIntoView({behavior: 'smooth'})
     }

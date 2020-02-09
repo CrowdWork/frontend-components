@@ -13,8 +13,14 @@
   justify-content: space-between;
   align-items: flex-start;
 }
-.card-content h6 {
+.card-content h5 {
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 28px;
   margin: 0;
+}
+.card-content span {
+  font-size: 12px;
 }
 .card-content>div {
   text-align: left;

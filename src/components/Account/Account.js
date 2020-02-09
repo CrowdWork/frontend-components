@@ -23,8 +23,6 @@ class Account extends Component {
   }
 
   render() {
-    console.log(this.props.userID)
-    console.log(this.props.profession)
     return (
       <div className="container">
           <div>
