@@ -75,9 +75,9 @@ _Kombat v. Bediako (1971) 1 GLR PG 196_:
 
 * Time starts running on the date of which service is effected on the defendant. E.g. if you are served today, time starts running today. 
 
-* If a document is served through the post, and the document is not returned as ‘not delivered’, the document is deemed to have been served on that person <span style="color:red;">**21 days** after the day of posting that letter</span>. 
+* If a document is served through the post, and the document is not returned as ‘not delivered’, the document is deemed to have been served on that person **21 days** after the day of posting that letter. 
 
-* If a writ is served a defendant has <span style="color:red;">**8 days**</span> to make an appearance at court.
+* If a writ is served a defendant has **8 days** to make an appearance at court.
 
 * The time for service of writ of service and court processes is 6am to 6pm.
 

@@ -104,7 +104,7 @@ A party affected by an ex parte order has the right to apply to set it aside thr
 
 2. Motion on notice
 
-With this type of motion the opposite party is served, requesting him to appear at the hearing. Copies of the motion paper and the accompanying affidavit are served on the opposite party. Under **Order 19 Rule 2** there must be <span style="color:red;"**3 clear days** between the date of service of the notice of a motion and the hearing date</span> unless the court directs otherwise. 
+With this type of motion the opposite party is served, requesting him to appear at the hearing. Copies of the motion paper and the accompanying affidavit are served on the opposite party. Under **Order 19 Rule 2** there must be **3 clear days** between the date of service of the notice of a motion and the hearing date unless the court directs otherwise. 
 
 A party put on notice may generally oppose the application at the hearing and may file an affidavit in opposition stating facts upon which he relies in opposing the order being sought. 
 

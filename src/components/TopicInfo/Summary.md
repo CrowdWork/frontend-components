@@ -66,7 +66,7 @@ By **Order 14 Rule 5(2)** the court may subject to conditions, stay execution of
 
 A judgment entered against a defendant who fails to appear at the hearing of an application for summary judgment under Order 14, may be set aside or varied by the court on terms as considers just. 
 
-An application must be brought <style="color:red;"> within **14 days** of the service on the defendant of the notice of the judgment</span>. 
+An application must be brought  within **14 days** of the service on the defendant of the notice of the judgment. 
 
 Take note, it is only a defendant who fails to appear a hearing who can set aside a judgment. That means if a defendant appears and judgment is entered against the defendant, the only remedy is to appeal; it cannot be set aside. 
 

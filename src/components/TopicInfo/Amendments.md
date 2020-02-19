@@ -124,7 +124,7 @@ A party can amend any pleading without leave of the court once, at any time befo
 
 Where an amended statement of claim is served on a defendant the defendant may amend his statement of defence filed without leave of the court to respond directly to the plaintiff’s amendment.
 
-The period for the service of the defence or amended defence shall be either the period fixed by the rules for service of defence or a period of <span style="color:red;">**14 days**</span> after the amended statement of claim is served on the defendant, whichever expires later. 
+The period for the service of the defence or amended defence shall be either the period fixed by the rules for service of defence or a period of **14 days** after the amended statement of claim is served on the defendant, whichever expires later. 
 
 Where an amended statement of defence is served on the plaintiff, the plaintiff may amend the reply if any is filed without leave of the court to respond directly to the defendant’s amendment. 
 
@@ -136,7 +136,7 @@ Three circumstances in which amendments can make without leave
 
 3. Where the defendant is responding to an amended Statement of Claim
 
-The period for service of the reply or amended reply shall be <span style="color:red;">**14 days** after the amended defence is served on the plaintiff</span>. Note that references to defence and reply in sub rules 2 and 3 of Order 16 Rule 3, include references to a counterclaim and a defence to a counterclaim respectively (as these are also pleadings that can be amended).
+The period for service of the reply or amended reply shall be     **14 days** after the amended defence is served on the plaintiff. Note that references to defence and reply in sub rules 2 and 3 of Order 16 Rule 3, include references to a counterclaim and a defence to a counterclaim respectively (as these are also pleadings that can be amended).
 
 Note that by **Order 16 Rule 3(6)**, the effect of not responding to an amended pleading is that the defaulting party will be deemed to rely on the unamended pleading in answer to the amended pleading because the amended pleading takes effect from the date the original pleading is filed.
 

@@ -14,6 +14,7 @@ export default class AdminClassroom extends Component {
     this.props.handleLoadQuizzes()
     this.props.handleLoadSubjects()
     this.props.handleLoadTopics()
+    
   }
 
   render() {
