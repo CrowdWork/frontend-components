@@ -48,4 +48,4 @@ Where the cause of action survives and the Plaintiff dies but no order is made t
 
 The court shall not make an order striking out the case unless it is satisfied that due notice of the application has been given to the personal representatives or customary successor or head of family of the deceased plaintiff. 
 
-A person served with an order of substitution obtained ex parte may apply to the court within <span style="color:red;">**14 days**</span>to discharge or vary the order –for instance, if you think you are not the right party to be substituted, you need to move the court within 14 days to let the court know.
+A person served with an order of substitution obtained ex parte may apply to the court within **14 days** to discharge or vary the order –for instance, if you think you are not the right party to be substituted, you need to move the court within 14 days to let the court know.

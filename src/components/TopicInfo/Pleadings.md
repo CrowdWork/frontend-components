@@ -125,13 +125,13 @@ The court may order the action to be stayed or dismissed or judgment to be enter
 
 A statement of claim is to be served together with a writ of summons. 
 
-A defendant who files an appearance and intends to defend an action must file a statement of defence for service on the plaintiff <span style="color:red;">before the expiration of **14 days** after the time limited for appearance</span> (usually 8 days, so he has 14 days from the expiration of the 8 days).
+A defendant who files an appearance and intends to defend an action must file a statement of defence for service on the plaintiff before the expiration of **14 days** after the time limited for appearance (usually 8 days, so he has 14 days from the expiration of the 8 days).
 
 You can file your statement of defence with your appearance though.
 
 If you do not file a defence a judgment can be entered against you.
 
-A plaintiff on whom a defence is served shall file a reply, if necessary, <span style="color:red;">before the expiration of **7 days** after the service of the defence</span>. A reply is usually necessary if the defendant raises new issues in his defence, for example, he is challenging the plaintiff’s capacity.
+A plaintiff on whom a defence is served shall file a reply, if necessary, before the expiration of **7 days** after the service of the defence. A reply is usually necessary if the defendant raises new issues in his defence, for example, he is challenging the plaintiff’s capacity.
 
 Writ + statement of claim --> entry of appearance by defendant (8 days) --> 14 days after the 8 days defendant files a statement of defence (they may also file a counterclaim) --> 7 days after the service of the defence the plaintiff files a reply if necessary (and a defence to the counterclaim)
 
@@ -143,11 +143,11 @@ Appearance is not suspended though because appearance is not pleading. So you mu
 
 ###Close of Pleadings   **Order 11 Rule 19**
 
-Pleading closes <span style="color:red;">after the expiration of **7 days** after service of the reply<span>. If there is no reply but only a defence to a counterclaim, then pleading closes after service of the defence to the counterclaim. 
+Pleading closes after the expiration of **7 days** after service of the reply. If there is no reply but only a defence to a counterclaim, then pleading closes after service of the defence to the counterclaim. 
 
-If neither reply nor a defence to a counterclaim is served then <span style="color:red;">pleadings close after the expiration of **7 days** after service of the defence</span>.
+If neither reply nor a defence to a counterclaim is served then pleadings close after the expiration of **7 days** after service of the defence.
 
-<span style="color:red;">**One month**</span> after close of pleadings the plaintiff shall file a notice of application for directions for service on all the parties in accordance with **Order 32**.
+**One month** after close of pleadings the plaintiff shall file a notice of application for directions for service on all the parties in accordance with **Order 32**.
 
 ### Unpleaded pleadings
 
@@ -229,7 +229,7 @@ The defendant in such a situation will be required to file a defence after the a
 
 **Order 9 Rule 8**: a defendant may at any time before filing appearance set aside a writ of summons if the writ is defective or the service of the writ is irregular.
 
-But if a defendant enters conditional appearance then he can only set aside a writ or service of the writ by moving the Court <span style="color:red;">within **14 days**</span>. If the defendant does not enter appearance, he can move the court at any time.
+But if a defendant enters conditional appearance then he can only set aside a writ or service of the writ by moving the Court within **14 days**. If the defendant does not enter appearance, he can move the court at any time.
 
 
 <u>General rules of defence</u>
@@ -268,7 +268,7 @@ With a defence you can raise issues of capacity, jurisdiction, limitation, estop
 
 ### Reply
 
-A plaintiff on whom a defence is served shall file a reply if it is necessary within <span style="color:red;">**7 days** after the defence is served</span>.
+A plaintiff on whom a defence is served shall file a reply if it is necessary within **7 days** after the defence is served
 
 If no reply is filed to a statement of defence, then there shall be joinder of issue on the statement of defence. **Order 11 Rule 14**
 

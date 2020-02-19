@@ -18,6 +18,7 @@ const SideNav = ({ firstName, lastName, email, isLoggedIn, onLogout, admin }) =>
       M.Tooltip.init(tooltips[i])
     }
 
+    
 
   // Desktop sidebar only visible if logged in?
 
