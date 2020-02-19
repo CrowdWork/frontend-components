@@ -107,7 +107,6 @@ class LegalIndex extends Component {
         (<div className="center">Try searching!</div>)
     }
     if (searchAttempted && !errorMessage) {
-      console.log(batchedSearchResults)
       return esSearchResults.length === 0 ?
         (<div className="center">Search did not return a match. Please try again.</div>) :
         (<EsCaseList

@@ -1,7 +1,8 @@
 import React from 'react'
 import QueryExpression from '../QueryExpression/QueryExpression'
+import './QueryExpressions.css';
 
-const QueryRows = ({ queryStringAggregator, queryArr, renderFieldOptions, renderQueryOperators }) => {
+const QueryRows = ({ queryStringAggregator, queryArr, renderFieldOptions, renderQueryOperators, handleDeleteSubQuery }) => {
 
   const renderQueryRows = () => {
     const rules = queryArr.map((q) => (
@@ -13,6 +14,7 @@ const QueryRows = ({ queryStringAggregator, queryArr, renderFieldOptions, render
         searchCriterion={q.searchCriterion}
         renderFieldOptions={renderFieldOptions}
         renderQueryOperators={renderQueryOperators}
+        handleDeleteSubQuery={handleDeleteSubQuery}
       />
     ))
     return rules
@@ -20,7 +22,7 @@ const QueryRows = ({ queryStringAggregator, queryArr, renderFieldOptions, render
 
   return (
     queryStringAggregator.length && (
-    <ul>
+    <ul className="queryrows__ul">
       {renderQueryRows()}
     </ul>
     )

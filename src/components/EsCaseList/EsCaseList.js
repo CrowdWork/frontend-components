@@ -13,7 +13,7 @@ const EsCaseList = ({ batchedSearchResults, sizeLimit, esSearchResults, loadMore
             <div className="card-stacked">
               <div className="card-content">
                 <div>
-                  <h6><strong>{thisCase._source.caseName.length > 40 ? (thisCase._source.caseName.substring(0, 40) + '...') : (thisCase._source.caseName)}</strong></h6>
+                  <h5>{thisCase._source.caseName.length > 40 ? (thisCase._source.caseName.substring(0, 40) + '...') : (thisCase._source.caseName)}</h5>
                   <span>{thisCase._source.citation}</span>
                 </div>
                 <div className="court-year">

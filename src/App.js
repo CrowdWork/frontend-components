@@ -6,6 +6,7 @@ import React, { Component, Fragment } from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import decode from 'jwt-decode'
 import axios from 'axios'
+import { search } from './utils';
 
 // COMPONENTS
 import Account from './components/Account/Account'
@@ -99,8 +100,7 @@ class App extends Component {
           profession: user.data.profession,
           isSubscriber: user.data.isSubscriber,
           notes: [].concat(notes.data)
-        }))
-        console.log(notes.data)
+        }));
         this.pickSubjectData()
       } else {
         this.setState(() => ({
@@ -358,12 +358,11 @@ class App extends Component {
     this.setState(() => ({ searchBody }))
     try {
       const searchResult = await axios.get(`${this.state.url}/cases/search?count=${count}&start=${this.state.start}&query=${JSON.stringify(searchBody)}`, authHeader)
-      console.log(searchResult.data)
       this.setState((prevState) => ({
           searchAttempted: true,
           esSearchResults: searchResult.data,
           batchedSearchResults: prevState.batchedSearchResults.concat(searchResult.data.slice(0, count))
-      }))
+      }));
 
     } catch (err) {
       this.setState(() => ({ errorMessage: err.message }))
@@ -415,12 +414,10 @@ class App extends Component {
 
   fetchPubLists = async () => {
     const pubLists = await axios.get(`${this.state.url}/lists/pub`, authHeader)
-    console.log(pubLists.data)
     this.setState(() => ({ lists: pubLists.data }))
   }
 
   onAddNote = async (e, note) => {
-    console.log(note)
     e.preventDefault()
     try {
       await axios.post(`${this.state.url}/notes/${note.noteType}`, {
@@ -428,7 +425,6 @@ class App extends Component {
         body: note.noteBody
       }, authHeader)
       const notes = await axios.get(`${this.state.url}/notes`, authHeader)
-      console.log(notes)
       this.setState(() => ({ notes: notes.data }))
 
     } catch (err) {

@@ -1,19 +1,20 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 * {
   box-sizing: border-box;
 }
-html, body {
+html,
+body {
   line-height: 1.5;
-  color: rgba(0,0,0,0.87);
+  color: rgba(0, 0, 0, 0.87);
   font-weight: normal;
   font-family: "Open Sans";
 }
-body{
+body {
   font-size: 14px;
   display: flex;
   flex-direction: column;
   margin: 0;
-  background-color: #e8e8e8;
+  background-color: #fff;
 }
 
 ::-webkit-scrollbar {
@@ -21,9 +22,11 @@ body{
   background: transparent; /* make scrollbar transparent */
 }
 
-.header, .content, .footer {
- /* padding-left: 250px;*/
+.content,
+.footer {
+  padding-left: 250px;
 }
+
 #root {
   height: 100%;
 }
@@ -38,7 +41,7 @@ body{
 
 #sideNav-col {
   position: fixed;
-  top: 0;
+  top: 64px;
   left: 0;
   padding: 0;
   width: 250px;
@@ -57,13 +60,14 @@ body{
   border-left: 1px solid #e8e8e8;
   overflow: auto;
   flex-grow: 1;
-  background: #f9f8f8; 
+  background: #f9f8f8;
 }
 
- main {
+main {
   min-height: 100vh;
 }
-h3,h5 {
+h3,
+h5 {
   margin: 0;
   padding: 0;
 }
@@ -80,6 +84,9 @@ h3,h5 {
 .flex-justify-sp-btw {
   justify-content: space-between;
 }
+form div.input-field {
+  padding: 8px !important;
+}
 /*
 a {
   color: #fff;
@@ -94,11 +101,14 @@ h1 {
   text-transform: uppercase;
 } */
 
-@media only screen and (max-width : 992px) {
-  .header, .content, .footer {
+@media only screen and (max-width: 992px) {
+  .header,
+  .content,
+  .footer {
     padding-left: 0;
   }
-  #desktop, #mobile {
+  #desktop,
+  #mobile {
     display: none;
   }
 }
