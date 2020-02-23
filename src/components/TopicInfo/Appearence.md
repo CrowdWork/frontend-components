@@ -24,7 +24,7 @@ The notice should be dated on the day on which it is handed in at or sent by pos
 
 The plaintiff’s address should also be on it.
 
-Time limit for appearance is <span style="color:red;">**8 days** after service of the writ of summons<span>, or where the time is extended by the court then within the extended time e.g. if the notice of writ is to be served out of the jurisdiction. 
+Time limit for appearance is **8 days** after service of the writ of summons, or where the time is extended by the court then within the extended time e.g. if the notice of writ is to be served out of the jurisdiction. 
 
 The 8 days is determined by **Order 80 1 (5)**: Where, apart from this rule, the period in question is a period of seven days or less and would include a Saturday, Sunday or a public holiday, that day shall be excluded. So 8 days will include public holidays and weekends.
 
@@ -64,7 +64,7 @@ The fact that the defendant is entering a conditional appearance must be obvious
 
 The defendant can at anytime before filing appearance move the court to set aside a writ for irregularity/being defective. 
 
-However, if the defendant enters a conditional appearance then he has <span style="color:red;">**14 days**<span> to move the court to either set aside the writ or set aside the service of the writ or to discharge any order that gives leave to serve the notice of the defendant outside the country. This effectively freezes the proceedings for 14 days. **Order 9 Rule 8**
+However, if the defendant enters a conditional appearance then he has **14 days** to move the court to either set aside the writ or set aside the service of the writ or to discharge any order that gives leave to serve the notice of the defendant outside the country. This effectively freezes the proceedings for 14 days. **Order 9 Rule 8**
 
 If he does not file a motion to set aside within the 14 days the appearance becomes unconditional. **Order 9 Rule 7**
 

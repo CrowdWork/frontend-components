@@ -22,7 +22,7 @@ Under **Order 21 Rule 3** however, any party may apply at the stage of the appli
 
 The court may order discovery even after the application for direction stage if reasonable cause is shown and as indicated the court will only order discovery when satisfied that the discovery is necessary to dispose fairly the cause or matter and will save costs. 
 
-Under **Order 21 Rule 7**, a party who serves a list of documents on the other party in compliance with a Court order shall at the same time serve notice on the other party stating a time <span style="color:red;"**within 7 days** after the service of the notice</span> when that party may inspect and take copies of the document, other than any document to which the party objects to produce, and the notice must specify a place for the inspection.
+Under **Order 21 Rule 7**, a party who serves a list of documents on the other party in compliance with a Court order shall at the same time serve notice on the other party stating a time **within 7 days** after the service of the notice when that party may inspect and take copies of the document, other than any document to which the party objects to produce, and the notice must specify a place for the inspection.
 
 **Order 21 Rule 8** allows a party at any time to serve notice on the other party in whose pleading or affidavit reference is made to a document to produce the document for inspection of the party giving the notice and to permit copies to be made of the document. 
 

@@ -32,6 +32,7 @@ body {
 }
 .App-container {
   height: 100%;
+  
 }
 
 #header-row {
@@ -115,4 +116,8 @@ h1 {
 .nav-wrapper {
   z-index: 999;
   /*position: fixed !important;*/
+  
+}
+i.material-icons {
+  display: inline !important;
 }

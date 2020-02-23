@@ -1,10 +1,11 @@
-import React, { Fragment, useRef } from 'react'
+import React, { Fragment, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Card from '../Card/Card'
 import FormGroup from "../FormGroup/FormGroup"
 import M from 'materialize-css'
 import './Landing.css'
 import theme from "../../theme"
+
 import useMedia from "../../fx/useMedia"
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -16,10 +17,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const Landing = ({ isLoggedIn }) => {
   // margin bottom for login button
+  const screenSize = useMedia(["(max-width: 1000px"], ["MOBILE"], "DESKTOP")
+  
   const marginBottom = useMedia(["(max-width: 550px)"], ["2em"], 0)
+  const paddingLeft = isLoggedIn && screenSize === "DESKTOP"
+    ? `250px`
+    : ``
+
 
   return (
-    <Fragment>
+    <main style={{paddingLeft}}>
       <div className="section banner">
         <div className="banner-overlay"></div>
           <div className="container height-100vh splash"> 
@@ -40,6 +47,7 @@ const Landing = ({ isLoggedIn }) => {
             </div>
           </div>
         </div>
+
       <div id="about-me" className="landing--about-me" style={{background: theme.mainColor}}>
           <div className="container">
             <div className="row section section-about">
@@ -112,6 +120,9 @@ Applicants who qualified in the UK jurisdiction and obtained the GDL before goin
       <div className="section-title">Pulpillage</div>
         <a class="waves-effect waves-light btn red disabled">Learn More</a>
       </section>
+<<<<<<< Updated upstream:src/components/Landing/LandingA.js
+
+=======
       
       <div className="row section">
         <div className="container">
@@ -124,6 +135,7 @@ Applicants who qualified in the UK jurisdiction and obtained the GDL before goin
         </div>
         
       </div>
+>>>>>>> Stashed changes:src/components/Landing/Landing.js
       <div className="row section">
         <div className="container">
         <h4 className="center">Contact Us</h4>
@@ -151,7 +163,7 @@ Applicants who qualified in the UK jurisdiction and obtained the GDL before goin
           <div className="container center">© Barnor Law Engine 2020</div>
         </div>
       </div>
-    </Fragment>
+    </main>
   )
 }
 

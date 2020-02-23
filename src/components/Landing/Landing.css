@@ -2,6 +2,11 @@ body, html {
   overflow-x: hidden;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+}
+
 .parallax-container .section {
   width: 100%;
 }
@@ -18,6 +23,8 @@ body, html {
   transform: translate3d(-50%, 244.317px, 0px);
   opacity: 1;
 }
+
+
 #login-btn {
   border: 1px solid black;
   margin-right: 16px;
@@ -229,4 +236,13 @@ section > a {
   .landing--about-me h3 {
     font-size: 28px;
   }
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Cinzel";
+}
+h3 {
+  font-size: 26px;
 }

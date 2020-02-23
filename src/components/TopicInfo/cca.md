@@ -71,7 +71,7 @@ Next friends and guardian ad litems  must act through lawyers. (**Order 5 rule 1
 
 ###Writ of Summons
 
-By definition a writ of summons is a judicial form or document issued out of the registry of a court at the instance of a plaintiff for the purpose of giving a defendant notice of a claim made against him or her and calling upon the defendant to enter appearance to admit or deny the claim within <span style="color:red;"8 days</span>.
+By definition a writ of summons is a judicial form or document issued out of the registry of a court at the instance of a plaintiff for the purpose of giving a defendant notice of a claim made against him or her and calling upon the defendant to enter appearance to admit or deny the claim within 8 days.
 
 <u>**Cause of Action**</u>
 
@@ -174,7 +174,7 @@ _Friesland Frico Domo v Dachel Co Ltd [2012] 1 SCGLR 41_
 
 <u>**Duration and renewal of writ**</u>
 
-* By **Order 2 Rule 9** a writ of summons shall be valid for service in the first instance for <span style="color:red;"**12 months** beginning from the date of issue</span>. It expires after this. It may be renewed before it expires but if expires, you cannot apply for a renewal. It can be renewed for a period <span style="color:red;"not exceeding **12 months**</span>. The application is done by an <span style="color:blue;"ex parte motion</span>. 
+* By **Order 2 Rule 9** a writ of summons shall be valid for service in the first instance for **12 months** beginning from the date of issue. It expires after this. It may be renewed before it expires but if expires, you cannot apply for a renewal. It can be renewed for a period not exceeding **12 months**. The application is done by an <span style="color:blue;"ex parte motion</span>. 
 
 _Agbesi v Ghana Ports and Harbours Authority [2007-208] 2 SCGLR 469_
 

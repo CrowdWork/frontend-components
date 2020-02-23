@@ -6,31 +6,30 @@ import React, { Component, Fragment } from "react";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import decode from "jwt-decode";
 import axios from "axios";
-import { search } from "./utils";
 
 // COMPONENTS
-import Account from "./components/Account/Account";
-import AdminClassroom from "./components/Admin/AdminClassroom";
-import AdminCases from "./components/Admin/AdminCases";
-import AdminUsers from "./components/Admin/AdminUsers";
-import CaseDetail from "./components/CaseDetail/CaseDetail";
-import Classroom from "./components/Classroom/Classroom";
-import EditTopic from "./components/EditTopic";
-import Header from "./components/Header/Header";
-import Landing from "./components/Landing/Landing";
-import LegalIndex from "./components/LegalIndex/LegalIndex";
-import LinkedCase from "./components/CaseDetail/LinkedCase";
-import List from "./components/List/List";
-import Login from "./components/Login/Login";
-import ManageUser from "./components/ManageUser/ManageUser";
-import ManageCase from "./components/ManageCase/ManageCase";
-import Note from "./components/Note/Note";
-import Order from "./components/Order/Order";
-import SideNav from "./components/SideNav/SideNav";
-import Signup from "./components/Signup/Signup";
-import Subject from "./components/Subject/Subject";
-import TopicInfo from "./components/TopicInfo/TopicInfo";
-import PageNotFound from "./components/PageNotFound";
+import Account from './components/Account/Account'
+import AdminClassroom from './components/Admin/AdminClassroom'
+import AdminCases from './components/Admin/AdminCases'
+import AdminUsers from './components/Admin/AdminUsers'
+import CaseDetail from './components/CaseDetail/CaseDetail'
+import Classroom from './components/Classroom/Classroom'
+import EditTopic from './components/EditTopic'
+import Header from './components/Header/Header'
+import Landing from './components/Landing/LandingB'
+import LegalIndex from './components/LegalIndex/LegalIndex'
+import LinkedCase from './components/CaseDetail/LinkedCase'
+import List from './components/List/List'
+import Login from './components/Login/Login'
+import ManageUser from './components/ManageUser/ManageUser'
+import ManageCase from './components/ManageCase/ManageCase'
+import Note from './components/Note/Note'
+import Order from './components/Order/Order'
+import SideNav from './components/SideNav/SideNavB'
+import Signup from './components/Signup/Signup'
+import Subject from './components/Subject/Subject'
+import TopicInfo from './components/TopicInfo/TopicInfo'
+import PageNotFound from './components/PageNotFound';
 
 const subjects = {
   subs: {
@@ -45,12 +44,6 @@ const subjects = {
     ]
   }
 };
-
-// const authHeader = {
-//   headers: {
-//     Authorization: localStorage.token
-//   }
-// };
 
 class App extends Component {
   state = {
@@ -68,8 +61,8 @@ class App extends Component {
     firstName: "",
     fetchedCase: "",
     isLoggedIn: false, // CODA: true for testing
-    isSubscriber: false,
-    lastName: "",
+    isSubscriber: false, // CODA
+    lastName: '',
     lists: [],
     loginError: null,
     notes: [],
@@ -97,8 +90,9 @@ class App extends Component {
   async componentDidMount() {
     const { authHeader } = this.state
     try {
-      console.log("APP MOUNTED");
-      console.log(`Logged in: ${this.state.isLoggedIn}`);
+      console.log('APP MOUNTED')
+      console.log(`Logged in: ${this.state.isLoggedIn}`)
+      //this.handleLoadTopics()
       if (localStorage.token) {
         const [user, notes] = await Promise.all([
           await axios.get(`${this.state.url}/users/me`, authHeader),
@@ -119,8 +113,9 @@ class App extends Component {
       } else {
         this.setState(() => ({
           isLoggedIn: false, // CODA: true for testing.
-          userID: null
-        }));
+          userID: null,
+          // isSubscriber: true, // CODA delete this line
+        }))
       }
     } catch (err) {
       console.log("ERROR:", err);
@@ -629,7 +624,8 @@ class App extends Component {
   }
 
   render() {
-    console.log("AM I LOGGED IN ? " + this.state.isLoggedIn);
+
+    console.log('AM I LOGGED IN ? ' + this.state.isLoggedIn)
     return (
       <div className="App-container">
         <Switch>
@@ -647,6 +643,7 @@ class App extends Component {
                     onLogout={this.onLogout}
                   />
                 </header>
+
                 <div
                   style={{ paddingLeft: this.state.isLoggedIn ? "250px" : "0" }}
                   className="content"
@@ -666,6 +663,34 @@ class App extends Component {
                     <Landing isLoggedIn={this.state.isLoggedIn} {...props} />
                   </main>
                 </div>
+                {/* <div
+                  style={{ paddingLeft: this.state.isLoggedIn ? "250px" : "0" }}
+                  className="content"
+                >
+                  {this.state.isLoggedIn &&
+                    <SideNav
+                      firstName={this.state.firstName}
+                      lastName={this.state.lastName}
+                      email={this.state.email}
+                      isLoggedIn={this.state.isLoggedIn}
+                      onLogout={this.onLogout}
+                      onAddNote={this.onAddNote}
+                    />
+                  }
+
+                  <SideNav
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    email={this.state.email}
+                    isLoggedIn={this.state.isLoggedIn}
+                    onLogout={this.onLogout}
+                    onAddNote={this.onAddNote}
+                  />
+
+                  <Landing
+                    isLoggedIn={this.state.isLoggedIn}
+                    {...props}
+                  /> */}
               </Fragment>
             )}
           />
@@ -1325,88 +1350,9 @@ class App extends Component {
           />
           <Route component={PageNotFound} />
         </Switch>
-
-        {/* <div className="content">
-                
-          <Route path="/notes/:_id"
-            render={(props) => !this.state.isLoggedIn ? (
-              <Redirect to="/login" />
-            ) : (
-              <Fragment>
-                <div id="header-row" className="row">
-                  <Header
-                    title="NOTE DETAIL"
-                    firstName={this.state.firstName}
-                    lastName={this.state.lastName}
-                    email={this.state.email}
-                    isLoggedIn={this.state.isLoggedIn}
-                    onLogout={this.onLogout}
-                  />
-                </div>
-                <div id="content-row" className="row">
-                  <aside id="sideNav-col"className="col s0 l3 xl2">
-                    <SideNav
-                      firstName={this.state.firstName}
-                      lastName={this.state.lastName}
-                      email={this.state.email}
-                      isLoggedIn={this.state.isLoggedIn}
-                      onLogout={this.onLogout}
-                      onAddNote={this.onAddNote}
-                    />
-                  )} />
-                <Route path="/notes/:_id"
-                  render={(props) => (
-                    <Note
-                      {...props}
-                      deleteNote={this.deleteNote}
-                    />
-                  )}
-                />
-                <Route path="/subscribe"
-                  render={(props) => this.state.isLoggedIn ? (
-                    <Order
-                      {...props}
-                      onSubmit={this.onSubscribe}
-                    />
-                  ) : (
-                  </aside>
-                  <div id="main-col" className="col s12 l9 xl10">
-                    <main>
-                      <Note
-                        {...props}
-                        deleteNote={this.deleteNote}
-                      />
-                    </main>
-                  </div>
-                </div>
-              </Fragment>
-            )}
-          />
-          
-        {/* <div id="content-row" className="row">
-                  <Route path="/subscribe"
-                    render={(props) => this.state.isLoggedIn ? (
-                      <Order
-                        {...props}
-                        onSubmit={this.onSubscribe}
-                      />
-                    ) : (
-                      <Redirect to="/" />
-                    )}
-                />
-                <Route path="/checkout"
-                  component={() => {
-                    window.location.href = `https://sandbox.expresspaygh.com/api/checkout.php?token=${this.state.orderToken}`
-                  }}
-                />
-                
-              </Switch>
-            </main>
-            </div>
-        </div>*/}
       </div>
-    );
+    )
   }
 }
 
-export default withRouter(App);
+export default withRouter(App)

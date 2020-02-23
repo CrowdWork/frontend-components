@@ -17,5 +17,6 @@ html {
     padding: 3em;
     margin: 3em !important;
     max-width: 700px;
+    user-select: none;
 
 }
