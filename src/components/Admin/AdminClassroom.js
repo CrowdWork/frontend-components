@@ -1,19 +1,17 @@
-import React, { Component } from 'react'
-import AddQuiz from '../AddQuiz/AddQuiz'
-import AddSubject from '../AddSubject/AddSubject'
-import SubjectList from '../SubjectList/SubjectList'
-import TopicList from '../TopicList/TopicList'
-import AddTopic from '../AddTopic/AddTopic'
-import QuizList from '../QuizList/QuizList'
-import './Admin.css'
-
+import React, { Component } from "react";
+import AddQuiz from "../AddQuiz/AddQuiz";
+import AddSubject from "../AddSubject/AddSubject";
+import SubjectList from "../SubjectList/SubjectList";
+import TopicList from "../TopicList/TopicList";
+import AddTopic from "../AddTopic/AddTopic";
+import QuizList from "../QuizList/QuizList";
+import "./Admin.css";
 
 export default class AdminClassroom extends Component {
-
   componentDidMount() {
-    this.props.handleLoadQuizzes()
-    this.props.handleLoadSubjects()
-    this.props.handleLoadTopics()
+    this.props.handleLoadQuizzes();
+    this.props.handleLoadSubjects();
+    this.props.getTopics();
   }
 
   render() {
@@ -30,6 +28,6 @@ export default class AdminClassroom extends Component {
         />
         <QuizList quizzes={this.props.quizzes} />
       </div>
-    )
+    );
   }
 }

@@ -1,43 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { quizData } from "../../sampleData"
 import styled from "styled-components"
-import M from "materialize-css"
-import theme from "../../theme"
+// import M from "materialize-css"
+// import theme from "../../theme"
 
 // Hide scroll bar for windows users
 
 // Eventually Replace quizData with data prop
-export default ({data, close}) => {
-   const [index, setIndex] = useState(0)
-   const [expanded, setExpanded] = useState(false)
-   const { question, answer, explanation } = quizData[index]
+export default ({ data, close }) => {
+  const [index, setIndex] = useState(0)
+  const [expanded, setExpanded] = useState(false)
+  const { question, answer, explanation } = quizData[index]
 
-   useEffect(() => { 
-       setExpanded(false) 
-    }, [index])
-    
-    return  <QuizBox>
-                <CloseBtn onClick={() => close()}> x </CloseBtn>
-                <Question>{question}</Question>
-                { !expanded &&
-                    <ShowAnswer onClick={() => setExpanded(true)}>
-                        Show Answer
-                    </ShowAnswer>
-                }
+  useEffect(() => {
+    setExpanded(false)
+  }, [index])
 
-                { expanded && 
-                    <>
-                        <Answer>{answer}</Answer>
-                        <Explanation>{explanation}</Explanation>
-                    </>
-                }
-                {index < quizData.length - 1 &&
-                    <Next onClick={() => setIndex(index + 1)}>Next</Next>
-                }
-                {index > 0 && 
-                    <Back onClick={() => setIndex(index - 1)}>Back</Back>
-                }
-            </QuizBox>
+  return <QuizBox>
+    <CloseBtn onClick={() => close()}> x </CloseBtn>
+    <Question>{question}</Question>
+    {!expanded &&
+      <ShowAnswer onClick={() => setExpanded(true)}>
+        Show Answer
+      </ShowAnswer>
+    }
+
+    {expanded &&
+      <>
+        <Answer>{answer}</Answer>
+        <Explanation>{explanation}</Explanation>
+      </>
+    }
+    {index < quizData.length - 1 &&
+      <Next onClick={() => setIndex(index + 1)}>Next</Next>
+    }
+    {index > 0 &&
+      <Back onClick={() => setIndex(index - 1)}>Back</Back>
+    }
+  </QuizBox>
 }
 
 const QuizBox = styled.div`
