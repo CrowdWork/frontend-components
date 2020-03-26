@@ -2,31 +2,18 @@ import React, { Fragment, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Card from '../Card/Card'
 import FormGroup from "../FormGroup/FormGroup"
-import M from 'materialize-css'
-import './Landing.css'
-import theme from "../../theme"
-
+import LandingHeader from '../Header/LandingHeader'
 import useMedia from "../../fx/useMedia"
 
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.parallax');
-  M.Parallax.init(elems)
-})
-
-
-
-const Landing = ({ isLoggedIn }) => {
-  // margin bottom for login button
-  const screenSize = useMedia(["(max-width: 1000px"], ["MOBILE"], "DESKTOP")
-  
-  const marginBottom = useMedia(["(max-width: 550px)"], ["2em"], 0)
-  const paddingLeft = isLoggedIn && screenSize === "DESKTOP"
-    ? `250px`
-    : ``
-
+const LandingA = ({ firstName, isLoggedIn, onLogout }) => {
 
   return (
-    <main style={{paddingLeft}}>
+    <>
+    <LandingHeader
+      isLoggedIn={isLoggedIn}
+      onLogout={onLogout}
+    />
+    {/* <main style={{paddingLeft}}>
       <div className="section banner">
         <div className="banner-overlay"></div>
           <div className="container height-100vh splash"> 
@@ -120,9 +107,6 @@ Applicants who qualified in the UK jurisdiction and obtained the GDL before goin
       <div className="section-title">Pulpillage</div>
         <a class="waves-effect waves-light btn red disabled">Learn More</a>
       </section>
-<<<<<<< Updated upstream:src/components/Landing/LandingA.js
-
-=======
       
       <div className="row section">
         <div className="container">
@@ -135,7 +119,6 @@ Applicants who qualified in the UK jurisdiction and obtained the GDL before goin
         </div>
         
       </div>
->>>>>>> Stashed changes:src/components/Landing/Landing.js
       <div className="row section">
         <div className="container">
         <h4 className="center">Contact Us</h4>
@@ -163,7 +146,8 @@ Applicants who qualified in the UK jurisdiction and obtained the GDL before goin
           <div className="container center">© Barnor Law Engine 2020</div>
         </div>
       </div>
-    </main>
+    </main> */}
+  </>
   )
 }
 
@@ -177,4 +161,4 @@ const Section = ({ children, title, className }) => {
       </section>
   )
 }
-export default Landing
+export default LandingA

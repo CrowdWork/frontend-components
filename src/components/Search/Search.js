@@ -1,6 +1,6 @@
 import "./Search.css";
 import React, { Component, Fragment } from "react";
-import M from "materialize-css";
+// import M from "materialize-css";
 import QueryRows from "../QueryExpressions/QueryExpressions";
 
 const mappedFieldNames = {
@@ -22,9 +22,9 @@ const fieldNames = [
 ];
 
 const queryOps = [
-  "includes the word(s)",
-  "DOES NOT include the word(s)",
-  "match phrase",
+  "contains",
+  "does NOT contain",
+  "matches phrase",
   "DOES NOT match phrase"
 ];
 
@@ -40,16 +40,16 @@ class Search extends Component {
     showAdvanced: false
   };
 
-  componentDidMount() {
-    const dropdowns = document.querySelectorAll(".dropdown-trigger");
-    for (let i = 0; i < dropdowns.length; i++) {
-      M.Dropdown.init(dropdowns[i], {
-        coverTrigger: false,
-        closeOnClick: false,
-        alignment: "center"
-      });
-    }
-  }
+  // componentDidMount() {
+  //   const dropdowns = document.querySelectorAll(".dropdown-trigger");
+  //   for (let i = 0; i < dropdowns.length; i++) {
+  //     M.Dropdown.init(dropdowns[i], {
+  //       coverTrigger: false,
+  //       closeOnClick: false,
+  //       alignment: "center"
+  //     });
+  //   }
+  // }
 
   handleBasicFormSubmit = e => {
     console.log("handleBasicFormSubmit ran");
@@ -88,11 +88,11 @@ class Search extends Component {
       const rowQuery =
         fieldToSearch !== "all"
           ? ` ${logicalOperator} (${fieldToSearch}: ${
-              searchCriterion === "match phrase" ? `"${rowInput}"` : rowInput
-            })`
+          searchCriterion === "match phrase" ? `"${rowInput}"` : rowInput
+          })`
           : ` ${logicalOperator} (${
-              searchCriterion === "match phrase" ? `"${rowInput}"` : rowInput
-            })`;
+          searchCriterion === "match phrase" ? `"${rowInput}"` : rowInput
+          })`;
 
       if (rowQuery) {
         this.setState(prevState => ({
@@ -121,11 +121,11 @@ class Search extends Component {
       const rowQuery =
         fieldToSearch.length !== "all"
           ? ` ${logicalOperator} (${fieldToSearch}: ${
-              searchCriterion === "match phrase" ? `"${rowInput}"` : rowInput
-            })`
+          searchCriterion === "match phrase" ? `"${rowInput}"` : rowInput
+          })`
           : ` ${logicalOperator} (${
-              searchCriterion === "match phrase" ? `"${rowInput}"` : rowInput
-            })`;
+          searchCriterion === "match phrase" ? `"${rowInput}"` : rowInput
+          })`;
       if (rowQuery) {
         this.setState(prevState => ({
           queryStringAggregator: prevState.queryStringAggregator.concat(
@@ -273,14 +273,13 @@ class Search extends Component {
               </button>
             </Fragment>
           ) : (
-            // =================== ADVANCED SEARCH ==============================
-            <Fragment>
-              <form
-                className="advanced-form"
-                onSubmit={this.onAdvancedFormSubmit}
-              >
-                <div className="select-wrapper">
-                  <div className="input-field width-full">
+              // =================== ADVANCED SEARCH ==============================
+              <Fragment>
+                <form
+                  className="advanced-form"
+                  onSubmit={this.onAdvancedFormSubmit}
+                >
+                  <div className="select-wrapper">
                     <input
                       className="inputs"
                       id="rowInput"
@@ -292,9 +291,8 @@ class Search extends Component {
                       type="text"
                       value={this.state.rowInput}
                     />
-                  </div>
-                  {this.state.queryStringAggregator.length > 0 && (
-                    <div className="input-field">
+                    {this.state.queryStringAggregator.length > 0 && (
+
                       <div className="query-input">
                         <select
                           value={this.state.logicalOperator}
@@ -308,9 +306,7 @@ class Search extends Component {
                           <option value="OR">OR</option>
                         </select>
                       </div>
-                    </div>
-                  )}
-                  <div className="input-field">
+                    )}
                     <div className="query-input">
                       <select
                         value={this.state.fieldToSearch}
@@ -323,8 +319,7 @@ class Search extends Component {
                         <Fragment>{this.renderFieldOptions()}</Fragment>
                       </select>
                     </div>
-                  </div>
-                  <div className="input-field">
+
                     <div className="query-input">
                       <select
                         value={this.state.searchCriterion}
@@ -337,44 +332,43 @@ class Search extends Component {
                         <Fragment>{this.renderQueryOperators()}</Fragment>
                       </select>
                     </div>
-                  </div>
-                  <div className="query-action-wrapper width-full">
-                    <div>
-                      <button
-                        type="button"
-                        className="btn"
-                        onClick={this.handleReset}
-                      >
-                        Reset
+                    {/* <div className="query-action-wrapper width-full">
+                      <div>
+                        <button
+                          type="button"
+                          className="btn"
+                          onClick={this.handleReset}
+                        >
+                          Reset
                       </button>
-                      <button
-                        type="button"
-                        className="btn"
-                        onClick={this.handleAddQueryRow}
-                      >
-                        Add
+                        <button
+                          type="button"
+                          className="btn"
+                          onClick={this.handleAddQueryRow}
+                        >
+                          Add
                       </button>
-                    </div>
-                    <button
-                      type="submit"
-                      name="action"
-                      className="waves-light btn"
-                    >
-                      <i className="material-icons">search</i>
-                    </button>
+                      </div>
+                      <button
+                        type="submit"
+                        name="action"
+                        className="waves-light btn"
+                      >
+                        <i className="material-icons">search</i>
+                      </button>
+                    </div> */}
                   </div>
-                </div>
-              </form>
+                </form>
 
-              <button
-                type="button"
-                onClick={this.handleToggleAdvanced}
-                className="toggle-search-type"
-              >
-                {this.state.showAdvanced ? "Basic Search" : "Advanced Search"}
-              </button>
-            </Fragment>
-          )}
+                <button
+                  type="button"
+                  onClick={this.handleToggleAdvanced}
+                  className="toggle-search-type"
+                >
+                  {this.state.showAdvanced ? "Basic Search" : "Advanced Search"}
+                </button>
+              </Fragment>
+            )}
         </div>
 
         <QueryRows
