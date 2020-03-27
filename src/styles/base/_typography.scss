@@ -13,9 +13,9 @@ body {
 
   &--main {
     display: block;
-    font-size: 6rem;
-    font-weight: 700;
-    letter-spacing: 3.5rem;
+    font-size: 7.5rem;
+    font-weight: 500;
+    letter-spacing: 2.6rem;
     animation-name: moveInLeft;
     animation-duration: 1s;
     animation-timing-function: ease-out;
@@ -28,8 +28,8 @@ body {
   }
   &--sub {
     display: block;
-    font-size: 2rem; 
-    letter-spacing: 1.75rem;
+    font-size: 2.4rem; 
+    letter-spacing: 3.0rem;
     animation: moveInRight 1s ease-out;
   }
 }

@@ -1,0 +1,10 @@
+.header {
+  background-color: $color-grey-dark-3;
+  color: $color-white;
+  &__nav--list {
+    display: flex;
+    & > * {
+      color: $color-white;
+    }
+  }
+}

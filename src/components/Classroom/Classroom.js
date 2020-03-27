@@ -6,10 +6,6 @@ import './Classroom.css'
 // import { render } from 'react-dom'
 
 class Classroom extends Component {
-  state = {
-    quizzes: [],
-    subjects: []
-  }
 
   componentDidMount() {
     this.props.fetchSubjectData()
@@ -17,11 +13,11 @@ class Classroom extends Component {
   }
 
   render() {
-    console.log(`QUIZZES: ${this.state.quizzes}`)
-    const { subjectCache, subjectSelected, onAddNote } = this.props
+    console.log(`QUIZZES: ${this.props.quizzes}`)
+    const { subjects, subjectCache, subjectSelected, onAddNote } = this.props
     return (
       <div className="row" id='container'>
-        {this.state.subjects.map(subject => (
+        {subjects.map(subject => (
           <div className="col s12 m4 offset-l1" >
             <div className="card z-depth-4Name hoverable">
               <Link onClick={() => subjectSelected(subject)} to={`classroom/${subject._id}`}>

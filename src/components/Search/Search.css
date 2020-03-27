@@ -89,7 +89,7 @@
 }
 .select-wrapper {
   width: 100%;
-  max-width: 600px;
+  /* max-width: 600px; */
   display: flex;
 }
 .select-wrapper i {
@@ -106,7 +106,6 @@
 }
 .search-box-wrapper {
   width: 100%;
-  max-width: 600px;
   display: flex;
   flex-direction: column;
   /* margin-bottom: 16px; */
@@ -151,4 +150,8 @@
 }
 select {
   border-radius: 0;
+}
+input:not([type]),
+input[type="text"]:not(.browser-default) {
+  border-radius: 3px;
 }
